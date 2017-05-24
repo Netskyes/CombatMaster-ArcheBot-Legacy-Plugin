@@ -5,6 +5,7 @@
         Check,
         Search,
         Move,
+        Prepare,
         Ready,
         Fight,
         Analyze

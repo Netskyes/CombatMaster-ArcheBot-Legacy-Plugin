@@ -9,28 +9,7 @@ namespace AeonGrinder
     {
         private static readonly Dictionary<uint, SkillProps> skills = new Dictionary<uint, SkillProps>()
         {
-            { Abilities.Sorcery.Flamebolt, new SkillProps() { OptimalWait = 50 } },
-            { Abilities.Sorcery.MeteorStrike, new SkillProps() { IsLocationTarget = true } },
-            { Abilities.Sorcery.GodsWhip, new SkillProps() { IsLocationTarget = true } },
-            { Abilities.Sorcery.MagicCircle, new SkillProps() { LockMove = true } },
-            { Abilities.Sorcery.SearingRain, new SkillProps() { OptimalDist = 10 } },
-            { Abilities.Sorcery.FreezingEarth, new SkillProps() { OptimalDist = 8 } },
-
-            { Abilities.Battlerage.WhirlwindSlash, new SkillProps() { OptimalWait = 375 } },
-            { Abilities.Battlerage.BehindEnemyLines, new SkillProps() { IsLocationTarget = true } },
-
-            { Abilities.Defense.OllosHammer, new SkillProps() { IsLocationTarget = true } },
-            { Abilities.Defense.Fortress, new SkillProps() { OptimalDist = 10 } },
-            { Abilities.Defense.MockingHowl, new SkillProps() { OptimalDist = 7 } },
-
-            { Abilities.Archery.MissileRain, new SkillProps() { IsLocationTarget = true } },
-
-            { Abilities.Witchcraft.BansheeWail, new SkillProps() { OptimalDist = 5 } },
-
-            { Abilities.Occultism.HellSpear, new SkillProps() { OptimalDist = 6 } },
-            { Abilities.Occultism.SummonCrows, new SkillProps() { OptimalDist = 5 } },
-            { Abilities.Occultism.Stillness, new SkillProps() { OptimalDist = 5 } },
-            { Abilities.Occultism.SummonWraith, new SkillProps() { OptimalDist = 7 } }
+            { Abilities.Sorcery.MagicCircle, new SkillProps() { LockMove = true } }
         };
 
         private static Dictionary<uint, uint[]> producedBuffs = new Dictionary<uint, uint[]>()
@@ -61,7 +40,7 @@ namespace AeonGrinder
             return (skills.ContainsKey(id)) ? skills[id] : new SkillProps();
         }
 
-        public static uint[] GetProducedBuffs(uint id)
+        public static uint[] GetProdsBuffs(uint id)
         {
             return (producedBuffs.ContainsKey(id)) ? producedBuffs[id] : new uint[0];
         }

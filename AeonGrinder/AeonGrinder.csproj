@@ -38,6 +38,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.90.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\SumYungHo\Desktop\ArcheBot\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -53,6 +57,8 @@
     <Compile Include="Data\Collections\Abilities.cs" />
     <Compile Include="Data\Objects\Condition.cs" />
     <Compile Include="Enums\ConditionType.cs" />
+    <Compile Include="Enums\CastType.cs" />
+    <Compile Include="Enums\SelectType.cs" />
     <Compile Include="Enums\TargetType.cs" />
     <Compile Include="Extensions\CoreExtension.cs" />
     <Compile Include="UI\ComboBoxItem.cs" />
@@ -87,6 +93,7 @@
     </Compile>
     <Compile Include="Utility\Paths.cs" />
     <Compile Include="Utility\Serializer.cs" />
+    <Compile Include="Utility\SQLiteClient.cs" />
     <Compile Include="Utility\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -107,8 +114,13 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetDir)$(TargetName).dll" "C:\Users\SumYungHo\Desktop\ArcheBot\Plugins\$(ProjectName)_Local\"
-copy /Y "$(TargetDir)$(TargetName).pdb" "C:\Users\SumYungHo\Desktop\ArcheBot\Plugins\$(ProjectName)_Local\</PostBuildEvent>
+    <PostBuildEvent>copy /Y "$(TargetDir)$(TargetName).dll" "C:\Users\SumYungHo\Desktop\ArcheBot\Plugins\$(ProjectName)\$(TargetName).dll"
+copy /Y "$(TargetDir)$(TargetName).pdb" "C:\Users\SumYungHo\Desktop\ArcheBot\Plugins\$(ProjectName)\
+
+IF $(ConfigurationName)==Release (
+    dotNET_Reactor -project "C:\Users\SumYungHo\Desktop\ArcheBot\Plugins\AeonGrinder\Protected\AeonGrinder.nrproj" -targetfile "C:\Users\SumYungHo\Desktop\ArcheBot\Plugins\AeonGrinder\Protected\AeonGrinder.dll"
+)
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

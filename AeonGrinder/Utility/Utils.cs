@@ -52,6 +52,25 @@ namespace AeonGrinder
             return rand.Next(min, max);
         }
 
+        public static void Delay(int[] t1, int[] t2, CancellationToken token)
+        {
+            switch (RandomNum(0, 2))
+            {
+                case 0: Delay(t1[0], t1[1], token); break;
+                case 1: Delay(t2[0], t2[1], token); break;
+            }
+        }
+
+        public static void Delay(int[] t1, int[] t2, int[] t3, CancellationToken token)
+        {
+            switch (RandomNum(0, 3))
+            {
+                case 0: Delay(t1[0], t1[1], token); break;
+                case 1: Delay(t2[0], t2[1], token); break;
+                case 2: Delay(t3[0], t3[1], token); break;
+            }
+        }
+
         public static double RandomDouble(double min, double max)
         {
             Random rand = new Random();

@@ -34,7 +34,8 @@ namespace AeonGrinder.UI
             GetTargets();
             GetTemplates();
             GetZoneMaps();
-            GetConditions();
+            SetConditions();
+            SetTooltips();
 
             // Load saved configs
             LoadSettings();
@@ -90,9 +91,9 @@ namespace AeonGrinder.UI
         {
             Utils.InvokeOn(this, () =>
             {
-                var selected = lbox.SelectedItem;
+                int index = lbox.SelectedIndex;
 
-                if (selected != null) lbox.Items.Remove(selected);
+                if (index != -1) lbox.Items.RemoveAt(index);
             });
         }
 
@@ -235,6 +236,8 @@ namespace AeonGrinder.UI
 
 
                 num_FightRadius.Value = settings.FightRadius;
+                num_MinHitpoints.Value = settings.MinHitpoints;
+                num_MinMana.Value = settings.MinMana;
 
 
                 lbox_Targets.Items.AddRange(settings.Targets.ToArray());
@@ -255,6 +258,8 @@ namespace AeonGrinder.UI
                 settings.MapName = (cmbox_ZoneMaps.SelectedIndex != 0) ? cmbox_ZoneMaps.Text : string.Empty;
                 settings.RunPluginName = txtbox_PluginRunName.Text;
                 settings.FightRadius = (int)num_FightRadius.Value;
+                settings.MinHitpoints = (int)num_MinHitpoints.Value;
+                settings.MinMana = (int)num_MinMana.Value;
                 settings.FinalAction = container_WhenDone.Controls.OfType<OptionBox>().FirstOrDefault(r => r.Checked)?.OptionName;
                 settings.Targets = lbox_Targets.Items.OfType<string>().ToList();
                 settings.CleanItems = lbox_CleanItems.Items.OfType<string>().ToList();
@@ -472,7 +477,7 @@ namespace AeonGrinder.UI
             });
         }
 
-        private void GetConditions()
+        private void SetConditions()
         {
             Utils.InvokeOn(this, () =>
             {
@@ -483,6 +488,12 @@ namespace AeonGrinder.UI
 
                 cmbox_Conditions.SelectedIndex = 0;
             });
+        }
+
+        private void SetTooltips()
+        {
+            var tooltip = new ToolTip();
+            
         }
 
         #endregion
@@ -525,28 +536,22 @@ namespace AeonGrinder.UI
         private void btn_LoadTemplate_Click(object sender, EventArgs e) => LoadTemplate();
         private void btn_GetInventoryItems_Click(object sender, EventArgs e) => GetInventoryItems();
 
+        private void btn_AddToCleanItems_Click(object sender, EventArgs e) => AddItemToList(lbox_ItemsList, lbox_CleanItems, true);
+        private void btn_AddToTargets_Click(object sender, EventArgs e) => AddItemToList(cmbox_Targets, lbox_Targets, true);
+
         private void btn_AddToRotation_Click(object sender, EventArgs e) => AddItemToList(lbox_SkillsList, lbox_Rotation);
-        private void lbox_Rotation_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_Rotation);
         private void btn_MoveRotationUp_Click(object sender, EventArgs e) => MoveListItem(-1, lbox_Rotation);
         private void btn_MoveRotationDown_Click(object sender, EventArgs e) => MoveListItem(1, lbox_Rotation);
         
         private void btn_AddToCombatBuffs_Click(object sender, EventArgs e) => AddItemToList(lbox_SkillsList, lbox_CombatBuffs, true);
-        private void lbox_CombatBuffs_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_CombatBuffs);
         private void btn_MoveCombatBuffsUp_Click(object sender, EventArgs e) => MoveListItem(-1, lbox_CombatBuffs);
         private void btn_MoveCombatBuffsDown_Click(object sender, EventArgs e) => MoveListItem(1, lbox_CombatBuffs);
 
         private void btn_AddToBoostingBuffs_Click(object sender, EventArgs e) => AddItemToList(lbox_SkillsList, lbox_BoostingBuffs, true);
-        private void lbox_BoostingBuffs_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_BoostingBuffs);
         private void btn_MoveBoostingBuffsUp_Click(object sender, EventArgs e) => MoveListItem(-1, lbox_BoostingBuffs);
         private void btn_MoveBoostingBuffsDown_Click(object sender, EventArgs e) => MoveListItem(1, lbox_BoostingBuffs);
         
-        private void btn_AddToCleanItems_Click(object sender, EventArgs e) => AddItemToList(lbox_ItemsList, lbox_CleanItems, true);
-        private void lbox_CleanItems_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_CleanItems);
-
-        private void btn_AddToTargets_Click(object sender, EventArgs e) => AddItemToList(cmbox_Targets, lbox_Targets, true);
-        private void lbox_Targets_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_Targets);
-
-
+        
         private void btn_AddToComboTriggers_Click(object sender, EventArgs e)
         {
             Utils.InvokeOn(this, () =>
@@ -566,52 +571,6 @@ namespace AeonGrinder.UI
             });
         }
 
-        private void lbox_ComboTriggers_DoubleClick(object sender, EventArgs e)
-        {
-            Utils.InvokeOn(this, () =>
-            {
-                var selected = lbox_ComboTriggers.SelectedItem;
-
-                if (selected == null)
-                    return;
-
-
-                if (combos.ContainsKey(selected.ToString()))
-                {
-                    combos.Remove(selected.ToString());
-                }
-
-                if (lbox_ComboTriggers.Items.Contains(selected)) lbox_ComboTriggers.Items.Remove(selected);
-            });
-        }
-
-        private void lbox_ComboTriggers_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Utils.InvokeOn(this, () =>
-            {
-                var selected = lbox_ComboTriggers.SelectedItem;
-
-                if (selected == null)
-                    return;
-
-                if (!combos.ContainsKey(selected.ToString()) && lbox_ComboTriggers.Items.Contains(selected))
-                {
-                    lbox_ComboTriggers.Items.Remove(selected);
-
-                    return;
-                }
-
-
-                var combo = combos[selected.ToString()];
-
-                lbox_ComboRotations.Items.Clear();
-                lbox_ComboRotations.Items.AddRange(combo.Skills.ToArray());
-
-                lbox_Conditions.Items.Clear();
-                lbox_Conditions.Items.AddRange(combo.Conditions.Select(c => c.Name).ToArray());
-            });
-        }
-
 
         private void btn_AddToComboRotations_Click(object sender, EventArgs e)
         {
@@ -626,27 +585,6 @@ namespace AeonGrinder.UI
 
                 combos[s2.ToString()].Skills.Add(s1.ToString());
                 lbox_ComboRotations.Items.Add(s1);
-            });
-        }
-
-        private void lbox_ComboRotations_DoubleClick(object sender, EventArgs e)
-        {
-            Utils.InvokeOn(this, () =>
-            {
-                var s1 = lbox_ComboTriggers.SelectedItem;
-                var s2 = lbox_ComboRotations.SelectedItem;
-
-                if (s1 == null || s2 == null || !combos.ContainsKey(s1.ToString()))
-                    return;
-
-
-                int index = lbox_ComboRotations.Items.IndexOf(s2);
-                lbox_ComboRotations.Items.Remove(s2);
-
-                if (index != -1)
-                {
-                    combos[s1.ToString()].Skills.RemoveAt(index);
-                }
             });
         }
 
@@ -686,6 +624,51 @@ namespace AeonGrinder.UI
             });
         }
 
+        #endregion
+
+        #region Double Click Events
+
+        private void lbox_Rotation_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_Rotation);
+        private void lbox_CombatBuffs_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_CombatBuffs);
+        private void lbox_BoostingBuffs_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_BoostingBuffs);
+        private void lbox_Targets_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_Targets);
+        private void lbox_CleanItems_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_CleanItems);
+
+        private void lbox_ComboTriggers_DoubleClick(object sender, EventArgs e)
+        {
+            Utils.InvokeOn(this, () =>
+            {
+                var selected = lbox_ComboTriggers.SelectedItem;
+
+                if (selected == null)
+                    return;
+
+
+                if (combos.ContainsKey(selected.ToString()))
+                {
+                    combos.Remove(selected.ToString());
+                }
+
+                if (lbox_ComboTriggers.Items.Contains(selected)) lbox_ComboTriggers.Items.Remove(selected);
+            });
+        }
+
+        private void lbox_ComboRotations_DoubleClick(object sender, EventArgs e)
+        {
+            Utils.InvokeOn(this, () =>
+            {
+                var s1 = lbox_ComboTriggers.SelectedItem;
+                var s2 = lbox_ComboRotations.SelectedIndex;
+
+                if (s1 == null || s2 == -1 || !combos.ContainsKey(s1.ToString()))
+                    return;
+
+
+                lbox_ComboRotations.Items.RemoveAt(s2);
+                combos[s1.ToString()].Skills.RemoveAt(s2);
+            });
+        }
+
         private void lbox_Conditions_DoubleClick(object sender, EventArgs e)
         {
             Utils.InvokeOn(this, () =>
@@ -703,6 +686,79 @@ namespace AeonGrinder.UI
                 if (index != -1)
                 {
                     combos[s1.ToString()].Conditions.RemoveAt(index);
+                }
+            });
+        }
+
+        #endregion
+
+        #region Index Changed Events
+
+        private void lbox_ComboTriggers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Utils.InvokeOn(this, () =>
+            {
+                var selected = lbox_ComboTriggers.SelectedItem;
+
+                if (selected == null)
+                    return;
+
+                if (!combos.ContainsKey(selected.ToString()) && lbox_ComboTriggers.Items.Contains(selected))
+                {
+                    lbox_ComboTriggers.Items.Remove(selected);
+
+                    return;
+                }
+
+
+                var combo = combos[selected.ToString()];
+
+                lbox_ComboRotations.Items.Clear();
+                lbox_ComboRotations.Items.AddRange(combo.Skills.ToArray());
+
+                lbox_Conditions.Items.Clear();
+                lbox_Conditions.Items.AddRange(combo.Conditions.Select(c => c.Name).ToArray());
+            });
+        }
+
+        private void cmbox_ZoneMaps_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Utils.InvokeOn(this, () =>
+            {
+                int index = cmbox_ZoneMaps.SelectedIndex;
+
+                // Clear box
+                lbox_GpsPoints.Items.Clear();
+
+                if (index == 0)
+                    return;
+
+
+                var mapName = cmbox_ZoneMaps.SelectedItem.ToString();
+                var map = MapsHelper.GetMap(mapName);
+
+                if (map == null)
+                    return;
+
+
+                var gps = new Gps(Host);
+
+                switch (map.MapUseType)
+                {
+                    case MapUseType.Local:
+                        gps.LoadDataBase(map.GetMapPath());
+                        break;
+                    case MapUseType.Internal:
+                        gps.LoadDataBase(map.GetByteMap());
+                        break;
+                }
+
+
+                var points = gps.GetAllGpsPoints().Where(p => p.name != string.Empty).Select(p => p.name);
+
+                if (points.Count() > 0)
+                {
+                    lbox_GpsPoints.Items.AddRange(points.ToArray());
                 }
             });
         }

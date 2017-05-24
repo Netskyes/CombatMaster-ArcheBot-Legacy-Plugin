@@ -2,9 +2,6 @@
 {
     public enum TargetType
     {
-        Creature,
-        Location,
-        Self,
-        Unknown
+        Unknown = -1, Self = 0, Creature = 4, Location = 6
     }
 }

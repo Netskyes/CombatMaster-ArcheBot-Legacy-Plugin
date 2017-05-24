@@ -17,6 +17,8 @@ namespace AeonGrinder.Configs
         public string FinalAction = string.Empty;
 
         public int FightRadius = 60;
+        public int MinHitpoints = 40;
+        public int MinMana = 30;
 
         [XmlArrayItem("Name")]
         public List<string> Targets { get; set; }

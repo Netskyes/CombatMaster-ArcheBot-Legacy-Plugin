@@ -10,6 +10,9 @@
         ManapLowerThan,
         ManaHigherThan,
         ManapHigherThan,
-        BuffExists
+        BuffExists,
+        BuffNotExists,
+        TargetDistLowerThan,
+        TargetDistHigherThan
     }
 }

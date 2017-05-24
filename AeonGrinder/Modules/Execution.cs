@@ -15,17 +15,17 @@ namespace AeonGrinder.Modules
     {
         private State state;
         private Creature target;
+        private DateTime? seekTime;
 
         private List<string> rotation;
         private Dictionary<string, Combos> combos;
         private int sequence;
-        private Queue<string> skillLoader = new Queue<string>();
+        private Queue<string> skillLoader;
         
+        private RoundZone fightZone;
+        private List<string> checkPoints = new List<string>();
 
-        private Point3D centerPoint;
-
-        private List<int> targetHashes = new List<int>();
-        private List<int> toLoot = new List<int>();
+        private List<int> toLoot;
 
         private bool isMoving;
         private bool isFighting;
@@ -36,8 +36,9 @@ namespace AeonGrinder.Modules
         /// </summary>
         private bool Initialize()
         {
-            BuildZone();
-
+            if (!BuildFightZone())
+                return false;
+            
             if (template.Rotation.Count < 1)
             {
                 Log("Please build your routine before starting!");
@@ -48,15 +49,18 @@ namespace AeonGrinder.Modules
             {
                 BuildRoutine();
             }
-            
 
-            // Resets
-            SetState(State.Check);
 
             // Events
             HookGameEvents();
 
-
+            // Resets
+            SetState(State.Check);
+            seekTime = null;
+            toLoot = new List<int>();
+            skillLoader = new Queue<string>();
+            
+            
             return true;
         }
 
@@ -82,30 +86,38 @@ namespace AeonGrinder.Modules
         }
 
 
-        private void BuildZone()
+        private bool BuildFightZone()
         {
-            if (settings.MapName == string.Empty)
+            if (settings.MapName != string.Empty && gps.Load(settings.MapName))
             {
-                // Set initial center
-                centerPoint = new Point3D(new double[] { Host.me.X, Host.me.Y, Host.me.Z });
+                if (GetFightPoints().Count < 1)
+                {
+                    Log("Missing gps points: (Fight)");
 
-                return;
+                    return false;
+                }
+
+                var point = gps.GetNearestPoint();
+
+                if (Host.dist(point.x, point.y, point.z) > 100)
+                {
+                    Log("Gps zone map is too far away!");
+
+                    return false;
+                }
+            }
+            else
+            {
+                fightZone = new RoundZone(Host.me.X, Host.me.Y, settings.FightRadius);
             }
 
-            if (!gps.Load(settings.MapName))
-                return;
-
-
-            var point = gps.GetPoint("Zone");
-
-            if (point != null)
-            {
-                centerPoint = new Point3D(new double[] { point.x, point.y, point.z });
-            }
+            return true;
         }
 
         private void BuildRoutine()
         {
+            sequence = 0;
+
             rotation = template.CombatBuffs;
             rotation = rotation.Concat(template.Rotation).ToList();
 
@@ -116,9 +128,7 @@ namespace AeonGrinder.Modules
 
         private void Execute()
         {
-            if (!CriticalCheck())
-                return;
-
+            CriticalCheck();
 
             switch (state)
             {
@@ -143,6 +153,13 @@ namespace AeonGrinder.Modules
                     Move();
                     break;
 
+                case State.Prepare:
+#if DEBUG
+                    Host.Log("State: Prepare");
+#endif              
+                    Prepare();
+                    break;
+
                 case State.Fight:
 #if DEBUG
                     //Host.Log("State: Fight");
@@ -160,26 +177,43 @@ namespace AeonGrinder.Modules
         }
 
 
-        private bool CriticalCheck()
+        private void CriticalCheck()
         {
-            if (!Host.me.isAlive())
+            if (!Host.me.isAlive() && MakeRevival())
             {
-                SetState(State.Check); return MakeRevival();
+                SetState(State.Check);
+
+                return;
             }
 
-            return true;
+            if (Host.me.hpp < 20 && EscapeDeath())
+            {
+                SetState(State.Check);
+
+                return;
+            }
         }
 
         private void Check()
         {
-            if (!UnderAttack() && (Host.me.mpp < 30 || Host.me.hpp < 30))
-                return;
-
-
-            if (!InZoneRadius() && !MoveToZone())
+            if (!UnderAttack() && IsNeedsResting())
             {
-            
+                // Use recovery of some kind.
+
+                return;
             }
+
+
+            if (!ZoneExists())
+            {
+                GenerateFightZone();
+            }
+
+            if (!UnderAttack() && !InZoneRadius())
+            {
+                ComeToFightCenter();
+            }
+
 
             if (IsCleanEnabled() && JunkItemsCount() >= Utils.RandomNum(1, 4))
             {
@@ -211,7 +245,23 @@ namespace AeonGrinder.Modules
             
             if (target != null)
             {
-                SetState((Host.dist(target) > 20 ? State.Move : State.Fight));
+                // Reset time
+                seekTime = null;
+
+                SetState((Host.dist(target) > 20 ? State.Move : State.Prepare));
+            }
+            else
+            {
+                if (seekTime == null)
+                    seekTime = DateTime.Now;
+
+                if ((DateTime.Now - seekTime).Value.TotalSeconds >= 30)
+                {
+                    seekTime = null;
+                    SwitchFightZone();
+
+                    SetState(State.Check);
+                }
             }
         }
 
@@ -219,12 +269,21 @@ namespace AeonGrinder.Modules
         {
             if (ComeToTarget(Utils.RandomNum(14, 18)))
             {
-                SetState(State.Fight);
+                Utils.Delay(new int[] { 225, 450 }, new int[] { 525, 750 }, new int[] { 825, 1050 }, token);
+
+                SetState(State.Prepare);
             }
             else
             {
                 SetState(State.Search);
             }
+        }
+
+        private void Prepare()
+        {
+            BoostUp();
+
+            SetState(State.Fight);
         }
 
         private void Fight()
@@ -240,7 +299,7 @@ namespace AeonGrinder.Modules
             if (IsCasting())
                 return;
 
-            bool isMeTarget = (UnderAttack()) ? (IsUnderAttack(target) && UnderAttackBy(target)) : true;
+            bool isMeTarget = (target.target != null) ? (target.target == Host.me) : true;
             
 
             if (target != null && isMeTarget && IsAttackable(target))
@@ -270,8 +329,9 @@ namespace AeonGrinder.Modules
             }
 
             ResetLoader();
+            Host.CancelSkill();
             isFighting = false;
-
+            
             Utils.Delay(450, 650, token);
 
 
@@ -282,6 +342,8 @@ namespace AeonGrinder.Modules
         {
             if (!UnderAttack() && settings.LootTargets && toLoot.Count > 0 && !IsInventoryFull())
             {
+                Utils.Delay(new int[] { 250, 450 }, new int[] { 550, 750 }, new int[] { 850, 1050 }, token);
+
                 LootMobs();
             }
 
@@ -302,7 +364,7 @@ namespace AeonGrinder.Modules
             }
             else
             {
-                name = skillLoader.Dequeue();
+                name = skillLoader.Peek();
                 isLoaded = true;
             }
 
@@ -336,40 +398,26 @@ namespace AeonGrinder.Modules
             }
 
 
-            bool result = false;
-
-            if (skill.TargetType() != TargetType.Location)
+            if (UseSkill(skill, isBoosts, !isBoosts))
             {
-                result = UseSkill(skill, false, isBoosts, !isBoosts);
-            }
-            else
-            {
-                result = UseSkill(skill, true);
-            }
-
-
-            if (result)
-            {
-                Log($"Used: {name}");
-                
-                if (props.OptimalWait != 0)
+                if (isLoaded)
                 {
-                    Utils.Delay(props.OptimalWait, token);
+                    skillLoader.Dequeue();
                 }
-                else
+                else if (isCombo)
                 {
-                    while (IsCasting())
-                    {
-                        Utils.Delay(50, token);
-                    }
-                }
-
-                if (!isLoaded && isCombo)
                     LoadCombo(name);
+                }
+
+
+                Utils.Delay(new int[] { 50, 100 }, new int[] { 100, 150 }, new int[] { 150, 200 }, token);
             }
             else
             {
                 //Log("Couldn't use: " + skill.name + " / Reason: " + Host.GetLastError());
+
+                if (Host.GetLastError() == LastError.ActionNotAllowed)
+                    return;
             }
 
 
@@ -411,38 +459,96 @@ namespace AeonGrinder.Modules
             }
         }
 
+        private void BoostUp()
+        {
+            if (!AnyBoostExists())
+                return;
 
 
-        private bool UseSkill(Skill skill, bool isLocTarget = false, bool selfTarget = false, bool autoCome = true)
+            foreach (var b in template.BoostingBuffs)
+            {
+                if (UnderAttack())
+                    break;
+
+
+                var skill = Host.getSkill(b);
+                
+                if (skill == null || IsAnyBuffExists(SkillHelper.GetProdsBuffs(skill.id)))
+                    continue;
+
+
+                var result = Host.UseSkill(b, false, true);
+                
+                if (result)
+                {
+                    Utils.Delay(450, 850, token);
+                }
+            }
+        }
+
+
+
+        private bool UseSkill(Skill skill, bool selfTarget = false, bool autoCome = true)
         {
             while (IsCasting())
             {
                 Utils.Delay(50, token);
             }
 
-            
-            double dist = Host.me.calcSkillMaxRange(skill.id);
+            bool isLocTarget = (skill.TargetType() == TargetType.Location);
 
-            if (autoCome && dist != 0)
+
+            if (autoCome && !selfTarget)
             {
-                double comeDist = (dist <= 4) ? Utils.RandomDouble(0.8, 2) : dist - 1.5;
-                
-                if ((Host.dist(target) > dist) && !ComeToTarget(comeDist))
-                    return false;
+                double dist = Host.me.calcSkillMaxRange(skill.id);
+
+                if (dist == 0 && skill.SelectType() == SelectType.None && skill.CastType() == CastType.Magic)
+                {
+                    // Damage area radius
+                    dist = (skill.AreaRadius() - Utils.RandomDouble(0.5, 1.2));
+                }
+
+
+                if (dist != 0)
+                {
+                    double comeDist = (dist <= 4)
+                        ? Utils.RandomDouble(0.8, 2) : dist - 1.5;
+
+                    if ((Host.dist(target) > dist) && !ComeToTarget(comeDist))
+                        return false;
+                }
             }
 
 
             if (Host.me.target != target)
                 Host.SetTarget(target);
-            
+
+
+            bool result = false;
+
             if (!isLocTarget)
             {
-                return skill.UseSkill(false, selfTarget);
+                result = skill.UseSkill(false, selfTarget);
             }
             else
             {
-                return Host.UseSkill(skill.id, target.X, target.Y, target.Z, false);
+                result = Host.UseSkill(skill.id, target.X, target.Y, target.Z, false);
             }
+
+
+            if (Host.GetLastError() == LastError.NoLineOfSight)
+            {
+                // Do something about it.
+            }
+
+
+            while(IsCasting())
+            {
+                Utils.Delay(50, token);
+            }
+
+
+            return result;
         }
 
         private void FightWatch()
@@ -451,7 +557,7 @@ namespace AeonGrinder.Modules
             {
                 try
                 {
-                    if (Host.dist(target) <= 5)
+                    if (Host.dist(target) <= 8)
                     {
                         Host.TurnDirectly(target);
                     }
@@ -467,12 +573,8 @@ namespace AeonGrinder.Modules
         
         private void GetTarget() => SetTarget(FindTarget());
 
-        private void SetTarget(Creature obj)
-        {
-            target = obj;
-
-            if (target != null) AddTargetHash(obj);
-        }
+        private void SetTarget(Creature obj) 
+            => target = obj;
 
         private Creature FindTarget()
         {
@@ -582,8 +684,87 @@ namespace AeonGrinder.Modules
             return result;
         }
 
+        private bool EscapeDeath()
+        {
+            uint s1 = Abilities.Witchcraft.PlayDead;
+            uint s2 = Abilities.Shadowplay.Stealth;
+            bool success = false;
 
-        private bool MoveToZone()
+            if (SkillExists(s1) && Host.skillCooldown(s1) == 0 && Host.UseSkill(s1))
+            {
+                success = true;
+            }
+
+            else if (SkillExists(s2) && Host.skillCooldown(s2) == 0 && Host.UseSkill(s2))
+            {
+                success = true;
+            }
+
+
+            if (success)
+            {
+                Utils.Delay(850, token);
+
+                if (!UnderAttack()) SetState(State.Check);
+            }
+
+            return success;
+        }
+
+
+        private List<GpsPoint> GetFightPoints() => gps.GetPointsByName("Fight");
+
+        private GpsPoint GetCenterPoint()
+        {
+            var zone = new RoundZone(fightZone.X, fightZone.Y, 1);
+
+            return GetFightPoints().Where(p => zone.PointInZone(p.x, p.y)).FirstOrDefault();
+        }
+
+        private void SwitchFightZone()
+        {
+            var point = GetCenterPoint();
+
+            if (point != null)
+            {
+                checkPoints.Add(point.name);
+                fightZone = null;
+            }
+        }
+
+        private GpsPoint GetNearestFightPoint(bool next = false)
+        {
+            var points = GetFightPoints().OrderBy(p => Host.dist(p.x, p.y, p.z));
+
+            if (!next)
+            {
+                return points.FirstOrDefault();
+            }
+            else
+            {
+                return points.Where(p => !checkPoints.Contains(p.name)).FirstOrDefault();
+            }
+        }
+
+        private void GenerateFightZone()
+        {
+            var point = GetNearestFightPoint(true);
+
+            if (point == null)
+            {
+                checkPoints.Clear();
+                point = GetNearestFightPoint();
+            }
+            
+            if (point != null)
+            {
+                fightZone = new RoundZone(point.x, point.y, point.radius);
+            }
+        }
+
+        private bool InZoneRadius(Creature obj = null) => fightZone.ObjInZone((obj == null) ? Host.me : obj);
+
+        private bool ComeToFightCenter()
         {
             Func<bool> moveEval = () => UnderAttack();
 
@@ -593,13 +774,18 @@ namespace AeonGrinder.Modules
 
             bool result = false;
 
-            if (gps.IsLoaded && gps.PointExists("Zone"))
+            if (gps.IsLoaded)
             {
-                result = gps.MoveToPoint("Zone");
+                var point = GetCenterPoint();
+
+                if (point != null)
+                {
+                    result = gps.MoveToPoint(point);
+                }
             }
             else
             {
-                result = Host.MoveTo(centerPoint.X, centerPoint.Y, centerPoint.Z);
+                result = Host.MoveTo(fightZone.X, fightZone.Y, 0);
             }
 
             isMoving = false;
@@ -607,12 +793,6 @@ namespace AeonGrinder.Modules
             return result;
         }
 
-        private bool InZoneRadius(Creature obj = null)
-        {
-            var zone = new RoundZone(centerPoint.X, centerPoint.Y, settings.FightRadius);
-
-            return zone.ObjInZone((obj == null) ? Host.me : obj);
-        }
 
         public bool CheckCondition(Condition cond)
         {
@@ -622,10 +802,17 @@ namespace AeonGrinder.Modules
             switch (cond.Type)
             {
                 case ConditionType.HpLowerThan: return (Host.me.hp < value);
+                case ConditionType.HpHigherThan: return (Host.me.hp > value);
                 case ConditionType.HppLowerThan: return (Host.me.hpp < value);
+                case ConditionType.HppHigherThan: return (Host.me.hpp < value);
                 case ConditionType.ManaLowerThan: return (Host.me.mp < value);
+                case ConditionType.ManaHigherThan: return (Host.me.mp > value);
                 case ConditionType.ManapLowerThan: return (Host.me.mpp < value);
+                case ConditionType.ManapHigherThan: return (Host.me.mpp > value);
                 case ConditionType.BuffExists: return (IsBuffExists((uint)value));
+                case ConditionType.BuffNotExists: return (!IsBuffExists((uint)value));
+                case ConditionType.TargetDistLowerThan: return (Host.dist(target) < value);
+                case ConditionType.TargetDistHigherThan: return (Host.dist(target) > value);
             }
 
             return false;
@@ -636,14 +823,17 @@ namespace AeonGrinder.Modules
 
         private void SetState(State nstate) => (state) = nstate;
 
-        private void AddTargetHash(Creature obj) => targetHashes.Add(obj.GetHashCode());
         private void AddTargetLoot(Creature obj) => toLoot.Add(obj.GetHashCode());
         private void CancelMove() => Host.CancelMoveTo();
 
         private int JunkItemsCount() => (Host.getAllInvItems().Where(i => settings.CleanItems.Contains(i.name)).Count());
-        private int PingTime() => (Host.pingToServer + Utils.RandomNum(50, 100));
+        private int Ping() => (Host.pingToServer);
 
         private bool IsCleanEnabled() => (settings.CleanItems.Count() > 0);
+        private bool IsNeedsResting() => (Host.me.hpp < settings.MinHitpoints || Host.me.mpp < settings.MinMana);
+        private bool AnyBoostExists() => (template.BoostingBuffs.Count > 0);
+        private bool ZoneExists() => (fightZone != null);
+        private bool SkillExists(uint skillId) => Host.isSkillLearned(skillId);
 
         private void MoveUnless(Func<bool> eval)
         {
@@ -679,6 +869,7 @@ namespace AeonGrinder.Modules
             Host.onLootAvailable += OnLootAvailable;
             Host.onNewSkillLearned += OnNewSkillLearned;
             Host.onNewCreature += OnNewCreature;
+            Host.onSkillCasting += OnSkillCasting;
         }
 
         private void UnhookGameEvents()
@@ -686,16 +877,15 @@ namespace AeonGrinder.Modules
             Host.onLootAvailable -= OnLootAvailable;
             Host.onNewSkillLearned -= OnNewSkillLearned;
             Host.onNewCreature -= OnNewCreature;
+            Host.onSkillCasting -= OnSkillCasting;
         }
 
 
         private void OnLootAvailable(Creature obj)
         {
-            if (!settings.LootTargets || !targetHashes.Contains(obj.GetHashCode()))
+            if (!settings.LootTargets || (obj.firstHitter != Host.me))
                 return;
 
-
-            targetHashes.Remove(obj.GetHashCode());
 
             AddTargetLoot(obj);
         }
@@ -703,6 +893,13 @@ namespace AeonGrinder.Modules
         private void OnNewSkillLearned(Creature obj, Effect skill) => UI.GetSkills();
 
         private void OnNewCreature(Creature obj) => UI.GetTargets();
+
+        private void OnSkillCasting(Creature obj, SpawnObject obj2, Skill skill, double x, double y, double z)
+        {
+            if (obj == Host.me)
+            {
+            }
+        }
 
         #endregion
     }
