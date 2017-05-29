@@ -92,5 +92,34 @@ namespace AeonGrinder
         private void Debug()
         {
         }
+
+        #region DEBUG DUMPS
+
+        private void DumpMountsAndPets()
+        {
+            foreach (var m in sqlCore.sqlNpcs.Where(n => n.Value.mountSkills.Count > 0).OrderBy(n => n.Value.npcKindId))
+            {
+                IEnumerable<KeyValuePair<uint, ArcheBot.SQL.SqlItem>> items;
+
+                try
+                {
+                    items = sqlCore.sqlItems.Where(i => i.Value.name == m.Value.name);
+                }
+                catch
+                {
+                    continue;
+                }
+
+
+                foreach (var item in items)
+                {
+                    string temp = string.Format(@"new Slave() {{ ItemId = {0}, Id = {1}, KindId = {2} }},", item.Value.id, m.Value.id, m.Value.npcKindId);
+
+                    System.IO.File.AppendAllText(Paths.Plugin + "slaves.txt", temp + Environment.NewLine);
+                }
+            }
+        }
+
+        #endregion
     }
 }

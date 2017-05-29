@@ -31,9 +31,18 @@
             this.btn_Begin = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tab_Setup = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.tab_Options = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtbox_ItemSearch = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.tab_Routine = new System.Windows.Forms.TabPage();
             this.label16 = new System.Windows.Forms.Label();
             this.btn_LoadTemplate = new System.Windows.Forms.Button();
@@ -46,43 +55,56 @@
             this.label_CombatBuffs = new System.Windows.Forms.Label();
             this.label_Template = new System.Windows.Forms.Label();
             this.label_ComboRotations = new System.Windows.Forms.Label();
-            this.tab_Options = new System.Windows.Forms.TabPage();
+            this.tab_Extra = new System.Windows.Forms.TabPage();
             this.label_WhenDone = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.txtbox_ItemSearch = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.tab_Statistics = new System.Windows.Forms.TabPage();
-            this.num_MinMana = new System.Windows.Forms.NumericUpDown();
-            this.num_MinHitpoints = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.container19 = new Container();
-            this.button2 = new System.Windows.Forms.Button();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.container18 = new Container();
-            this.button1 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.container10 = new Container();
-            this.btn_AddToCleanItems = new System.Windows.Forms.Button();
-            this.lbox_CleanItems = new System.Windows.Forms.ListBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.container23 = new Container();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.container28 = new Container();
+            this.cmbox_Familiars = new System.Windows.Forms.ComboBox();
             this.container8 = new Container();
             this.lbox_GpsPoints = new System.Windows.Forms.ListBox();
-            this.container11 = new Container();
-            this.lbox_ItemsList = new System.Windows.Forms.ListBox();
-            this.btn_GetInventoryItems = new System.Windows.Forms.Button();
             this.container14 = new Container();
             this.cmbox_ZoneMaps = new System.Windows.Forms.ComboBox();
             this.container9 = new Container();
+            this.chkbox_LevelFamiliars = new System.Windows.Forms.CheckBox();
+            this.num_FightRadius = new System.Windows.Forms.NumericUpDown();
             this.chkbox_AutoStart = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.chkbox_LootTargets = new System.Windows.Forms.CheckBox();
-            this.num_FightRadius = new System.Windows.Forms.NumericUpDown();
             this.container6 = new Container();
             this.cmbox_Targets = new System.Windows.Forms.ComboBox();
             this.container7 = new Container();
             this.btn_AddToTargets = new System.Windows.Forms.Button();
             this.lbox_Targets = new System.Windows.Forms.ListBox();
+            this.container19 = new Container();
+            this.btn_AddToCombatBoosts = new System.Windows.Forms.Button();
+            this.lbox_CombatBoosts = new System.Windows.Forms.ListBox();
+            this.container10 = new Container();
+            this.btn_AddToCleanItems = new System.Windows.Forms.Button();
+            this.lbox_CleanItems = new System.Windows.Forms.ListBox();
+            this.container20 = new Container();
+            this.chkbox_UseMeditate = new System.Windows.Forms.CheckBox();
+            this.container21 = new Container();
+            this.lbox_ManaRecoverItems = new System.Windows.Forms.ListBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.btn_AddToManaRecover = new System.Windows.Forms.Button();
+            this.num_MinMana = new System.Windows.Forms.NumericUpDown();
+            this.container11 = new Container();
+            this.lbox_ItemsList = new System.Windows.Forms.ListBox();
+            this.btn_GetInventoryItems = new System.Windows.Forms.Button();
+            this.container18 = new Container();
+            this.chkbox_UsePlayDead = new System.Windows.Forms.CheckBox();
+            this.num_MinHitpoints = new System.Windows.Forms.NumericUpDown();
+            this.container22 = new Container();
+            this.lbox_HpRecoverItems = new System.Windows.Forms.ListBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btn_AddToHpRecover = new System.Windows.Forms.Button();
             this.container17 = new Container();
             this.lbox_Conditions = new System.Windows.Forms.ListBox();
             this.btn_AddCondition = new System.Windows.Forms.Button();
@@ -125,22 +147,54 @@
             this.txtbox_PluginRunName = new System.Windows.Forms.TextBox();
             this.chkbox_RunPlugin = new System.Windows.Forms.CheckBox();
             this.label_Name = new System.Windows.Forms.Label();
+            this.container26 = new Container();
+            this.container27 = new Container();
+            this.dtg_Mobs = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.container25 = new Container();
+            this.dtg_Items = new System.Windows.Forms.DataGridView();
+            this.dtg_ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dtg_ItemCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.container24 = new Container();
+            this.lbl_WhispersReceived = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.lbl_ExpGained = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.lbl_GoldEarned = new System.Windows.Forms.Label();
+            this.lbl_SuspectReports = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.chkbox_ResetStats = new System.Windows.Forms.CheckBox();
+            this.lbl_Deaths = new System.Windows.Forms.Label();
+            this.lbl_MobsKilled = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.lbl_RunTime = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tab_Setup.SuspendLayout();
-            this.tab_Routine.SuspendLayout();
             this.tab_Options.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.num_MinMana)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_MinHitpoints)).BeginInit();
-            this.container19.SuspendLayout();
-            this.container18.SuspendLayout();
-            this.container10.SuspendLayout();
+            this.tab_Routine.SuspendLayout();
+            this.tab_Extra.SuspendLayout();
+            this.tab_Statistics.SuspendLayout();
+            this.container23.SuspendLayout();
+            this.container28.SuspendLayout();
             this.container8.SuspendLayout();
-            this.container11.SuspendLayout();
             this.container14.SuspendLayout();
             this.container9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_FightRadius)).BeginInit();
             this.container6.SuspendLayout();
             this.container7.SuspendLayout();
+            this.container19.SuspendLayout();
+            this.container10.SuspendLayout();
+            this.container20.SuspendLayout();
+            this.container21.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_MinMana)).BeginInit();
+            this.container11.SuspendLayout();
+            this.container18.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_MinHitpoints)).BeginInit();
+            this.container22.SuspendLayout();
             this.container17.SuspendLayout();
             this.container16.SuspendLayout();
             this.container15.SuspendLayout();
@@ -152,6 +206,12 @@
             this.container1.SuspendLayout();
             this.container4.SuspendLayout();
             this.container_WhenDone.SuspendLayout();
+            this.container26.SuspendLayout();
+            this.container27.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtg_Mobs)).BeginInit();
+            this.container25.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtg_Items)).BeginInit();
+            this.container24.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_Begin
@@ -168,8 +228,9 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tab_Setup);
-            this.tabControl1.Controls.Add(this.tab_Routine);
             this.tabControl1.Controls.Add(this.tab_Options);
+            this.tabControl1.Controls.Add(this.tab_Routine);
+            this.tabControl1.Controls.Add(this.tab_Extra);
             this.tabControl1.Controls.Add(this.tab_Statistics);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tabControl1.Location = new System.Drawing.Point(0, 45);
@@ -180,19 +241,11 @@
             // 
             // tab_Setup
             // 
-            this.tab_Setup.Controls.Add(this.label2);
-            this.tab_Setup.Controls.Add(this.container19);
-            this.tab_Setup.Controls.Add(this.label1);
-            this.tab_Setup.Controls.Add(this.container18);
-            this.tab_Setup.Controls.Add(this.num_MinHitpoints);
-            this.tab_Setup.Controls.Add(this.label12);
-            this.tab_Setup.Controls.Add(this.num_MinMana);
-            this.tab_Setup.Controls.Add(this.txtbox_ItemSearch);
-            this.tab_Setup.Controls.Add(this.container10);
-            this.tab_Setup.Controls.Add(this.label14);
+            this.tab_Setup.Controls.Add(this.label5);
+            this.tab_Setup.Controls.Add(this.container23);
+            this.tab_Setup.Controls.Add(this.container28);
+            this.tab_Setup.Controls.Add(this.label24);
             this.tab_Setup.Controls.Add(this.container8);
-            this.tab_Setup.Controls.Add(this.container11);
-            this.tab_Setup.Controls.Add(this.label13);
             this.tab_Setup.Controls.Add(this.container14);
             this.tab_Setup.Controls.Add(this.label10);
             this.tab_Setup.Controls.Add(this.label4);
@@ -207,6 +260,16 @@
             this.tab_Setup.TabIndex = 2;
             this.tab_Setup.Text = "Setup";
             this.tab_Setup.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.Gray;
+            this.label5.Location = new System.Drawing.Point(185, 159);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(142, 13);
+            this.label5.TabIndex = 65;
+            this.label5.Text = "Party options (In progress)";
             // 
             // label10
             // 
@@ -236,11 +299,108 @@
             this.label6.TabIndex = 50;
             this.label6.Text = "Targets:";
             // 
+            // tab_Options
+            // 
+            this.tab_Options.Controls.Add(this.label2);
+            this.tab_Options.Controls.Add(this.txtbox_ItemSearch);
+            this.tab_Options.Controls.Add(this.label7);
+            this.tab_Options.Controls.Add(this.label12);
+            this.tab_Options.Controls.Add(this.label1);
+            this.tab_Options.Controls.Add(this.label14);
+            this.tab_Options.Controls.Add(this.label13);
+            this.tab_Options.Controls.Add(this.container19);
+            this.tab_Options.Controls.Add(this.container10);
+            this.tab_Options.Controls.Add(this.container20);
+            this.tab_Options.Controls.Add(this.container11);
+            this.tab_Options.Controls.Add(this.container18);
+            this.tab_Options.Location = new System.Drawing.Point(4, 22);
+            this.tab_Options.Name = "tab_Options";
+            this.tab_Options.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_Options.Size = new System.Drawing.Size(522, 468);
+            this.tab_Options.TabIndex = 4;
+            this.tab_Options.Text = "Options";
+            this.tab_Options.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Gray;
+            this.label2.Location = new System.Drawing.Point(185, 224);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(85, 13);
+            this.label2.TabIndex = 69;
+            this.label2.Text = "Combat Boosts";
+            // 
+            // txtbox_ItemSearch
+            // 
+            this.txtbox_ItemSearch.Location = new System.Drawing.Point(8, 31);
+            this.txtbox_ItemSearch.Name = "txtbox_ItemSearch";
+            this.txtbox_ItemSearch.Size = new System.Drawing.Size(160, 22);
+            this.txtbox_ItemSearch.TabIndex = 44;
+            this.txtbox_ItemSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbox_ItemSearch_KeyDown);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.Gray;
+            this.label7.Location = new System.Drawing.Point(357, 14);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(84, 13);
+            this.label7.TabIndex = 71;
+            this.label7.Text = "Mana Recovery";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.Gray;
+            this.label12.Location = new System.Drawing.Point(13, 224);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(91, 13);
+            this.label12.TabIndex = 48;
+            this.label12.Text = "Unwanted items";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Gray;
+            this.label1.Location = new System.Drawing.Point(185, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(69, 13);
+            this.label1.TabIndex = 73;
+            this.label1.Text = "HP Recovery";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.Color.DarkGray;
+            this.label14.Location = new System.Drawing.Point(92, 14);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(69, 13);
+            this.label14.TabIndex = 46;
+            this.label14.Text = "(Press Enter)";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(5, 14);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(86, 13);
+            this.label13.TabIndex = 43;
+            this.label13.Text = "Search item db:";
+            // 
             // tab_Routine
             // 
             this.tab_Routine.Controls.Add(this.label16);
             this.tab_Routine.Controls.Add(this.btn_LoadTemplate);
             this.tab_Routine.Controls.Add(this.btn_SaveTemplate);
+            this.tab_Routine.Controls.Add(this.label_Conditions);
+            this.tab_Routine.Controls.Add(this.label_BoostingBuffs);
+            this.tab_Routine.Controls.Add(this.label_Skills);
+            this.tab_Routine.Controls.Add(this.label_Rotation);
+            this.tab_Routine.Controls.Add(this.label_ComboTriggers);
+            this.tab_Routine.Controls.Add(this.label_CombatBuffs);
+            this.tab_Routine.Controls.Add(this.label_Template);
+            this.tab_Routine.Controls.Add(this.label_ComboRotations);
             this.tab_Routine.Controls.Add(this.container17);
             this.tab_Routine.Controls.Add(this.container16);
             this.tab_Routine.Controls.Add(this.container15);
@@ -251,14 +411,6 @@
             this.tab_Routine.Controls.Add(this.container2);
             this.tab_Routine.Controls.Add(this.container1);
             this.tab_Routine.Controls.Add(this.container4);
-            this.tab_Routine.Controls.Add(this.label_Conditions);
-            this.tab_Routine.Controls.Add(this.label_BoostingBuffs);
-            this.tab_Routine.Controls.Add(this.label_Skills);
-            this.tab_Routine.Controls.Add(this.label_Rotation);
-            this.tab_Routine.Controls.Add(this.label_ComboTriggers);
-            this.tab_Routine.Controls.Add(this.label_CombatBuffs);
-            this.tab_Routine.Controls.Add(this.label_Template);
-            this.tab_Routine.Controls.Add(this.label_ComboRotations);
             this.tab_Routine.Location = new System.Drawing.Point(4, 22);
             this.tab_Routine.Name = "tab_Routine";
             this.tab_Routine.Padding = new System.Windows.Forms.Padding(3);
@@ -370,17 +522,17 @@
             this.label_ComboRotations.TabIndex = 22;
             this.label_ComboRotations.Text = "Combo rotations:";
             // 
-            // tab_Options
+            // tab_Extra
             // 
-            this.tab_Options.Controls.Add(this.label_WhenDone);
-            this.tab_Options.Controls.Add(this.container_WhenDone);
-            this.tab_Options.Location = new System.Drawing.Point(4, 22);
-            this.tab_Options.Name = "tab_Options";
-            this.tab_Options.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_Options.Size = new System.Drawing.Size(522, 468);
-            this.tab_Options.TabIndex = 1;
-            this.tab_Options.Text = "Options";
-            this.tab_Options.UseVisualStyleBackColor = true;
+            this.tab_Extra.Controls.Add(this.label_WhenDone);
+            this.tab_Extra.Controls.Add(this.container_WhenDone);
+            this.tab_Extra.Location = new System.Drawing.Point(4, 22);
+            this.tab_Extra.Name = "tab_Extra";
+            this.tab_Extra.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_Extra.Size = new System.Drawing.Size(522, 468);
+            this.tab_Extra.TabIndex = 1;
+            this.tab_Extra.Text = "Extra";
+            this.tab_Extra.UseVisualStyleBackColor = true;
             // 
             // label_WhenDone
             // 
@@ -392,45 +544,13 @@
             this.label_WhenDone.TabIndex = 50;
             this.label_WhenDone.Text = "When done";
             // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.ForeColor = System.Drawing.Color.Gray;
-            this.label12.Location = new System.Drawing.Point(357, 336);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(91, 13);
-            this.label12.TabIndex = 48;
-            this.label12.Text = "Unwanted items";
-            // 
-            // txtbox_ItemSearch
-            // 
-            this.txtbox_ItemSearch.Location = new System.Drawing.Point(8, 214);
-            this.txtbox_ItemSearch.Name = "txtbox_ItemSearch";
-            this.txtbox_ItemSearch.Size = new System.Drawing.Size(160, 22);
-            this.txtbox_ItemSearch.TabIndex = 44;
-            this.txtbox_ItemSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbox_ItemSearch_KeyDown);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(5, 197);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(86, 13);
-            this.label13.TabIndex = 43;
-            this.label13.Text = "Search item db:";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.ForeColor = System.Drawing.Color.DarkGray;
-            this.label14.Location = new System.Drawing.Point(91, 197);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(69, 13);
-            this.label14.TabIndex = 46;
-            this.label14.Text = "(Press Enter)";
-            // 
             // tab_Statistics
             // 
+            this.tab_Statistics.Controls.Add(this.label23);
+            this.tab_Statistics.Controls.Add(this.label15);
+            this.tab_Statistics.Controls.Add(this.label8);
+            this.tab_Statistics.Controls.Add(this.container26);
+            this.tab_Statistics.Controls.Add(this.container24);
             this.tab_Statistics.Location = new System.Drawing.Point(4, 22);
             this.tab_Statistics.Name = "tab_Statistics";
             this.tab_Statistics.Padding = new System.Windows.Forms.Padding(3);
@@ -439,162 +559,89 @@
             this.tab_Statistics.Text = "Statistics";
             this.tab_Statistics.UseVisualStyleBackColor = true;
             // 
-            // num_MinMana
+            // label23
             // 
-            this.num_MinMana.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.num_MinMana.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.num_MinMana.Location = new System.Drawing.Point(270, 172);
-            this.num_MinMana.Maximum = new decimal(new int[] {
-            250,
-            0,
-            0,
-            0});
-            this.num_MinMana.Name = "num_MinMana";
-            this.num_MinMana.Size = new System.Drawing.Size(56, 20);
-            this.num_MinMana.TabIndex = 64;
-            this.num_MinMana.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.num_MinMana.Value = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(261, 190);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(70, 13);
+            this.label23.TabIndex = 22;
+            this.label23.Text = "Mobs killed:";
             // 
-            // num_MinHitpoints
+            // label15
             // 
-            this.num_MinHitpoints.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.num_MinHitpoints.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.num_MinHitpoints.Location = new System.Drawing.Point(208, 172);
-            this.num_MinHitpoints.Maximum = new decimal(new int[] {
-            250,
-            0,
-            0,
-            0});
-            this.num_MinHitpoints.Name = "num_MinHitpoints";
-            this.num_MinHitpoints.Size = new System.Drawing.Size(56, 20);
-            this.num_MinHitpoints.TabIndex = 65;
-            this.num_MinHitpoints.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.num_MinHitpoints.Value = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(8, 190);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(74, 13);
+            this.label15.TabIndex = 21;
+            this.label15.Text = "Items looted:";
             // 
-            // label1
+            // label8
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Gray;
-            this.label1.Location = new System.Drawing.Point(185, 336);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
-            this.label1.TabIndex = 67;
-            this.label1.Text = "Recovery";
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.Gray;
+            this.label8.Location = new System.Drawing.Point(13, 7);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(52, 13);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "Statistics";
             // 
-            // label2
+            // label24
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Gray;
-            this.label2.Location = new System.Drawing.Point(185, 207);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 13);
-            this.label2.TabIndex = 69;
-            this.label2.Text = "Boosts";
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(349, 163);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(81, 13);
+            this.label24.TabIndex = 76;
+            this.label24.Text = "Mounts / Pets:";
             // 
-            // container19
+            // container23
             // 
-            this.container19.Controls.Add(this.button2);
-            this.container19.Controls.Add(this.listBox2);
-            this.container19.Location = new System.Drawing.Point(180, 214);
-            this.container19.Name = "container19";
-            this.container19.Padding = new System.Windows.Forms.Padding(3);
-            this.container19.Size = new System.Drawing.Size(160, 117);
-            this.container19.TabIndex = 68;
+            this.container23.Controls.Add(this.checkBox2);
+            this.container23.Controls.Add(this.checkBox1);
+            this.container23.Location = new System.Drawing.Point(180, 166);
+            this.container23.Name = "container23";
+            this.container23.Size = new System.Drawing.Size(160, 96);
+            this.container23.TabIndex = 64;
             // 
-            // button2
+            // checkBox2
             // 
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(91, 86);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(63, 25);
-            this.button2.TabIndex = 42;
-            this.button2.Text = "Add Item";
-            this.button2.UseVisualStyleBackColor = true;
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(14, 15);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(92, 17);
+            this.checkBox2.TabIndex = 2;
+            this.checkBox2.Text = "Assist Leader";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
-            // listBox2
+            // checkBox1
             // 
-            this.listBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(6, 15);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(148, 65);
-            this.listBox2.TabIndex = 1;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(14, 38);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(119, 17);
+            this.checkBox1.TabIndex = 1;
+            this.checkBox1.Text = "Follow The Leader";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // container18
+            // container28
             // 
-            this.container18.Controls.Add(this.button1);
-            this.container18.Controls.Add(this.listBox1);
-            this.container18.Location = new System.Drawing.Point(180, 343);
-            this.container18.Name = "container18";
-            this.container18.Padding = new System.Windows.Forms.Padding(3);
-            this.container18.Size = new System.Drawing.Size(160, 117);
-            this.container18.TabIndex = 66;
+            this.container28.Controls.Add(this.cmbox_Familiars);
+            this.container28.Location = new System.Drawing.Point(352, 180);
+            this.container28.Name = "container28";
+            this.container28.Size = new System.Drawing.Size(160, 27);
+            this.container28.TabIndex = 75;
             // 
-            // button1
+            // cmbox_Familiars
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(91, 86);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(63, 25);
-            this.button1.TabIndex = 42;
-            this.button1.Text = "Add Item";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // listBox1
-            // 
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(6, 15);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(148, 65);
-            this.listBox1.TabIndex = 1;
-            // 
-            // container10
-            // 
-            this.container10.Controls.Add(this.btn_AddToCleanItems);
-            this.container10.Controls.Add(this.lbox_CleanItems);
-            this.container10.Location = new System.Drawing.Point(352, 343);
-            this.container10.Name = "container10";
-            this.container10.Padding = new System.Windows.Forms.Padding(3);
-            this.container10.Size = new System.Drawing.Size(160, 117);
-            this.container10.TabIndex = 47;
-            // 
-            // btn_AddToCleanItems
-            // 
-            this.btn_AddToCleanItems.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_AddToCleanItems.Location = new System.Drawing.Point(91, 86);
-            this.btn_AddToCleanItems.Name = "btn_AddToCleanItems";
-            this.btn_AddToCleanItems.Size = new System.Drawing.Size(63, 25);
-            this.btn_AddToCleanItems.TabIndex = 42;
-            this.btn_AddToCleanItems.Text = "Add Item";
-            this.btn_AddToCleanItems.UseVisualStyleBackColor = true;
-            this.btn_AddToCleanItems.Click += new System.EventHandler(this.btn_AddToCleanItems_Click);
-            // 
-            // lbox_CleanItems
-            // 
-            this.lbox_CleanItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lbox_CleanItems.FormattingEnabled = true;
-            this.lbox_CleanItems.Location = new System.Drawing.Point(6, 15);
-            this.lbox_CleanItems.Name = "lbox_CleanItems";
-            this.lbox_CleanItems.Size = new System.Drawing.Size(148, 65);
-            this.lbox_CleanItems.TabIndex = 1;
-            this.lbox_CleanItems.DoubleClick += new System.EventHandler(this.lbox_CleanItems_DoubleClick);
+            this.cmbox_Familiars.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbox_Familiars.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbox_Familiars.FormattingEnabled = true;
+            this.cmbox_Familiars.Location = new System.Drawing.Point(3, 3);
+            this.cmbox_Familiars.Name = "cmbox_Familiars";
+            this.cmbox_Familiars.Size = new System.Drawing.Size(154, 21);
+            this.cmbox_Familiars.TabIndex = 74;
             // 
             // container8
             // 
@@ -613,36 +660,6 @@
             this.lbox_GpsPoints.Name = "lbox_GpsPoints";
             this.lbox_GpsPoints.Size = new System.Drawing.Size(148, 78);
             this.lbox_GpsPoints.TabIndex = 65;
-            // 
-            // container11
-            // 
-            this.container11.Controls.Add(this.lbox_ItemsList);
-            this.container11.Controls.Add(this.btn_GetInventoryItems);
-            this.container11.Location = new System.Drawing.Point(8, 242);
-            this.container11.Name = "container11";
-            this.container11.Padding = new System.Windows.Forms.Padding(3);
-            this.container11.Size = new System.Drawing.Size(160, 160);
-            this.container11.TabIndex = 45;
-            // 
-            // lbox_ItemsList
-            // 
-            this.lbox_ItemsList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lbox_ItemsList.FormattingEnabled = true;
-            this.lbox_ItemsList.Location = new System.Drawing.Point(6, 6);
-            this.lbox_ItemsList.Name = "lbox_ItemsList";
-            this.lbox_ItemsList.Size = new System.Drawing.Size(148, 117);
-            this.lbox_ItemsList.TabIndex = 0;
-            // 
-            // btn_GetInventoryItems
-            // 
-            this.btn_GetInventoryItems.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_GetInventoryItems.Location = new System.Drawing.Point(83, 129);
-            this.btn_GetInventoryItems.Name = "btn_GetInventoryItems";
-            this.btn_GetInventoryItems.Size = new System.Drawing.Size(71, 25);
-            this.btn_GetInventoryItems.TabIndex = 41;
-            this.btn_GetInventoryItems.Text = "Inventory";
-            this.btn_GetInventoryItems.UseVisualStyleBackColor = true;
-            this.btn_GetInventoryItems.Click += new System.EventHandler(this.btn_GetInventoryItems_Click);
             // 
             // container14
             // 
@@ -665,43 +682,25 @@
             // 
             // container9
             // 
+            this.container9.Controls.Add(this.chkbox_LevelFamiliars);
+            this.container9.Controls.Add(this.num_FightRadius);
             this.container9.Controls.Add(this.chkbox_AutoStart);
             this.container9.Controls.Add(this.label9);
             this.container9.Controls.Add(this.chkbox_LootTargets);
-            this.container9.Controls.Add(this.num_FightRadius);
             this.container9.Location = new System.Drawing.Point(352, 31);
             this.container9.Name = "container9";
-            this.container9.Size = new System.Drawing.Size(160, 100);
+            this.container9.Size = new System.Drawing.Size(160, 123);
             this.container9.TabIndex = 54;
             // 
-            // chkbox_AutoStart
+            // chkbox_LevelFamiliars
             // 
-            this.chkbox_AutoStart.AutoSize = true;
-            this.chkbox_AutoStart.Location = new System.Drawing.Point(14, 49);
-            this.chkbox_AutoStart.Name = "chkbox_AutoStart";
-            this.chkbox_AutoStart.Size = new System.Drawing.Size(78, 17);
-            this.chkbox_AutoStart.TabIndex = 2;
-            this.chkbox_AutoStart.Text = "Auto Start";
-            this.chkbox_AutoStart.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(11, 20);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(72, 13);
-            this.label9.TabIndex = 64;
-            this.label9.Text = "Fight radius:";
-            // 
-            // chkbox_LootTargets
-            // 
-            this.chkbox_LootTargets.AutoSize = true;
-            this.chkbox_LootTargets.Location = new System.Drawing.Point(14, 72);
-            this.chkbox_LootTargets.Name = "chkbox_LootTargets";
-            this.chkbox_LootTargets.Size = new System.Drawing.Size(89, 17);
-            this.chkbox_LootTargets.TabIndex = 0;
-            this.chkbox_LootTargets.Text = "Loot Targets";
-            this.chkbox_LootTargets.UseVisualStyleBackColor = true;
+            this.chkbox_LevelFamiliars.AutoSize = true;
+            this.chkbox_LevelFamiliars.Location = new System.Drawing.Point(14, 90);
+            this.chkbox_LevelFamiliars.Name = "chkbox_LevelFamiliars";
+            this.chkbox_LevelFamiliars.Size = new System.Drawing.Size(119, 17);
+            this.chkbox_LevelFamiliars.TabIndex = 65;
+            this.chkbox_LevelFamiliars.Text = "Level Pets/Mounts";
+            this.chkbox_LevelFamiliars.UseVisualStyleBackColor = true;
             // 
             // num_FightRadius
             // 
@@ -711,7 +710,7 @@
             0,
             0,
             0});
-            this.num_FightRadius.Location = new System.Drawing.Point(85, 17);
+            this.num_FightRadius.Location = new System.Drawing.Point(85, 12);
             this.num_FightRadius.Maximum = new decimal(new int[] {
             250,
             0,
@@ -726,6 +725,35 @@
             0,
             0,
             0});
+            // 
+            // chkbox_AutoStart
+            // 
+            this.chkbox_AutoStart.AutoSize = true;
+            this.chkbox_AutoStart.Location = new System.Drawing.Point(14, 44);
+            this.chkbox_AutoStart.Name = "chkbox_AutoStart";
+            this.chkbox_AutoStart.Size = new System.Drawing.Size(78, 17);
+            this.chkbox_AutoStart.TabIndex = 2;
+            this.chkbox_AutoStart.Text = "Auto Start";
+            this.chkbox_AutoStart.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(11, 15);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(72, 13);
+            this.label9.TabIndex = 64;
+            this.label9.Text = "Fight radius:";
+            // 
+            // chkbox_LootTargets
+            // 
+            this.chkbox_LootTargets.AutoSize = true;
+            this.chkbox_LootTargets.Location = new System.Drawing.Point(14, 67);
+            this.chkbox_LootTargets.Name = "chkbox_LootTargets";
+            this.chkbox_LootTargets.Size = new System.Drawing.Size(89, 17);
+            this.chkbox_LootTargets.TabIndex = 0;
+            this.chkbox_LootTargets.Text = "Loot Targets";
+            this.chkbox_LootTargets.UseVisualStyleBackColor = true;
             // 
             // container6
             // 
@@ -775,6 +803,268 @@
             this.lbox_Targets.Size = new System.Drawing.Size(148, 65);
             this.lbox_Targets.TabIndex = 1;
             this.lbox_Targets.DoubleClick += new System.EventHandler(this.lbox_Targets_DoubleClick);
+            // 
+            // container19
+            // 
+            this.container19.Controls.Add(this.btn_AddToCombatBoosts);
+            this.container19.Controls.Add(this.lbox_CombatBoosts);
+            this.container19.Location = new System.Drawing.Point(180, 231);
+            this.container19.Name = "container19";
+            this.container19.Padding = new System.Windows.Forms.Padding(3);
+            this.container19.Size = new System.Drawing.Size(160, 117);
+            this.container19.TabIndex = 68;
+            // 
+            // btn_AddToCombatBoosts
+            // 
+            this.btn_AddToCombatBoosts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_AddToCombatBoosts.Location = new System.Drawing.Point(91, 86);
+            this.btn_AddToCombatBoosts.Name = "btn_AddToCombatBoosts";
+            this.btn_AddToCombatBoosts.Size = new System.Drawing.Size(63, 25);
+            this.btn_AddToCombatBoosts.TabIndex = 42;
+            this.btn_AddToCombatBoosts.Text = "Add Item";
+            this.btn_AddToCombatBoosts.UseVisualStyleBackColor = true;
+            this.btn_AddToCombatBoosts.Click += new System.EventHandler(this.btn_AddToCombatBoosts_Click);
+            // 
+            // lbox_CombatBoosts
+            // 
+            this.lbox_CombatBoosts.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbox_CombatBoosts.FormattingEnabled = true;
+            this.lbox_CombatBoosts.Location = new System.Drawing.Point(6, 15);
+            this.lbox_CombatBoosts.Name = "lbox_CombatBoosts";
+            this.lbox_CombatBoosts.Size = new System.Drawing.Size(148, 65);
+            this.lbox_CombatBoosts.TabIndex = 1;
+            this.lbox_CombatBoosts.DoubleClick += new System.EventHandler(this.lbox_CombatBoosts_DoubleClick);
+            // 
+            // container10
+            // 
+            this.container10.Controls.Add(this.btn_AddToCleanItems);
+            this.container10.Controls.Add(this.lbox_CleanItems);
+            this.container10.Location = new System.Drawing.Point(8, 231);
+            this.container10.Name = "container10";
+            this.container10.Padding = new System.Windows.Forms.Padding(3);
+            this.container10.Size = new System.Drawing.Size(160, 117);
+            this.container10.TabIndex = 47;
+            // 
+            // btn_AddToCleanItems
+            // 
+            this.btn_AddToCleanItems.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_AddToCleanItems.Location = new System.Drawing.Point(91, 86);
+            this.btn_AddToCleanItems.Name = "btn_AddToCleanItems";
+            this.btn_AddToCleanItems.Size = new System.Drawing.Size(63, 25);
+            this.btn_AddToCleanItems.TabIndex = 42;
+            this.btn_AddToCleanItems.Text = "Add Item";
+            this.btn_AddToCleanItems.UseVisualStyleBackColor = true;
+            this.btn_AddToCleanItems.Click += new System.EventHandler(this.btn_AddToCleanItems_Click);
+            // 
+            // lbox_CleanItems
+            // 
+            this.lbox_CleanItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbox_CleanItems.FormattingEnabled = true;
+            this.lbox_CleanItems.Location = new System.Drawing.Point(6, 15);
+            this.lbox_CleanItems.Name = "lbox_CleanItems";
+            this.lbox_CleanItems.Size = new System.Drawing.Size(148, 65);
+            this.lbox_CleanItems.TabIndex = 1;
+            this.lbox_CleanItems.DoubleClick += new System.EventHandler(this.lbox_CleanItems_DoubleClick);
+            // 
+            // container20
+            // 
+            this.container20.Controls.Add(this.chkbox_UseMeditate);
+            this.container20.Controls.Add(this.container21);
+            this.container20.Controls.Add(this.label11);
+            this.container20.Controls.Add(this.btn_AddToManaRecover);
+            this.container20.Controls.Add(this.num_MinMana);
+            this.container20.Location = new System.Drawing.Point(352, 21);
+            this.container20.Name = "container20";
+            this.container20.Padding = new System.Windows.Forms.Padding(3);
+            this.container20.Size = new System.Drawing.Size(160, 149);
+            this.container20.TabIndex = 70;
+            // 
+            // chkbox_UseMeditate
+            // 
+            this.chkbox_UseMeditate.AutoSize = true;
+            this.chkbox_UseMeditate.Location = new System.Drawing.Point(14, 38);
+            this.chkbox_UseMeditate.Name = "chkbox_UseMeditate";
+            this.chkbox_UseMeditate.Size = new System.Drawing.Size(94, 17);
+            this.chkbox_UseMeditate.TabIndex = 74;
+            this.chkbox_UseMeditate.Text = "Use Meditate";
+            this.chkbox_UseMeditate.UseVisualStyleBackColor = true;
+            // 
+            // container21
+            // 
+            this.container21.Controls.Add(this.lbox_ManaRecoverItems);
+            this.container21.Location = new System.Drawing.Point(0, 61);
+            this.container21.Name = "container21";
+            this.container21.Size = new System.Drawing.Size(160, 51);
+            this.container21.TabIndex = 67;
+            // 
+            // lbox_ManaRecoverItems
+            // 
+            this.lbox_ManaRecoverItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbox_ManaRecoverItems.FormattingEnabled = true;
+            this.lbox_ManaRecoverItems.Location = new System.Drawing.Point(6, 6);
+            this.lbox_ManaRecoverItems.Name = "lbox_ManaRecoverItems";
+            this.lbox_ManaRecoverItems.Size = new System.Drawing.Size(148, 39);
+            this.lbox_ManaRecoverItems.TabIndex = 1;
+            this.lbox_ManaRecoverItems.DoubleClick += new System.EventHandler(this.lbox_ManaRecoverItems_DoubleClick);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(11, 15);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(72, 13);
+            this.label11.TabIndex = 44;
+            this.label11.Text = "When MP %:";
+            // 
+            // btn_AddToManaRecover
+            // 
+            this.btn_AddToManaRecover.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_AddToManaRecover.Location = new System.Drawing.Point(91, 118);
+            this.btn_AddToManaRecover.Name = "btn_AddToManaRecover";
+            this.btn_AddToManaRecover.Size = new System.Drawing.Size(63, 25);
+            this.btn_AddToManaRecover.TabIndex = 42;
+            this.btn_AddToManaRecover.Text = "Add Item";
+            this.btn_AddToManaRecover.UseVisualStyleBackColor = true;
+            this.btn_AddToManaRecover.Click += new System.EventHandler(this.btn_AddToManaRecover_Click);
+            // 
+            // num_MinMana
+            // 
+            this.num_MinMana.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.num_MinMana.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.num_MinMana.Location = new System.Drawing.Point(85, 12);
+            this.num_MinMana.Maximum = new decimal(new int[] {
+            250,
+            0,
+            0,
+            0});
+            this.num_MinMana.Name = "num_MinMana";
+            this.num_MinMana.Size = new System.Drawing.Size(56, 20);
+            this.num_MinMana.TabIndex = 64;
+            this.num_MinMana.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.num_MinMana.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            // 
+            // container11
+            // 
+            this.container11.Controls.Add(this.lbox_ItemsList);
+            this.container11.Controls.Add(this.btn_GetInventoryItems);
+            this.container11.Location = new System.Drawing.Point(8, 59);
+            this.container11.Name = "container11";
+            this.container11.Padding = new System.Windows.Forms.Padding(3);
+            this.container11.Size = new System.Drawing.Size(160, 160);
+            this.container11.TabIndex = 45;
+            // 
+            // lbox_ItemsList
+            // 
+            this.lbox_ItemsList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbox_ItemsList.FormattingEnabled = true;
+            this.lbox_ItemsList.Location = new System.Drawing.Point(6, 6);
+            this.lbox_ItemsList.Name = "lbox_ItemsList";
+            this.lbox_ItemsList.Size = new System.Drawing.Size(148, 117);
+            this.lbox_ItemsList.TabIndex = 0;
+            // 
+            // btn_GetInventoryItems
+            // 
+            this.btn_GetInventoryItems.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_GetInventoryItems.Location = new System.Drawing.Point(65, 129);
+            this.btn_GetInventoryItems.Name = "btn_GetInventoryItems";
+            this.btn_GetInventoryItems.Size = new System.Drawing.Size(89, 25);
+            this.btn_GetInventoryItems.TabIndex = 41;
+            this.btn_GetInventoryItems.Text = "Get Inventory";
+            this.btn_GetInventoryItems.UseVisualStyleBackColor = true;
+            this.btn_GetInventoryItems.Click += new System.EventHandler(this.btn_GetInventoryItems_Click);
+            // 
+            // container18
+            // 
+            this.container18.Controls.Add(this.chkbox_UsePlayDead);
+            this.container18.Controls.Add(this.num_MinHitpoints);
+            this.container18.Controls.Add(this.container22);
+            this.container18.Controls.Add(this.label3);
+            this.container18.Controls.Add(this.btn_AddToHpRecover);
+            this.container18.Location = new System.Drawing.Point(180, 21);
+            this.container18.Name = "container18";
+            this.container18.Padding = new System.Windows.Forms.Padding(3);
+            this.container18.Size = new System.Drawing.Size(160, 149);
+            this.container18.TabIndex = 72;
+            // 
+            // chkbox_UsePlayDead
+            // 
+            this.chkbox_UsePlayDead.AutoSize = true;
+            this.chkbox_UsePlayDead.Location = new System.Drawing.Point(14, 38);
+            this.chkbox_UsePlayDead.Name = "chkbox_UsePlayDead";
+            this.chkbox_UsePlayDead.Size = new System.Drawing.Size(98, 17);
+            this.chkbox_UsePlayDead.TabIndex = 75;
+            this.chkbox_UsePlayDead.Text = "Use Play Dead";
+            this.chkbox_UsePlayDead.UseVisualStyleBackColor = true;
+            // 
+            // num_MinHitpoints
+            // 
+            this.num_MinHitpoints.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.num_MinHitpoints.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.num_MinHitpoints.Location = new System.Drawing.Point(83, 12);
+            this.num_MinHitpoints.Maximum = new decimal(new int[] {
+            250,
+            0,
+            0,
+            0});
+            this.num_MinHitpoints.Name = "num_MinHitpoints";
+            this.num_MinHitpoints.Size = new System.Drawing.Size(56, 20);
+            this.num_MinHitpoints.TabIndex = 65;
+            this.num_MinHitpoints.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.num_MinHitpoints.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            // 
+            // container22
+            // 
+            this.container22.Controls.Add(this.lbox_HpRecoverItems);
+            this.container22.Location = new System.Drawing.Point(0, 61);
+            this.container22.Name = "container22";
+            this.container22.Size = new System.Drawing.Size(160, 51);
+            this.container22.TabIndex = 67;
+            // 
+            // lbox_HpRecoverItems
+            // 
+            this.lbox_HpRecoverItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbox_HpRecoverItems.FormattingEnabled = true;
+            this.lbox_HpRecoverItems.Location = new System.Drawing.Point(6, 6);
+            this.lbox_HpRecoverItems.Name = "lbox_HpRecoverItems";
+            this.lbox_HpRecoverItems.Size = new System.Drawing.Size(148, 39);
+            this.lbox_HpRecoverItems.TabIndex = 1;
+            this.lbox_HpRecoverItems.DoubleClick += new System.EventHandler(this.lbox_HpRecoverItems_DoubleClick);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(11, 15);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(70, 13);
+            this.label3.TabIndex = 44;
+            this.label3.Text = "When HP %:";
+            // 
+            // btn_AddToHpRecover
+            // 
+            this.btn_AddToHpRecover.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_AddToHpRecover.Location = new System.Drawing.Point(91, 118);
+            this.btn_AddToHpRecover.Name = "btn_AddToHpRecover";
+            this.btn_AddToHpRecover.Size = new System.Drawing.Size(63, 25);
+            this.btn_AddToHpRecover.TabIndex = 42;
+            this.btn_AddToHpRecover.Text = "Add Item";
+            this.btn_AddToHpRecover.UseVisualStyleBackColor = true;
+            this.btn_AddToHpRecover.Click += new System.EventHandler(this.btn_AddToHpRecover_Click);
             // 
             // container17
             // 
@@ -1218,6 +1508,276 @@
             this.label_Name.TabIndex = 18;
             this.label_Name.Text = "Name:";
             // 
+            // container26
+            // 
+            this.container26.Controls.Add(this.container27);
+            this.container26.Controls.Add(this.container25);
+            this.container26.Location = new System.Drawing.Point(8, 210);
+            this.container26.Name = "container26";
+            this.container26.Size = new System.Drawing.Size(506, 250);
+            this.container26.TabIndex = 20;
+            // 
+            // container27
+            // 
+            this.container27.Controls.Add(this.dtg_Mobs);
+            this.container27.Location = new System.Drawing.Point(253, 0);
+            this.container27.Name = "container27";
+            this.container27.Size = new System.Drawing.Size(253, 250);
+            this.container27.TabIndex = 20;
+            // 
+            // dtg_Mobs
+            // 
+            this.dtg_Mobs.AllowUserToAddRows = false;
+            this.dtg_Mobs.AllowUserToDeleteRows = false;
+            this.dtg_Mobs.AllowUserToResizeColumns = false;
+            this.dtg_Mobs.AllowUserToResizeRows = false;
+            this.dtg_Mobs.BackgroundColor = System.Drawing.Color.White;
+            this.dtg_Mobs.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dtg_Mobs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtg_Mobs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.dtg_Mobs.GridColor = System.Drawing.Color.LightGray;
+            this.dtg_Mobs.Location = new System.Drawing.Point(3, 3);
+            this.dtg_Mobs.MultiSelect = false;
+            this.dtg_Mobs.Name = "dtg_Mobs";
+            this.dtg_Mobs.RowHeadersVisible = false;
+            this.dtg_Mobs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtg_Mobs.Size = new System.Drawing.Size(247, 244);
+            this.dtg_Mobs.TabIndex = 9;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Count";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 75;
+            // 
+            // container25
+            // 
+            this.container25.Controls.Add(this.dtg_Items);
+            this.container25.Location = new System.Drawing.Point(0, 0);
+            this.container25.Name = "container25";
+            this.container25.Size = new System.Drawing.Size(253, 250);
+            this.container25.TabIndex = 19;
+            // 
+            // dtg_Items
+            // 
+            this.dtg_Items.AllowUserToAddRows = false;
+            this.dtg_Items.AllowUserToDeleteRows = false;
+            this.dtg_Items.AllowUserToResizeColumns = false;
+            this.dtg_Items.AllowUserToResizeRows = false;
+            this.dtg_Items.BackgroundColor = System.Drawing.Color.White;
+            this.dtg_Items.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dtg_Items.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtg_Items.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dtg_ItemName,
+            this.dtg_ItemCount});
+            this.dtg_Items.GridColor = System.Drawing.Color.LightGray;
+            this.dtg_Items.Location = new System.Drawing.Point(3, 3);
+            this.dtg_Items.MultiSelect = false;
+            this.dtg_Items.Name = "dtg_Items";
+            this.dtg_Items.RowHeadersVisible = false;
+            this.dtg_Items.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtg_Items.Size = new System.Drawing.Size(247, 244);
+            this.dtg_Items.TabIndex = 9;
+            // 
+            // dtg_ItemName
+            // 
+            this.dtg_ItemName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dtg_ItemName.HeaderText = "Name";
+            this.dtg_ItemName.Name = "dtg_ItemName";
+            this.dtg_ItemName.ReadOnly = true;
+            // 
+            // dtg_ItemCount
+            // 
+            this.dtg_ItemCount.HeaderText = "Count";
+            this.dtg_ItemCount.Name = "dtg_ItemCount";
+            this.dtg_ItemCount.ReadOnly = true;
+            this.dtg_ItemCount.Width = 75;
+            // 
+            // container24
+            // 
+            this.container24.Controls.Add(this.lbl_WhispersReceived);
+            this.container24.Controls.Add(this.label25);
+            this.container24.Controls.Add(this.lbl_ExpGained);
+            this.container24.Controls.Add(this.label22);
+            this.container24.Controls.Add(this.label20);
+            this.container24.Controls.Add(this.lbl_GoldEarned);
+            this.container24.Controls.Add(this.lbl_SuspectReports);
+            this.container24.Controls.Add(this.label19);
+            this.container24.Controls.Add(this.chkbox_ResetStats);
+            this.container24.Controls.Add(this.lbl_Deaths);
+            this.container24.Controls.Add(this.lbl_MobsKilled);
+            this.container24.Controls.Add(this.label17);
+            this.container24.Controls.Add(this.label18);
+            this.container24.Controls.Add(this.lbl_RunTime);
+            this.container24.Controls.Add(this.label21);
+            this.container24.Location = new System.Drawing.Point(8, 14);
+            this.container24.Name = "container24";
+            this.container24.Size = new System.Drawing.Size(506, 165);
+            this.container24.TabIndex = 10;
+            // 
+            // lbl_WhispersReceived
+            // 
+            this.lbl_WhispersReceived.AutoSize = true;
+            this.lbl_WhispersReceived.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_WhispersReceived.ForeColor = System.Drawing.Color.DimGray;
+            this.lbl_WhispersReceived.Location = new System.Drawing.Point(319, 74);
+            this.lbl_WhispersReceived.Name = "lbl_WhispersReceived";
+            this.lbl_WhispersReceived.Size = new System.Drawing.Size(13, 15);
+            this.lbl_WhispersReceived.TabIndex = 27;
+            this.lbl_WhispersReceived.Text = "0";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(204, 74);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(103, 13);
+            this.label25.TabIndex = 26;
+            this.label25.Text = "Whispers received:";
+            // 
+            // lbl_ExpGained
+            // 
+            this.lbl_ExpGained.AutoSize = true;
+            this.lbl_ExpGained.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_ExpGained.ForeColor = System.Drawing.Color.DimGray;
+            this.lbl_ExpGained.Location = new System.Drawing.Point(128, 74);
+            this.lbl_ExpGained.Name = "lbl_ExpGained";
+            this.lbl_ExpGained.Size = new System.Drawing.Size(13, 15);
+            this.lbl_ExpGained.TabIndex = 25;
+            this.lbl_ExpGained.Text = "0";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(13, 74);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(70, 13);
+            this.label22.TabIndex = 24;
+            this.label22.Text = "Exp. gained:";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(13, 120);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(74, 13);
+            this.label20.TabIndex = 22;
+            this.label20.Text = "Gold earned:";
+            // 
+            // lbl_GoldEarned
+            // 
+            this.lbl_GoldEarned.AutoSize = true;
+            this.lbl_GoldEarned.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_GoldEarned.ForeColor = System.Drawing.Color.DimGray;
+            this.lbl_GoldEarned.Location = new System.Drawing.Point(128, 120);
+            this.lbl_GoldEarned.Name = "lbl_GoldEarned";
+            this.lbl_GoldEarned.Size = new System.Drawing.Size(13, 15);
+            this.lbl_GoldEarned.TabIndex = 23;
+            this.lbl_GoldEarned.Text = "0";
+            // 
+            // lbl_SuspectReports
+            // 
+            this.lbl_SuspectReports.AutoSize = true;
+            this.lbl_SuspectReports.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_SuspectReports.ForeColor = System.Drawing.Color.DimGray;
+            this.lbl_SuspectReports.Location = new System.Drawing.Point(319, 51);
+            this.lbl_SuspectReports.Name = "lbl_SuspectReports";
+            this.lbl_SuspectReports.Size = new System.Drawing.Size(13, 15);
+            this.lbl_SuspectReports.TabIndex = 23;
+            this.lbl_SuspectReports.Text = "0";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(204, 51);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(90, 13);
+            this.label19.TabIndex = 22;
+            this.label19.Text = "Suspect reports:";
+            // 
+            // chkbox_ResetStats
+            // 
+            this.chkbox_ResetStats.AutoSize = true;
+            this.chkbox_ResetStats.ForeColor = System.Drawing.Color.Gray;
+            this.chkbox_ResetStats.Location = new System.Drawing.Point(420, 141);
+            this.chkbox_ResetStats.Name = "chkbox_ResetStats";
+            this.chkbox_ResetStats.Size = new System.Drawing.Size(82, 17);
+            this.chkbox_ResetStats.TabIndex = 9;
+            this.chkbox_ResetStats.Text = "Reset Stats";
+            this.chkbox_ResetStats.UseVisualStyleBackColor = true;
+            // 
+            // lbl_Deaths
+            // 
+            this.lbl_Deaths.AutoSize = true;
+            this.lbl_Deaths.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Deaths.ForeColor = System.Drawing.Color.DimGray;
+            this.lbl_Deaths.Location = new System.Drawing.Point(128, 97);
+            this.lbl_Deaths.Name = "lbl_Deaths";
+            this.lbl_Deaths.Size = new System.Drawing.Size(13, 15);
+            this.lbl_Deaths.TabIndex = 21;
+            this.lbl_Deaths.Text = "0";
+            // 
+            // lbl_MobsKilled
+            // 
+            this.lbl_MobsKilled.AutoSize = true;
+            this.lbl_MobsKilled.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_MobsKilled.ForeColor = System.Drawing.Color.DimGray;
+            this.lbl_MobsKilled.Location = new System.Drawing.Point(128, 51);
+            this.lbl_MobsKilled.Name = "lbl_MobsKilled";
+            this.lbl_MobsKilled.Size = new System.Drawing.Size(13, 15);
+            this.lbl_MobsKilled.TabIndex = 10;
+            this.lbl_MobsKilled.Text = "0";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(13, 97);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(46, 13);
+            this.label17.TabIndex = 20;
+            this.label17.Text = "Deaths:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(13, 51);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(70, 13);
+            this.label18.TabIndex = 7;
+            this.label18.Text = "Mobs killed:";
+            // 
+            // lbl_RunTime
+            // 
+            this.lbl_RunTime.AutoSize = true;
+            this.lbl_RunTime.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_RunTime.ForeColor = System.Drawing.Color.DimGray;
+            this.lbl_RunTime.Location = new System.Drawing.Point(99, 15);
+            this.lbl_RunTime.Name = "lbl_RunTime";
+            this.lbl_RunTime.Size = new System.Drawing.Size(80, 25);
+            this.lbl_RunTime.TabIndex = 6;
+            this.lbl_RunTime.Text = "00:00:00";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label21.ForeColor = System.Drawing.Color.Black;
+            this.label21.Location = new System.Drawing.Point(11, 14);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(90, 25);
+            this.label21.TabIndex = 0;
+            this.label21.Text = "RunTime:";
+            // 
             // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1236,23 +1796,35 @@
             this.tabControl1.ResumeLayout(false);
             this.tab_Setup.ResumeLayout(false);
             this.tab_Setup.PerformLayout();
-            this.tab_Routine.ResumeLayout(false);
-            this.tab_Routine.PerformLayout();
             this.tab_Options.ResumeLayout(false);
             this.tab_Options.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.num_MinMana)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_MinHitpoints)).EndInit();
-            this.container19.ResumeLayout(false);
-            this.container18.ResumeLayout(false);
-            this.container10.ResumeLayout(false);
+            this.tab_Routine.ResumeLayout(false);
+            this.tab_Routine.PerformLayout();
+            this.tab_Extra.ResumeLayout(false);
+            this.tab_Extra.PerformLayout();
+            this.tab_Statistics.ResumeLayout(false);
+            this.tab_Statistics.PerformLayout();
+            this.container23.ResumeLayout(false);
+            this.container23.PerformLayout();
+            this.container28.ResumeLayout(false);
             this.container8.ResumeLayout(false);
-            this.container11.ResumeLayout(false);
             this.container14.ResumeLayout(false);
             this.container9.ResumeLayout(false);
             this.container9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_FightRadius)).EndInit();
             this.container6.ResumeLayout(false);
             this.container7.ResumeLayout(false);
+            this.container19.ResumeLayout(false);
+            this.container10.ResumeLayout(false);
+            this.container20.ResumeLayout(false);
+            this.container20.PerformLayout();
+            this.container21.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.num_MinMana)).EndInit();
+            this.container11.ResumeLayout(false);
+            this.container18.ResumeLayout(false);
+            this.container18.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_MinHitpoints)).EndInit();
+            this.container22.ResumeLayout(false);
             this.container17.ResumeLayout(false);
             this.container16.ResumeLayout(false);
             this.container16.PerformLayout();
@@ -1266,6 +1838,13 @@
             this.container4.ResumeLayout(false);
             this.container_WhenDone.ResumeLayout(false);
             this.container_WhenDone.PerformLayout();
+            this.container26.ResumeLayout(false);
+            this.container27.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtg_Mobs)).EndInit();
+            this.container25.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtg_Items)).EndInit();
+            this.container24.ResumeLayout(false);
+            this.container24.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1288,7 +1867,7 @@
         private System.Windows.Forms.ListBox lbox_ComboTriggers;
         private System.Windows.Forms.Button btn_AddToComboTriggers;
         private System.Windows.Forms.Label label_ComboTriggers;
-        private System.Windows.Forms.TabPage tab_Options;
+        private System.Windows.Forms.TabPage tab_Extra;
         private System.Windows.Forms.CheckBox chkbox_AutoStart;
         private System.Windows.Forms.TextBox txtbox_ItemSearch;
         private System.Windows.Forms.Label label13;
@@ -1363,11 +1942,58 @@
         private System.Windows.Forms.ListBox lbox_GpsPoints;
         private System.Windows.Forms.Label label2;
         private Container container19;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.Button btn_AddToCombatBoosts;
+        private System.Windows.Forms.ListBox lbox_CombatBoosts;
+        private System.Windows.Forms.Button btn_AddToHpRecover;
+        private System.Windows.Forms.Label label7;
+        private Container container20;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btn_AddToManaRecover;
+        private System.Windows.Forms.ListBox lbox_ManaRecoverItems;
+        private Container container21;
         private System.Windows.Forms.Label label1;
         private Container container18;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListBox listBox1;
+        private Container container22;
+        private System.Windows.Forms.ListBox lbox_HpRecoverItems;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TabPage tab_Options;
+        private System.Windows.Forms.CheckBox chkbox_UseMeditate;
+        private System.Windows.Forms.CheckBox chkbox_UsePlayDead;
+        private System.Windows.Forms.Label label5;
+        private Container container23;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox chkbox_ResetStats;
+        private System.Windows.Forms.Label label8;
+        private Container container24;
+        public System.Windows.Forms.Label lbl_MobsKilled;
+        private System.Windows.Forms.Label label18;
+        public System.Windows.Forms.Label lbl_RunTime;
+        private System.Windows.Forms.Label label21;
+        private Container container25;
+        private System.Windows.Forms.DataGridView dtg_Items;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dtg_ItemName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dtg_ItemCount;
+        public System.Windows.Forms.Label lbl_Deaths;
+        private System.Windows.Forms.Label label17;
+        public System.Windows.Forms.Label lbl_SuspectReports;
+        private System.Windows.Forms.Label label19;
+        public System.Windows.Forms.Label lbl_GoldEarned;
+        private System.Windows.Forms.Label label20;
+        public System.Windows.Forms.Label lbl_ExpGained;
+        private System.Windows.Forms.Label label22;
+        private Container container26;
+        private Container container27;
+        private System.Windows.Forms.DataGridView dtg_Mobs;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label15;
+        public System.Windows.Forms.Label lbl_WhispersReceived;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.ComboBox cmbox_Familiars;
+        private Container container28;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.CheckBox chkbox_LevelFamiliars;
     }
 }

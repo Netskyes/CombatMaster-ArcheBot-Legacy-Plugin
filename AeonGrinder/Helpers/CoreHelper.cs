@@ -130,12 +130,7 @@ namespace AeonGrinder
 
         public bool UnderAttack()
         {
-            return InCombat() || InFight();
-        }
-
-        public bool UnderAttackBy(Creature obj)
-        {
-            return Host.getAggroMobs().Any(c => c == obj);
+            return IsAnyAggro() || InFight();
         }
 
         public bool IsUnderAttack(Creature obj)
@@ -143,15 +138,24 @@ namespace AeonGrinder
             return (Host.getAggroMobsCount(obj) > 0) || obj.inFight;
         }
 
-        public bool InCombat()
+        public bool IsAnyAggro()
         {
             return Host.getAggroMobsCount() > 0;
         }
+
+        public bool UnderAggroBy(Creature obj)
+        {
+            return Host.getAggroMobs().Any(c => c == obj);
+        }
+
+        public bool UnderAggroBy(Creature obj, Creature objAggro) => Host.getAggroMobs(obj).Any(c => c == objAggro);
 
         public bool InFight()
         {
             return Host.me.inFight;
         }
+
+        public List<Creature> GetTargetAggro(Creature obj) => Host.getCreatures().Where(c => c.target == obj).ToList();
 
         public bool IsCasting()
         {

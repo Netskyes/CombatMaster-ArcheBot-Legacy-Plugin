@@ -32,6 +32,7 @@ namespace AeonGrinder.UI
             // Load data
             GetSkills();
             GetTargets();
+            GetSlaves();
             GetTemplates();
             GetZoneMaps();
             SetConditions();
@@ -156,8 +157,6 @@ namespace AeonGrinder.UI
             });
         }
 
-        public void UpdateLabel(Label label, string text) => Utils.InvokeOn(this, () => label.Text = text);
-
         private string GetTemplateName()
         {
             string name = string.Empty;
@@ -167,6 +166,27 @@ namespace AeonGrinder.UI
 
             return name;
         }
+
+        public bool StatsReset()
+        {
+            bool result = false;
+
+            Utils.InvokeOn(this, () =>
+            {
+                result = chkbox_ResetStats.Checked;
+
+                if (result)
+                {
+                    chkbox_ResetStats.Checked = false;
+                }
+            });
+
+
+            return result;
+        }
+
+        public void ClearLootBag() => Utils.InvokeOn(this, () => dtg_Items.Rows.Clear());
+        public void UpdateLabel(Label label, string text) => Utils.InvokeOn(this, () => label.Text = text);
 
         #endregion
 
@@ -211,6 +231,10 @@ namespace AeonGrinder.UI
                 chkbox_AutoStart.Checked = settings.AutoStart;
                 chkbox_LootTargets.Checked = settings.LootTargets;
                 chkbox_RunPlugin.Checked = settings.RunPlugin;
+                chkbox_UseMeditate.Checked = settings.UseMeditate;
+                chkbox_UsePlayDead.Checked = settings.UsePlayDead;
+                chkbox_LevelFamiliars.Checked = settings.LevelFamiliars;
+
 
                 int index = 0;
 
@@ -222,6 +246,11 @@ namespace AeonGrinder.UI
                 if ((index = cmbox_ZoneMaps.Items.IndexOf(settings.MapName)) != -1)
                 {
                     cmbox_ZoneMaps.SelectedIndex = index;
+                }
+
+                if ((index = cmbox_Familiars.Items.IndexOf(settings.FamiliarName)) != -1)
+                {
+                    cmbox_Familiars.SelectedIndex = index;
                 }
 
                 txtbox_PluginRunName.Text = settings.RunPluginName;
@@ -242,6 +271,9 @@ namespace AeonGrinder.UI
 
                 lbox_Targets.Items.AddRange(settings.Targets.ToArray());
                 lbox_CleanItems.Items.AddRange(settings.CleanItems.ToArray());
+                lbox_HpRecoverItems.Items.AddRange(settings.HpRecoverItems.ToArray());
+                lbox_ManaRecoverItems.Items.AddRange(settings.ManaRecoverItems.ToArray());
+                lbox_CombatBoosts.Items.AddRange(settings.CombatBoosts.ToArray());
             });
         }
 
@@ -254,15 +286,22 @@ namespace AeonGrinder.UI
                 settings.AutoStart = chkbox_AutoStart.Checked;
                 settings.LootTargets = chkbox_LootTargets.Checked;
                 settings.RunPlugin = chkbox_RunPlugin.Checked;
+                settings.UseMeditate = chkbox_UseMeditate.Checked;
+                settings.UsePlayDead = chkbox_UsePlayDead.Checked;
+                settings.LevelFamiliars = chkbox_LevelFamiliars.Checked;
                 settings.TemplateName = cmbox_Templates.Text;
                 settings.MapName = (cmbox_ZoneMaps.SelectedIndex != 0) ? cmbox_ZoneMaps.Text : string.Empty;
                 settings.RunPluginName = txtbox_PluginRunName.Text;
+                settings.FamiliarName = cmbox_Familiars.Text;
                 settings.FightRadius = (int)num_FightRadius.Value;
                 settings.MinHitpoints = (int)num_MinHitpoints.Value;
                 settings.MinMana = (int)num_MinMana.Value;
                 settings.FinalAction = container_WhenDone.Controls.OfType<OptionBox>().FirstOrDefault(r => r.Checked)?.OptionName;
                 settings.Targets = lbox_Targets.Items.OfType<string>().ToList();
                 settings.CleanItems = lbox_CleanItems.Items.OfType<string>().ToList();
+                settings.HpRecoverItems = lbox_HpRecoverItems.Items.OfType<string>().ToList();
+                settings.ManaRecoverItems = lbox_ManaRecoverItems.Items.OfType<string>().ToList();
+                settings.CombatBoosts = lbox_CombatBoosts.Items.OfType<string>().ToList();
             });
 
 
@@ -364,10 +403,11 @@ namespace AeonGrinder.UI
         public void GetSkills()
         {
             var classes = Host.me.getAbilities().Where(a => a.active);
+            uint[] ignores = { Abilities.Witchcraft.PlayDead, Abilities.Auramancy.Meditate };
 
 
             var skills = Host.me.getSkills().Where
-                (s => classes.Any(c => s.db.abilityId == (int)c.id)).Select(s => s.name).OrderBy(s => s);
+                (s => classes.Any(c => s.db.abilityId == (int)c.id) && !ignores.Contains(s.id)).Select(s => s.name).OrderBy(s => s);
 
             if (skills.Count() < 1)
                 return;
@@ -377,6 +417,19 @@ namespace AeonGrinder.UI
             {
                 lbox_SkillsList.Items.Clear();
                 lbox_SkillsList.Items.AddRange(skills.ToArray());
+            });
+        }
+
+        public void GetSlaves()
+        {
+            var slaves = Host.getAllInvItems().Where
+                (i => Slaves.ItemExists(i.id)).OrderBy(i => i.name).Select(i => i.name);
+
+            Utils.InvokeOn(this, () =>
+            {
+                cmbox_Familiars.Items.Clear();
+                cmbox_Familiars.Items.AddRange(slaves.ToArray());
+                cmbox_Familiars.SelectedIndex = 0;
             });
         }
 
@@ -493,8 +546,46 @@ namespace AeonGrinder.UI
         private void SetTooltips()
         {
             var tooltip = new ToolTip();
-            
         }
+
+        private void AddToGridBag(object tag, string name, int count, DataGridView dtg)
+        {
+            Utils.InvokeOn(this, () =>
+            {
+                var row = dtg.Rows.OfType<DataGridViewRow>().FirstOrDefault(d => d.Tag == tag);
+
+                if (row != null)
+                {
+                    int amount = 0;
+
+                    try
+                    {
+                        amount = Convert.ToInt32(row.Cells[1].Value);
+                    }
+                    catch
+                    {
+                    }
+
+                    row.Cells[1].Value = (amount + count);
+
+                    return;
+                }
+
+
+                int index = dtg.Rows.Add(name, count);
+
+                try
+                {
+                    dtg.Rows[index].Tag = tag;
+                }
+                catch
+                {
+                }
+            });
+        }
+
+        public void AddToGridBag(Item item, int count) => AddToGridBag(item.name, item.name, count, dtg_Items);
+        public void AddToGridBag(Creature obj) => AddToGridBag(obj.name, obj.name, 1, dtg_Mobs);
 
         #endregion
 
@@ -535,6 +626,10 @@ namespace AeonGrinder.UI
 
         private void btn_LoadTemplate_Click(object sender, EventArgs e) => LoadTemplate();
         private void btn_GetInventoryItems_Click(object sender, EventArgs e) => GetInventoryItems();
+
+        private void btn_AddToHpRecover_Click(object sender, EventArgs e) => AddItemToList(lbox_ItemsList, lbox_HpRecoverItems, true);
+        private void btn_AddToManaRecover_Click(object sender, EventArgs e) => AddItemToList(lbox_ItemsList, lbox_ManaRecoverItems, true);
+        private void btn_AddToCombatBoosts_Click(object sender, EventArgs e) => AddItemToList(lbox_ItemsList, lbox_CombatBoosts, true);
 
         private void btn_AddToCleanItems_Click(object sender, EventArgs e) => AddItemToList(lbox_ItemsList, lbox_CleanItems, true);
         private void btn_AddToTargets_Click(object sender, EventArgs e) => AddItemToList(cmbox_Targets, lbox_Targets, true);
@@ -633,6 +728,9 @@ namespace AeonGrinder.UI
         private void lbox_BoostingBuffs_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_BoostingBuffs);
         private void lbox_Targets_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_Targets);
         private void lbox_CleanItems_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_CleanItems);
+        private void lbox_HpRecoverItems_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_HpRecoverItems);
+        private void lbox_ManaRecoverItems_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_ManaRecoverItems);
+        private void lbox_CombatBoosts_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_CombatBoosts);
 
         private void lbox_ComboTriggers_DoubleClick(object sender, EventArgs e)
         {
@@ -754,7 +852,8 @@ namespace AeonGrinder.UI
                 }
 
 
-                var points = gps.GetAllGpsPoints().Where(p => p.name != string.Empty).Select(p => p.name);
+                var points = gps.GetAllGpsPoints().Where
+                    (p => p.name.Contains("Fight")).Select(p => p.name + " : " + p.radius);
 
                 if (points.Count() > 0)
                 {

@@ -55,14 +55,17 @@
     <Compile Include="Configs\Settings.cs" />
     <Compile Include="Configs\Template.cs" />
     <Compile Include="Data\Collections\Abilities.cs" />
+    <Compile Include="Data\Collections\Slaves.cs" />
     <Compile Include="Data\Objects\Condition.cs" />
+    <Compile Include="Data\Objects\Currency.cs" />
+    <Compile Include="Data\Objects\Slave.cs" />
+    <Compile Include="Data\Objects\Statistics.cs" />
     <Compile Include="Enums\ConditionType.cs" />
     <Compile Include="Enums\CastType.cs" />
     <Compile Include="Enums\SelectType.cs" />
     <Compile Include="Enums\TargetType.cs" />
     <Compile Include="Extensions\CoreExtension.cs" />
     <Compile Include="UI\ComboBoxItem.cs" />
-    <Compile Include="Data\Objects\SkillProps.cs" />
     <Compile Include="Data\Objects\Combos.cs" />
     <Compile Include="Data\Objects\Point3D.cs" />
     <Compile Include="Data\Objects\ZoneMap.cs" />
@@ -116,6 +119,7 @@
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetDir)$(TargetName).dll" "C:\Users\SumYungHo\Desktop\ArcheBot\Plugins\$(ProjectName)\$(TargetName).dll"
 copy /Y "$(TargetDir)$(TargetName).pdb" "C:\Users\SumYungHo\Desktop\ArcheBot\Plugins\$(ProjectName)\
+
 
 IF $(ConfigurationName)==Release (
     dotNET_Reactor -project "C:\Users\SumYungHo\Desktop\ArcheBot\Plugins\AeonGrinder\Protected\AeonGrinder.nrproj" -targetfile "C:\Users\SumYungHo\Desktop\ArcheBot\Plugins\AeonGrinder\Protected\AeonGrinder.dll"

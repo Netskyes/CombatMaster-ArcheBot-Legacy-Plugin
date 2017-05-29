@@ -7,11 +7,6 @@ namespace AeonGrinder
 
     public static class SkillHelper
     {
-        private static readonly Dictionary<uint, SkillProps> skills = new Dictionary<uint, SkillProps>()
-        {
-            { Abilities.Sorcery.MagicCircle, new SkillProps() { LockMove = true } }
-        };
-
         private static Dictionary<uint, uint[]> producedBuffs = new Dictionary<uint, uint[]>()
         {
             { Abilities.Auramancy.HealthLift, new uint[] { 794, 795, 796, 841, 1423, 1424, 1425, 7655, 13867, 13868 } },
@@ -33,12 +28,6 @@ namespace AeonGrinder
             { Abilities.Defense.Refreshment, new uint[] { 53, 331, 332, 333, 334, 1417, 1418, 1419, 1420, 1422, 6081, 7652, 7653, 13620, 13621, 13622, 13623 } },
             { Abilities.Defense.Toughen, new uint[] { 445, 446, 447, 448, 1426, 1427, 1428, 1429, 4535, 13627, 13628, 13629, 13630 } }
         };
-
-
-        public static SkillProps GetProps(uint id)
-        {
-            return (skills.ContainsKey(id)) ? skills[id] : new SkillProps();
-        }
 
         public static uint[] GetProdsBuffs(uint id)
         {

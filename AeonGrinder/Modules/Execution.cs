@@ -13,6 +13,8 @@ namespace AeonGrinder.Modules
 
     public sealed partial class BaseModule : CoreHelper
     {
+        private Statistics stats;
+
         private State state;
         private Creature target;
         private DateTime? seekTime;
@@ -21,16 +23,16 @@ namespace AeonGrinder.Modules
         private Dictionary<string, Combos> combos;
         private int sequence;
         private Queue<string> skillLoader;
-        
-        private RoundZone fightZone;
-        private List<string> checkPoints = new List<string>();
 
         private List<int> toLoot;
+        private List<string> checkPoints = new List<string>();
 
         private bool isMoving;
         private bool isFighting;
 
-
+        private RoundZone fightZone;
+        
+       
         /// <summary>
         /// Initialize runtime.
         /// </summary>
@@ -50,6 +52,9 @@ namespace AeonGrinder.Modules
                 BuildRoutine();
             }
 
+            if (stats == null || UI.StatsReset())
+                stats = new Statistics(UI);
+            
 
             // Events
             HookGameEvents();
@@ -179,11 +184,16 @@ namespace AeonGrinder.Modules
 
         private void CriticalCheck()
         {
-            if (!Host.me.isAlive() && MakeRevival())
+            if (!Host.me.isAlive())
             {
-                SetState(State.Check);
+                stats.Deaths++;
 
-                return;
+                if (MakeRevival())
+                {
+                    SetState(State.Check);
+
+                    return;
+                }
             }
 
             if (Host.me.hpp < 20 && EscapeDeath())
@@ -198,9 +208,10 @@ namespace AeonGrinder.Modules
         {
             if (!UnderAttack() && IsNeedsResting())
             {
-                // Use recovery of some kind.
+                RecoverStats();
 
-                return;
+                if (!token.IsAlive())
+                    return;
             }
 
 
@@ -211,14 +222,27 @@ namespace AeonGrinder.Modules
 
             if (!UnderAttack() && !InZoneRadius())
             {
-                ComeToFightCenter();
+                ComeToCenter();
+
+                if (!token.IsAlive())
+                    return;
             }
+            
 
-
-            if (IsCleanEnabled() && JunkItemsCount() >= Utils.RandomNum(1, 4))
+            if (!UnderAttack())
             {
-                Log("Cleaning inventory...");
-                CleanItems();
+                if (settings.LevelFamiliars)
+                {
+                    ManageFams();
+                }
+
+                if (IsCleanEnabled() && JunkItemsCount() >= Utils.RandomNum(1, 4))
+                {
+                    Log("Cleaning inventory...");
+                    CleanItems();
+                }
+
+                // ...
             }
 
 
@@ -229,9 +253,21 @@ namespace AeonGrinder.Modules
         {
             if (UnderAttack())
             {
-                var mob = Host.getAggroMobs().FirstOrDefault();
+                var mobs = Host.getAggroMobs();
+                var fams = Host.getMounts();
 
-                if (mob != null && IsAttackable(mob))
+                if (mobs.Count < 1 && fams.Count > 0)
+                {
+                    foreach (var f in fams)
+                    {
+                        mobs = mobs.Concat(GetTargetAggro(f)).ToList();
+                    }
+                }
+
+
+                var mob = mobs.Where(m => IsAttackable(m)).OrderBy(m => Host.dist(m)).FirstOrDefault();
+
+                if (mob != null)
                 {
                     SetTarget(mob);
 
@@ -249,16 +285,27 @@ namespace AeonGrinder.Modules
                 seekTime = null;
 
                 SetState((Host.dist(target) > 20 ? State.Move : State.Prepare));
+                return;
             }
-            else
+            
+
+            if (ZoneRadius >= 80 && ZoneCenterDist() > (ZoneRadius / 2))
+            {
+                ComeToCenter(Utils.RandomDouble(4, 39));
+
+                return;
+            }
+            
+
+            if (gps.IsLoaded)
             {
                 if (seekTime == null)
                     seekTime = DateTime.Now;
 
-                if ((DateTime.Now - seekTime).Value.TotalSeconds >= 30)
+                if ((DateTime.Now - seekTime).Value.TotalSeconds >= 18)
                 {
                     seekTime = null;
-                    SwitchFightZone();
+                    FlagFightZone();
 
                     SetState(State.Check);
                 }
@@ -299,10 +346,7 @@ namespace AeonGrinder.Modules
             if (IsCasting())
                 return;
 
-            bool isMeTarget = (target.target != null) ? (target.target == Host.me) : true;
-            
-
-            if (target != null && isMeTarget && IsAttackable(target))
+            if (target != null && IsAttackable(target))
             {
                 if (Host.me.target != target)
                 {
@@ -340,11 +384,18 @@ namespace AeonGrinder.Modules
 
         private void Analyze()
         {
-            if (!UnderAttack() && settings.LootTargets && toLoot.Count > 0 && !IsInventoryFull())
+            if (!IsAnyAggro() && settings.LootTargets && toLoot.Count > 0)
             {
-                Utils.Delay(new int[] { 250, 450 }, new int[] { 550, 750 }, new int[] { 850, 1050 }, token);
+                if (!IsInventoryFull())
+                {
+                    Utils.Delay(new int[] { 250, 450 }, new int[] { 550, 750 }, new int[] { 850, 1050 }, token);
 
-                LootMobs();
+                    LootMobs();
+                }
+                else
+                {
+                    Log("Inventory full, cannot loot.");
+                }
             }
 
 
@@ -377,8 +428,6 @@ namespace AeonGrinder.Modules
                 return;
             }
 
-
-            var props = SkillHelper.GetProps(skill.id);
             var isBoosts = template.CombatBuffs.Contains(name);
 
 
@@ -594,7 +643,7 @@ namespace AeonGrinder.Modules
 
         private bool ComeToTarget(double dist)
         {
-            Func<bool> moveEval = () => (IsDisabled(Host.me) || (UnderAttack() && !UnderAttackBy(target)));
+            Func<bool> moveEval = () => (IsDisabled(Host.me) || (IsAnyAggro() && !UnderAggroBy(target)) || (!InFight() && IsUnderAttack(target)));
 
             isMoving = true;
             MoveUnless(moveEval);
@@ -609,7 +658,7 @@ namespace AeonGrinder.Modules
         {
             while (toLoot.Count > 0 && token.IsAlive())
             {
-                if (InFight())
+                if (IsAnyAggro())
                     break;
 
 
@@ -632,8 +681,9 @@ namespace AeonGrinder.Modules
 
 
                 var result = Host.PickupAllDrop(body);
+                var err = Host.GetLastError();
 
-                if (result || (!result && Host.GetLastError() == LastError.InvalidTarget))
+                if (result || (!result && (err == LastError.ResponseFalse || err == LastError.InvalidTarget)))
                 {
                     // Remove from loots
                     toLoot.Remove(body.GetHashCode());
@@ -660,6 +710,33 @@ namespace AeonGrinder.Modules
                 else
                 {
                     break;
+                }
+            }
+        }
+
+        private void ManageFams()
+        {
+            var fam = Host.getMount();
+
+            if (fam != null)
+                return;
+
+
+            var item = Host.getInvItem(settings.FamiliarName);
+
+            if (item == null)
+                return;
+
+
+            if (item.UseItem())
+            {
+                Utils.Delay(450, 850, token);
+            }
+            else
+            {
+                if (Host.GetLastError() == LastError.ResponseTimeout)
+                {
+                    // Add cooldown
                 }
             }
         }
@@ -711,8 +788,124 @@ namespace AeonGrinder.Modules
             return success;
         }
 
+        private void RecoverStats()
+        {
+            DateTime? hppRecvTime = null;
+            DateTime? mppRecvTime = null;
+
+            int resumeHpp = Math.Min(100, settings.MinHitpoints + Utils.RandomNum(15, 25));
+            int resumeMpp = Math.Min(100, settings.MinMana + Utils.RandomNum(15, 25));
+
+            bool hppRecover = Host.me.hpp <= settings.MinHitpoints;
+            bool mppRecover = Host.me.mpp <= settings.MinMana;
+            bool ready1 = false;
+            bool ready2 = false;
+
+
+            while (token.IsAlive() && !UnderAttack() && !(ready1 && ready2))
+            {
+                if (hppRecover && (Host.me.hpp < resumeHpp))
+                {
+                    bool useItem = (hppRecvTime != null) 
+                        ? (DateTime.Now - hppRecvTime.Value).TotalSeconds >= 10 && (resumeHpp - Host.me.hpp) >= 8 : true;
+
+                    if (useItem)
+                    {
+                        RecoverHitpoints();
+                        hppRecvTime = DateTime.Now;
+                    }
+                }
+                else
+                {
+                    ready1 = true;
+                }
+
+
+                if (UnderAttack())
+                    break;
+
+                if (mppRecover && (Host.me.mpp < resumeMpp))
+                {
+                    bool useItem = (mppRecvTime != null) 
+                        ? (DateTime.Now - mppRecvTime.Value).TotalSeconds >= 10 && (resumeMpp - Host.me.mpp) >= 8 : true;
+
+                    if (useItem)
+                    {
+                        RecoverMana();
+                        mppRecvTime = DateTime.Now;
+                    }
+                }
+                else
+                {
+                    ready2 = true;
+                }
+                
+
+                Utils.Delay(50, token);
+            }
+        }
+
+        private bool RecoverHitpoints()
+        {
+            if (settings.UsePlayDead)
+            {
+                uint s1 = Abilities.Witchcraft.PlayDead;
+                bool result = false;
+
+                if (SkillExists(s1) && Host.skillCooldown(s1) == 0)
+                {
+                    result = Host.UseSkill(s1);
+                    while (Host.me.isCasting && token.IsAlive()) Utils.Delay(50, token);
+
+                    return result;
+                }
+            }
+
+
+            var items = Host.getAllInvItems().Where
+                (i => settings.HpRecoverItems.Contains(i.name) && Host.itemCooldown(i) == 0);
+
+            if (items.Count() < 1)
+                return false;
+
+            var item = items.FirstOrDefault();
+
+
+            return (item != null && item.UseItem());
+        }
+
+        private bool RecoverMana()
+        {
+            if (settings.UseMeditate)
+            {
+                uint s1 = Abilities.Auramancy.Meditate;
+                bool result = false;
+
+                if (SkillExists(s1) && Host.skillCooldown(s1) == 0)
+                {
+                    result = Host.UseSkill(s1);
+                    while (Host.me.isCasting && token.IsAlive()) Utils.Delay(50, token);
+
+                    return result;
+                }
+            }
+
+
+            var items = Host.getAllInvItems().Where
+                (i => settings.ManaRecoverItems.Contains(i.name) && Host.itemCooldown(i) == 0);
+
+            if (items.Count() < 1)
+                return false;
+
+            var item = items.FirstOrDefault();
+
+
+            return (item != null && item.UseItem());
+        }
+
 
         private List<GpsPoint> GetFightPoints() => gps.GetPointsByName("Fight");
+        private bool InZoneRadius(Creature obj = null) => fightZone.ObjInZone((obj == null) ? Host.me : obj);
 
         private GpsPoint GetCenterPoint()
         {
@@ -721,7 +914,7 @@ namespace AeonGrinder.Modules
             return GetFightPoints().Where(p => zone.PointInZone(p.x, p.y)).FirstOrDefault();
         }
 
-        private void SwitchFightZone()
+        private void FlagFightZone()
         {
             var point = GetCenterPoint();
 
@@ -762,16 +955,9 @@ namespace AeonGrinder.Modules
             }
         }
 
-        private bool InZoneRadius(Creature obj = null) => fightZone.ObjInZone((obj == null) ? Host.me : obj);
-
-        private bool ComeToFightCenter()
+        private bool ComeToCenter(double dist = 0)
         {
-            Func<bool> moveEval = () => UnderAttack();
-
             isMoving = true;
-            MoveUnless(moveEval);
-
-
             bool result = false;
 
             if (gps.IsLoaded)
@@ -780,11 +966,15 @@ namespace AeonGrinder.Modules
 
                 if (point != null)
                 {
+                    MoveUnless(() => UnderAttack() || (dist != 0 && Host.me.dist(point.x, point.y) <= dist));
                     result = gps.MoveToPoint(point);
                 }
             }
             else
             {
+                MoveUnless(() => UnderAttack() 
+                    || (dist != 0 && Host.me.dist(fightZone.X, fightZone.Y) <= dist));
+
                 result = Host.MoveTo(fightZone.X, fightZone.Y, 0);
             }
 
@@ -830,10 +1020,19 @@ namespace AeonGrinder.Modules
         private int Ping() => (Host.pingToServer);
 
         private bool IsCleanEnabled() => (settings.CleanItems.Count() > 0);
-        private bool IsNeedsResting() => (Host.me.hpp < settings.MinHitpoints || Host.me.mpp < settings.MinMana);
+        private bool IsNeedsResting() => (Host.me.hpp <= settings.MinHitpoints || Host.me.mpp <= settings.MinMana);
         private bool AnyBoostExists() => (template.BoostingBuffs.Count > 0);
         private bool ZoneExists() => (fightZone != null);
         private bool SkillExists(uint skillId) => Host.isSkillLearned(skillId);
+
+        // Zone
+        private double ZoneRadius
+        {
+            get { return (fightZone != null) ? fightZone.radius : 0; }
+        }
+
+        private double ZoneCenterDist() => (fightZone != null) ? Host.me.dist(fightZone.X, fightZone.Y) : 0;
+
 
         private void MoveUnless(Func<bool> eval)
         {
@@ -870,6 +1069,11 @@ namespace AeonGrinder.Modules
             Host.onNewSkillLearned += OnNewSkillLearned;
             Host.onNewCreature += OnNewCreature;
             Host.onSkillCasting += OnSkillCasting;
+            Host.onNewInvItem += OnNewInvItem;
+            Host.onGoldCountChanged += OnGoldAmountChanged;
+            Host.onNewBuff += OnNewBuff;
+            Host.onExpChanged += OnExpChanged;
+            Host.onChatMessage += OnChatMessage;
         }
 
         private void UnhookGameEvents()
@@ -878,28 +1082,65 @@ namespace AeonGrinder.Modules
             Host.onNewSkillLearned -= OnNewSkillLearned;
             Host.onNewCreature -= OnNewCreature;
             Host.onSkillCasting -= OnSkillCasting;
+            Host.onNewInvItem -= OnNewInvItem;
+            Host.onGoldCountChanged -= OnGoldAmountChanged;
+            Host.onNewBuff -= OnNewBuff;
+            Host.onExpChanged -= OnExpChanged;
+            Host.onChatMessage -= OnChatMessage;
         }
 
 
         private void OnLootAvailable(Creature obj)
         {
-            if (!settings.LootTargets || (obj.firstHitter != Host.me))
+            if ((obj.firstHitter != Host.me))
                 return;
 
+            stats.MobsKilled += 1;
+            UI.AddToGridBag(obj);
 
-            AddTargetLoot(obj);
+
+            if (settings.LootTargets) AddTargetLoot(obj);
         }
 
-        private void OnNewSkillLearned(Creature obj, Effect skill) => UI.GetSkills();
-
-        private void OnNewCreature(Creature obj) => UI.GetTargets();
+        private void OnNewInvItem(Item item, int count)
+        {
+            if (item != null)
+            {
+                UI.AddToGridBag(item, count);
+            }
+        }
 
         private void OnSkillCasting(Creature obj, SpawnObject obj2, Skill skill, double x, double y, double z)
         {
-            if (obj == Host.me)
+            if (obj.type == BotTypes.Player && (obj2 == Host.me) && (skill.id == 20256))
             {
+                stats.SuspectReports++;
             }
         }
+
+        private void OnChatMessage(ChatType chatType, string text, string sender)
+        {
+            if (chatType == ChatType.Whisper)
+            {
+                stats.WhispersReceived++;
+            }
+        }
+
+        private void OnExpChanged(Creature obj, int value)
+        {
+            if ((obj == Host.me))
+            {
+                stats.ExpGained += value;
+            }
+        }
+
+        private void OnNewBuff(Buff buff, Creature obj)
+        {
+        }
+
+        private void OnGoldAmountChanged(int count, ItemPlace place) => stats.GoldEarned += count;
+        private void OnNewSkillLearned(Creature obj, Effect skill) => UI.GetSkills();
+        private void OnNewCreature(Creature obj) => UI.GetTargets();
 
         #endregion
     }

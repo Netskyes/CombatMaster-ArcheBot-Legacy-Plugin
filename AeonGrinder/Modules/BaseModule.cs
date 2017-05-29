@@ -27,6 +27,7 @@ namespace AeonGrinder.Modules
 
         // Tokens
         private Task loopTask;
+        private Task timeTask;
         private CancellationTokenSource ts;
         private CancellationToken token;
 
@@ -53,9 +54,13 @@ namespace AeonGrinder.Modules
             return Initialize();
         }
 
-        private void BeginLoop() => (loopTask) = Task.Run(() => Loop(), token);
+        private void BeginLoop()
+        {
+            (loopTask) = Task.Run(() => Loop(), token);
+            (timeTask) = Task.Run(() => RunTime(), token);
+        }
 
-
+        
         public async void Start()
         {
             // Generate token
@@ -115,6 +120,20 @@ namespace AeonGrinder.Modules
 
 
                 Utils.Delay(50, token);
+            }
+        }
+
+        private void RunTime()
+        {
+            while (token.IsAlive())
+            {
+                // Session time
+                if (stats != null)
+                {
+                    stats.RunTime += 1;
+                }
+                
+                Utils.Delay(1000, token);
             }
         }
 
