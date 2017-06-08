@@ -31,11 +31,17 @@
             this.btn_Begin = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tab_Setup = new System.Windows.Forms.TabPage();
-            this.label5 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.tab_Options = new System.Windows.Forms.TabPage();
+            this.tab_Items = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtbox_ItemSearch = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -61,14 +67,21 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.container23 = new Container();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.container34 = new Container();
+            this.btn_MoveHealsUp = new System.Windows.Forms.Button();
+            this.btn_MoveHealsDown = new System.Windows.Forms.Button();
+            this.lbox_Heals = new System.Windows.Forms.ListBox();
+            this.btn_AddToHeals = new System.Windows.Forms.Button();
+            this.container33 = new Container();
+            this.chkbox_ManualMovement = new System.Windows.Forms.CheckBox();
+            this.container32 = new Container();
             this.container28 = new Container();
             this.cmbox_Familiars = new System.Windows.Forms.ComboBox();
             this.container8 = new Container();
             this.lbox_GpsPoints = new System.Windows.Forms.ListBox();
+            this.container31 = new Container();
+            this.chkbox_UseMeditate = new System.Windows.Forms.CheckBox();
+            this.chkbox_UseInstruments = new System.Windows.Forms.CheckBox();
             this.container14 = new Container();
             this.cmbox_ZoneMaps = new System.Windows.Forms.ComboBox();
             this.container9 = new Container();
@@ -82,6 +95,15 @@
             this.container7 = new Container();
             this.btn_AddToTargets = new System.Windows.Forms.Button();
             this.lbox_Targets = new System.Windows.Forms.ListBox();
+            this.container23 = new Container();
+            this.btn_AddToProcessItems = new System.Windows.Forms.Button();
+            this.lbox_ProcessItems = new System.Windows.Forms.ListBox();
+            this.container29 = new Container();
+            this.num_MinHpQuick = new System.Windows.Forms.NumericUpDown();
+            this.container30 = new Container();
+            this.lbox_HpPotions = new System.Windows.Forms.ListBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.btn_AddToHpPotions = new System.Windows.Forms.Button();
             this.container19 = new Container();
             this.btn_AddToCombatBoosts = new System.Windows.Forms.Button();
             this.lbox_CombatBoosts = new System.Windows.Forms.ListBox();
@@ -89,7 +111,6 @@
             this.btn_AddToCleanItems = new System.Windows.Forms.Button();
             this.lbox_CleanItems = new System.Windows.Forms.ListBox();
             this.container20 = new Container();
-            this.chkbox_UseMeditate = new System.Windows.Forms.CheckBox();
             this.container21 = new Container();
             this.lbox_ManaRecoverItems = new System.Windows.Forms.ListBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -99,12 +120,16 @@
             this.lbox_ItemsList = new System.Windows.Forms.ListBox();
             this.btn_GetInventoryItems = new System.Windows.Forms.Button();
             this.container18 = new Container();
-            this.chkbox_UsePlayDead = new System.Windows.Forms.CheckBox();
             this.num_MinHitpoints = new System.Windows.Forms.NumericUpDown();
             this.container22 = new Container();
             this.lbox_HpRecoverItems = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btn_AddToHpRecover = new System.Windows.Forms.Button();
+            this.container37 = new Container();
+            this.lbox_ComboTriggerSkills = new System.Windows.Forms.ListBox();
+            this.btn_AddToComboTriggerSkills = new System.Windows.Forms.Button();
+            this.container36 = new Container();
+            this.lbox_ComboTriggers = new System.Windows.Forms.ListBox();
             this.container17 = new Container();
             this.lbox_Conditions = new System.Windows.Forms.ListBox();
             this.btn_AddCondition = new System.Windows.Forms.Button();
@@ -125,7 +150,8 @@
             this.lbox_CombatBuffs = new System.Windows.Forms.ListBox();
             this.btn_AddToCombatBuffs = new System.Windows.Forms.Button();
             this.container3 = new Container();
-            this.lbox_ComboTriggers = new System.Windows.Forms.ListBox();
+            this.container35 = new Container();
+            this.txtbox_TriggerName = new System.Windows.Forms.TextBox();
             this.btn_AddToComboTriggers = new System.Windows.Forms.Button();
             this.container2 = new Container();
             this.btn_MoveRotationUp = new System.Windows.Forms.Button();
@@ -174,18 +200,24 @@
             this.label21 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tab_Setup.SuspendLayout();
-            this.tab_Options.SuspendLayout();
+            this.tab_Items.SuspendLayout();
             this.tab_Routine.SuspendLayout();
             this.tab_Extra.SuspendLayout();
             this.tab_Statistics.SuspendLayout();
-            this.container23.SuspendLayout();
+            this.container34.SuspendLayout();
+            this.container33.SuspendLayout();
             this.container28.SuspendLayout();
             this.container8.SuspendLayout();
+            this.container31.SuspendLayout();
             this.container14.SuspendLayout();
             this.container9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_FightRadius)).BeginInit();
             this.container6.SuspendLayout();
             this.container7.SuspendLayout();
+            this.container23.SuspendLayout();
+            this.container29.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_MinHpQuick)).BeginInit();
+            this.container30.SuspendLayout();
             this.container19.SuspendLayout();
             this.container10.SuspendLayout();
             this.container20.SuspendLayout();
@@ -195,6 +227,8 @@
             this.container18.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_MinHitpoints)).BeginInit();
             this.container22.SuspendLayout();
+            this.container37.SuspendLayout();
+            this.container36.SuspendLayout();
             this.container17.SuspendLayout();
             this.container16.SuspendLayout();
             this.container15.SuspendLayout();
@@ -202,6 +236,7 @@
             this.container5.SuspendLayout();
             this.container12.SuspendLayout();
             this.container3.SuspendLayout();
+            this.container35.SuspendLayout();
             this.container2.SuspendLayout();
             this.container1.SuspendLayout();
             this.container4.SuspendLayout();
@@ -228,7 +263,7 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tab_Setup);
-            this.tabControl1.Controls.Add(this.tab_Options);
+            this.tabControl1.Controls.Add(this.tab_Items);
             this.tabControl1.Controls.Add(this.tab_Routine);
             this.tabControl1.Controls.Add(this.tab_Extra);
             this.tabControl1.Controls.Add(this.tab_Statistics);
@@ -241,11 +276,17 @@
             // 
             // tab_Setup
             // 
-            this.tab_Setup.Controls.Add(this.label5);
-            this.tab_Setup.Controls.Add(this.container23);
+            this.tab_Setup.Controls.Add(this.container34);
+            this.tab_Setup.Controls.Add(this.label30);
+            this.tab_Setup.Controls.Add(this.label31);
+            this.tab_Setup.Controls.Add(this.container33);
+            this.tab_Setup.Controls.Add(this.label29);
+            this.tab_Setup.Controls.Add(this.container32);
+            this.tab_Setup.Controls.Add(this.label28);
             this.tab_Setup.Controls.Add(this.container28);
             this.tab_Setup.Controls.Add(this.label24);
             this.tab_Setup.Controls.Add(this.container8);
+            this.tab_Setup.Controls.Add(this.container31);
             this.tab_Setup.Controls.Add(this.container14);
             this.tab_Setup.Controls.Add(this.label10);
             this.tab_Setup.Controls.Add(this.label4);
@@ -261,15 +302,53 @@
             this.tab_Setup.Text = "Setup";
             this.tab_Setup.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // label30
             // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.Gray;
-            this.label5.Location = new System.Drawing.Point(185, 159);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(142, 13);
-            this.label5.TabIndex = 65;
-            this.label5.Text = "Party options (In progress)";
+            this.label30.AutoSize = true;
+            this.label30.ForeColor = System.Drawing.Color.Gray;
+            this.label30.Location = new System.Drawing.Point(357, 343);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(90, 13);
+            this.label30.TabIndex = 82;
+            this.label30.Text = "General options";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(124, 271);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(38, 13);
+            this.label31.TabIndex = 25;
+            this.label31.Text = "Heals:";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.ForeColor = System.Drawing.Color.Gray;
+            this.label29.Location = new System.Drawing.Point(357, 237);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(76, 13);
+            this.label29.TabIndex = 80;
+            this.label29.Text = "Escape Death";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.ForeColor = System.Drawing.Color.Gray;
+            this.label28.Location = new System.Drawing.Point(357, 159);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(95, 13);
+            this.label28.TabIndex = 78;
+            this.label28.Text = "Recovery options";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(180, 168);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(81, 13);
+            this.label24.TabIndex = 76;
+            this.label24.Text = "Mounts / Pets:";
             // 
             // label10
             // 
@@ -299,33 +378,57 @@
             this.label6.TabIndex = 50;
             this.label6.Text = "Targets:";
             // 
-            // tab_Options
+            // tab_Items
             // 
-            this.tab_Options.Controls.Add(this.label2);
-            this.tab_Options.Controls.Add(this.txtbox_ItemSearch);
-            this.tab_Options.Controls.Add(this.label7);
-            this.tab_Options.Controls.Add(this.label12);
-            this.tab_Options.Controls.Add(this.label1);
-            this.tab_Options.Controls.Add(this.label14);
-            this.tab_Options.Controls.Add(this.label13);
-            this.tab_Options.Controls.Add(this.container19);
-            this.tab_Options.Controls.Add(this.container10);
-            this.tab_Options.Controls.Add(this.container20);
-            this.tab_Options.Controls.Add(this.container11);
-            this.tab_Options.Controls.Add(this.container18);
-            this.tab_Options.Location = new System.Drawing.Point(4, 22);
-            this.tab_Options.Name = "tab_Options";
-            this.tab_Options.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_Options.Size = new System.Drawing.Size(522, 468);
-            this.tab_Options.TabIndex = 4;
-            this.tab_Options.Text = "Options";
-            this.tab_Options.UseVisualStyleBackColor = true;
+            this.tab_Items.Controls.Add(this.label5);
+            this.tab_Items.Controls.Add(this.label26);
+            this.tab_Items.Controls.Add(this.label2);
+            this.tab_Items.Controls.Add(this.txtbox_ItemSearch);
+            this.tab_Items.Controls.Add(this.label7);
+            this.tab_Items.Controls.Add(this.label12);
+            this.tab_Items.Controls.Add(this.label1);
+            this.tab_Items.Controls.Add(this.label14);
+            this.tab_Items.Controls.Add(this.label13);
+            this.tab_Items.Controls.Add(this.container23);
+            this.tab_Items.Controls.Add(this.container29);
+            this.tab_Items.Controls.Add(this.container19);
+            this.tab_Items.Controls.Add(this.container10);
+            this.tab_Items.Controls.Add(this.container20);
+            this.tab_Items.Controls.Add(this.container11);
+            this.tab_Items.Controls.Add(this.container18);
+            this.tab_Items.Location = new System.Drawing.Point(4, 22);
+            this.tab_Items.Name = "tab_Items";
+            this.tab_Items.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_Items.Size = new System.Drawing.Size(522, 468);
+            this.tab_Items.TabIndex = 4;
+            this.tab_Items.Text = "Items";
+            this.tab_Items.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.Gray;
+            this.label5.Location = new System.Drawing.Point(185, 290);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(75, 13);
+            this.label5.TabIndex = 77;
+            this.label5.Text = "Process Items";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.ForeColor = System.Drawing.Color.Gray;
+            this.label26.Location = new System.Drawing.Point(185, 152);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(63, 13);
+            this.label26.TabIndex = 75;
+            this.label26.Text = "HP Potions";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Gray;
-            this.label2.Location = new System.Drawing.Point(185, 224);
+            this.label2.Location = new System.Drawing.Point(357, 290);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(85, 13);
             this.label2.TabIndex = 69;
@@ -353,7 +456,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.ForeColor = System.Drawing.Color.Gray;
-            this.label12.Location = new System.Drawing.Point(13, 224);
+            this.label12.Location = new System.Drawing.Point(13, 290);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(91, 13);
             this.label12.TabIndex = 48;
@@ -390,17 +493,11 @@
             // 
             // tab_Routine
             // 
+            this.tab_Routine.Controls.Add(this.container37);
+            this.tab_Routine.Controls.Add(this.container36);
             this.tab_Routine.Controls.Add(this.label16);
             this.tab_Routine.Controls.Add(this.btn_LoadTemplate);
             this.tab_Routine.Controls.Add(this.btn_SaveTemplate);
-            this.tab_Routine.Controls.Add(this.label_Conditions);
-            this.tab_Routine.Controls.Add(this.label_BoostingBuffs);
-            this.tab_Routine.Controls.Add(this.label_Skills);
-            this.tab_Routine.Controls.Add(this.label_Rotation);
-            this.tab_Routine.Controls.Add(this.label_ComboTriggers);
-            this.tab_Routine.Controls.Add(this.label_CombatBuffs);
-            this.tab_Routine.Controls.Add(this.label_Template);
-            this.tab_Routine.Controls.Add(this.label_ComboRotations);
             this.tab_Routine.Controls.Add(this.container17);
             this.tab_Routine.Controls.Add(this.container16);
             this.tab_Routine.Controls.Add(this.container15);
@@ -411,6 +508,14 @@
             this.tab_Routine.Controls.Add(this.container2);
             this.tab_Routine.Controls.Add(this.container1);
             this.tab_Routine.Controls.Add(this.container4);
+            this.tab_Routine.Controls.Add(this.label_Conditions);
+            this.tab_Routine.Controls.Add(this.label_BoostingBuffs);
+            this.tab_Routine.Controls.Add(this.label_Skills);
+            this.tab_Routine.Controls.Add(this.label_Rotation);
+            this.tab_Routine.Controls.Add(this.label_ComboTriggers);
+            this.tab_Routine.Controls.Add(this.label_CombatBuffs);
+            this.tab_Routine.Controls.Add(this.label_Template);
+            this.tab_Routine.Controls.Add(this.label_ComboRotations);
             this.tab_Routine.Location = new System.Drawing.Point(4, 22);
             this.tab_Routine.Name = "tab_Routine";
             this.tab_Routine.Padding = new System.Windows.Forms.Padding(3);
@@ -422,7 +527,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(222, 271);
+            this.label16.Location = new System.Drawing.Point(53, 440);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(39, 13);
             this.label16.TabIndex = 23;
@@ -453,7 +558,7 @@
             // label_Conditions
             // 
             this.label_Conditions.AutoSize = true;
-            this.label_Conditions.Location = new System.Drawing.Point(177, 215);
+            this.label_Conditions.Location = new System.Drawing.Point(5, 302);
             this.label_Conditions.Name = "label_Conditions";
             this.label_Conditions.Size = new System.Drawing.Size(67, 13);
             this.label_Conditions.TabIndex = 18;
@@ -462,7 +567,7 @@
             // label_BoostingBuffs
             // 
             this.label_BoostingBuffs.AutoSize = true;
-            this.label_BoostingBuffs.Location = new System.Drawing.Point(5, 333);
+            this.label_BoostingBuffs.Location = new System.Drawing.Point(177, 335);
             this.label_BoostingBuffs.Name = "label_BoostingBuffs";
             this.label_BoostingBuffs.Size = new System.Drawing.Size(87, 13);
             this.label_BoostingBuffs.TabIndex = 16;
@@ -471,7 +576,7 @@
             // label_Skills
             // 
             this.label_Skills.AutoSize = true;
-            this.label_Skills.Location = new System.Drawing.Point(5, 100);
+            this.label_Skills.Location = new System.Drawing.Point(5, 98);
             this.label_Skills.Name = "label_Skills";
             this.label_Skills.Size = new System.Drawing.Size(36, 13);
             this.label_Skills.TabIndex = 2;
@@ -498,7 +603,7 @@
             // label_CombatBuffs
             // 
             this.label_CombatBuffs.AutoSize = true;
-            this.label_CombatBuffs.Location = new System.Drawing.Point(177, 333);
+            this.label_CombatBuffs.Location = new System.Drawing.Point(177, 201);
             this.label_CombatBuffs.Name = "label_CombatBuffs";
             this.label_CombatBuffs.Size = new System.Drawing.Size(80, 13);
             this.label_CombatBuffs.TabIndex = 14;
@@ -516,7 +621,7 @@
             // label_ComboRotations
             // 
             this.label_ComboRotations.AutoSize = true;
-            this.label_ComboRotations.Location = new System.Drawing.Point(349, 268);
+            this.label_ComboRotations.Location = new System.Drawing.Point(349, 250);
             this.label_ComboRotations.Name = "label_ComboRotations";
             this.label_ComboRotations.Size = new System.Drawing.Size(97, 13);
             this.label_ComboRotations.TabIndex = 22;
@@ -587,48 +692,92 @@
             this.label8.TabIndex = 11;
             this.label8.Text = "Statistics";
             // 
-            // label24
+            // container34
             // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(349, 163);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(81, 13);
-            this.label24.TabIndex = 76;
-            this.label24.Text = "Mounts / Pets:";
+            this.container34.Controls.Add(this.btn_MoveHealsUp);
+            this.container34.Controls.Add(this.btn_MoveHealsDown);
+            this.container34.Controls.Add(this.lbox_Heals);
+            this.container34.Controls.Add(this.btn_AddToHeals);
+            this.container34.Location = new System.Drawing.Point(124, 287);
+            this.container34.Name = "container34";
+            this.container34.Padding = new System.Windows.Forms.Padding(3);
+            this.container34.Size = new System.Drawing.Size(160, 95);
+            this.container34.TabIndex = 24;
             // 
-            // container23
+            // btn_MoveHealsUp
             // 
-            this.container23.Controls.Add(this.checkBox2);
-            this.container23.Controls.Add(this.checkBox1);
-            this.container23.Location = new System.Drawing.Point(180, 166);
-            this.container23.Name = "container23";
-            this.container23.Size = new System.Drawing.Size(160, 96);
-            this.container23.TabIndex = 64;
+            this.btn_MoveHealsUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_MoveHealsUp.Image = global::AeonGrinder.Properties.Resources.arrow_up;
+            this.btn_MoveHealsUp.Location = new System.Drawing.Point(6, 64);
+            this.btn_MoveHealsUp.Name = "btn_MoveHealsUp";
+            this.btn_MoveHealsUp.Size = new System.Drawing.Size(32, 20);
+            this.btn_MoveHealsUp.TabIndex = 7;
+            this.btn_MoveHealsUp.UseVisualStyleBackColor = true;
+            this.btn_MoveHealsUp.Click += new System.EventHandler(this.btn_MoveHealsUp_Click);
             // 
-            // checkBox2
+            // btn_MoveHealsDown
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(14, 15);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(92, 17);
-            this.checkBox2.TabIndex = 2;
-            this.checkBox2.Text = "Assist Leader";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.btn_MoveHealsDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_MoveHealsDown.Image = global::AeonGrinder.Properties.Resources.arrow_down;
+            this.btn_MoveHealsDown.Location = new System.Drawing.Point(44, 64);
+            this.btn_MoveHealsDown.Name = "btn_MoveHealsDown";
+            this.btn_MoveHealsDown.Size = new System.Drawing.Size(32, 20);
+            this.btn_MoveHealsDown.TabIndex = 6;
+            this.btn_MoveHealsDown.UseVisualStyleBackColor = true;
+            this.btn_MoveHealsDown.Click += new System.EventHandler(this.btn_MoveHealsDown_Click);
             // 
-            // checkBox1
+            // lbox_Heals
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(14, 38);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(119, 17);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = "Follow The Leader";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.lbox_Heals.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbox_Heals.FormattingEnabled = true;
+            this.lbox_Heals.Location = new System.Drawing.Point(6, 6);
+            this.lbox_Heals.Name = "lbox_Heals";
+            this.lbox_Heals.Size = new System.Drawing.Size(148, 52);
+            this.lbox_Heals.TabIndex = 0;
+            this.lbox_Heals.DoubleClick += new System.EventHandler(this.lbox_Heals_DoubleClick);
+            // 
+            // btn_AddToHeals
+            // 
+            this.btn_AddToHeals.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_AddToHeals.Location = new System.Drawing.Point(110, 64);
+            this.btn_AddToHeals.Name = "btn_AddToHeals";
+            this.btn_AddToHeals.Size = new System.Drawing.Size(44, 25);
+            this.btn_AddToHeals.TabIndex = 5;
+            this.btn_AddToHeals.Text = "Add";
+            this.btn_AddToHeals.UseVisualStyleBackColor = true;
+            this.btn_AddToHeals.Click += new System.EventHandler(this.btn_AddToHeals_Click);
+            // 
+            // container33
+            // 
+            this.container33.Controls.Add(this.chkbox_ManualMovement);
+            this.container33.Location = new System.Drawing.Point(352, 350);
+            this.container33.Name = "container33";
+            this.container33.Padding = new System.Windows.Forms.Padding(3);
+            this.container33.Size = new System.Drawing.Size(160, 66);
+            this.container33.TabIndex = 81;
+            // 
+            // chkbox_ManualMovement
+            // 
+            this.chkbox_ManualMovement.AutoSize = true;
+            this.chkbox_ManualMovement.Location = new System.Drawing.Point(14, 15);
+            this.chkbox_ManualMovement.Name = "chkbox_ManualMovement";
+            this.chkbox_ManualMovement.Size = new System.Drawing.Size(122, 17);
+            this.chkbox_ManualMovement.TabIndex = 75;
+            this.chkbox_ManualMovement.Text = "Manual Movement";
+            this.chkbox_ManualMovement.UseVisualStyleBackColor = true;
+            // 
+            // container32
+            // 
+            this.container32.Location = new System.Drawing.Point(352, 244);
+            this.container32.Name = "container32";
+            this.container32.Padding = new System.Windows.Forms.Padding(3);
+            this.container32.Size = new System.Drawing.Size(160, 66);
+            this.container32.TabIndex = 79;
             // 
             // container28
             // 
             this.container28.Controls.Add(this.cmbox_Familiars);
-            this.container28.Location = new System.Drawing.Point(352, 180);
+            this.container28.Location = new System.Drawing.Point(183, 185);
             this.container28.Name = "container28";
             this.container28.Size = new System.Drawing.Size(160, 27);
             this.container28.TabIndex = 75;
@@ -660,6 +809,36 @@
             this.lbox_GpsPoints.Name = "lbox_GpsPoints";
             this.lbox_GpsPoints.Size = new System.Drawing.Size(148, 78);
             this.lbox_GpsPoints.TabIndex = 65;
+            // 
+            // container31
+            // 
+            this.container31.Controls.Add(this.chkbox_UseMeditate);
+            this.container31.Controls.Add(this.chkbox_UseInstruments);
+            this.container31.Location = new System.Drawing.Point(352, 166);
+            this.container31.Name = "container31";
+            this.container31.Padding = new System.Windows.Forms.Padding(3);
+            this.container31.Size = new System.Drawing.Size(160, 66);
+            this.container31.TabIndex = 77;
+            // 
+            // chkbox_UseMeditate
+            // 
+            this.chkbox_UseMeditate.AutoSize = true;
+            this.chkbox_UseMeditate.Location = new System.Drawing.Point(14, 15);
+            this.chkbox_UseMeditate.Name = "chkbox_UseMeditate";
+            this.chkbox_UseMeditate.Size = new System.Drawing.Size(94, 17);
+            this.chkbox_UseMeditate.TabIndex = 74;
+            this.chkbox_UseMeditate.Text = "Use Meditate";
+            this.chkbox_UseMeditate.UseVisualStyleBackColor = true;
+            // 
+            // chkbox_UseInstruments
+            // 
+            this.chkbox_UseInstruments.AutoSize = true;
+            this.chkbox_UseInstruments.Location = new System.Drawing.Point(14, 38);
+            this.chkbox_UseInstruments.Name = "chkbox_UseInstruments";
+            this.chkbox_UseInstruments.Size = new System.Drawing.Size(106, 17);
+            this.chkbox_UseInstruments.TabIndex = 76;
+            this.chkbox_UseInstruments.Text = "Use Lute / Flute";
+            this.chkbox_UseInstruments.UseVisualStyleBackColor = true;
             // 
             // container14
             // 
@@ -697,9 +876,9 @@
             this.chkbox_LevelFamiliars.AutoSize = true;
             this.chkbox_LevelFamiliars.Location = new System.Drawing.Point(14, 90);
             this.chkbox_LevelFamiliars.Name = "chkbox_LevelFamiliars";
-            this.chkbox_LevelFamiliars.Size = new System.Drawing.Size(119, 17);
+            this.chkbox_LevelFamiliars.Size = new System.Drawing.Size(125, 17);
             this.chkbox_LevelFamiliars.TabIndex = 65;
-            this.chkbox_LevelFamiliars.Text = "Level Pets/Mounts";
+            this.chkbox_LevelFamiliars.Text = "Level Pets / Mounts";
             this.chkbox_LevelFamiliars.UseVisualStyleBackColor = true;
             // 
             // num_FightRadius
@@ -804,11 +983,116 @@
             this.lbox_Targets.TabIndex = 1;
             this.lbox_Targets.DoubleClick += new System.EventHandler(this.lbox_Targets_DoubleClick);
             // 
+            // container23
+            // 
+            this.container23.Controls.Add(this.btn_AddToProcessItems);
+            this.container23.Controls.Add(this.lbox_ProcessItems);
+            this.container23.Location = new System.Drawing.Point(180, 297);
+            this.container23.Name = "container23";
+            this.container23.Padding = new System.Windows.Forms.Padding(3);
+            this.container23.Size = new System.Drawing.Size(160, 117);
+            this.container23.TabIndex = 76;
+            // 
+            // btn_AddToProcessItems
+            // 
+            this.btn_AddToProcessItems.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_AddToProcessItems.Location = new System.Drawing.Point(91, 86);
+            this.btn_AddToProcessItems.Name = "btn_AddToProcessItems";
+            this.btn_AddToProcessItems.Size = new System.Drawing.Size(63, 25);
+            this.btn_AddToProcessItems.TabIndex = 42;
+            this.btn_AddToProcessItems.Text = "Add Item";
+            this.btn_AddToProcessItems.UseVisualStyleBackColor = true;
+            this.btn_AddToProcessItems.Click += new System.EventHandler(this.btn_AddToProcessItems_Click);
+            // 
+            // lbox_ProcessItems
+            // 
+            this.lbox_ProcessItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbox_ProcessItems.FormattingEnabled = true;
+            this.lbox_ProcessItems.Location = new System.Drawing.Point(6, 15);
+            this.lbox_ProcessItems.Name = "lbox_ProcessItems";
+            this.lbox_ProcessItems.Size = new System.Drawing.Size(148, 65);
+            this.lbox_ProcessItems.TabIndex = 1;
+            this.lbox_ProcessItems.DoubleClick += new System.EventHandler(this.lbox_ProcessItems_DoubleClick);
+            // 
+            // container29
+            // 
+            this.container29.Controls.Add(this.num_MinHpQuick);
+            this.container29.Controls.Add(this.container30);
+            this.container29.Controls.Add(this.label27);
+            this.container29.Controls.Add(this.btn_AddToHpPotions);
+            this.container29.Location = new System.Drawing.Point(180, 159);
+            this.container29.Name = "container29";
+            this.container29.Padding = new System.Windows.Forms.Padding(3);
+            this.container29.Size = new System.Drawing.Size(160, 126);
+            this.container29.TabIndex = 74;
+            // 
+            // num_MinHpQuick
+            // 
+            this.num_MinHpQuick.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.num_MinHpQuick.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.num_MinHpQuick.Location = new System.Drawing.Point(83, 12);
+            this.num_MinHpQuick.Maximum = new decimal(new int[] {
+            250,
+            0,
+            0,
+            0});
+            this.num_MinHpQuick.Name = "num_MinHpQuick";
+            this.num_MinHpQuick.Size = new System.Drawing.Size(56, 20);
+            this.num_MinHpQuick.TabIndex = 65;
+            this.num_MinHpQuick.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.num_MinHpQuick.Value = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            // 
+            // container30
+            // 
+            this.container30.Controls.Add(this.lbox_HpPotions);
+            this.container30.Location = new System.Drawing.Point(0, 38);
+            this.container30.Name = "container30";
+            this.container30.Size = new System.Drawing.Size(160, 51);
+            this.container30.TabIndex = 67;
+            // 
+            // lbox_HpPotions
+            // 
+            this.lbox_HpPotions.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbox_HpPotions.FormattingEnabled = true;
+            this.lbox_HpPotions.Location = new System.Drawing.Point(6, 6);
+            this.lbox_HpPotions.Name = "lbox_HpPotions";
+            this.lbox_HpPotions.Size = new System.Drawing.Size(148, 39);
+            this.lbox_HpPotions.TabIndex = 1;
+            this.lbox_HpPotions.DoubleClick += new System.EventHandler(this.lbox_HpPotions_DoubleClick);
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(11, 15);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(70, 13);
+            this.label27.TabIndex = 44;
+            this.label27.Text = "When HP %:";
+            // 
+            // btn_AddToHpPotions
+            // 
+            this.btn_AddToHpPotions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_AddToHpPotions.Location = new System.Drawing.Point(91, 95);
+            this.btn_AddToHpPotions.Name = "btn_AddToHpPotions";
+            this.btn_AddToHpPotions.Size = new System.Drawing.Size(63, 25);
+            this.btn_AddToHpPotions.TabIndex = 42;
+            this.btn_AddToHpPotions.Text = "Add Item";
+            this.btn_AddToHpPotions.UseVisualStyleBackColor = true;
+            this.btn_AddToHpPotions.Click += new System.EventHandler(this.btn_AddToHpPotions_Click);
+            // 
             // container19
             // 
             this.container19.Controls.Add(this.btn_AddToCombatBoosts);
             this.container19.Controls.Add(this.lbox_CombatBoosts);
-            this.container19.Location = new System.Drawing.Point(180, 231);
+            this.container19.Location = new System.Drawing.Point(352, 297);
             this.container19.Name = "container19";
             this.container19.Padding = new System.Windows.Forms.Padding(3);
             this.container19.Size = new System.Drawing.Size(160, 117);
@@ -839,7 +1123,7 @@
             // 
             this.container10.Controls.Add(this.btn_AddToCleanItems);
             this.container10.Controls.Add(this.lbox_CleanItems);
-            this.container10.Location = new System.Drawing.Point(8, 231);
+            this.container10.Location = new System.Drawing.Point(8, 297);
             this.container10.Name = "container10";
             this.container10.Padding = new System.Windows.Forms.Padding(3);
             this.container10.Size = new System.Drawing.Size(160, 117);
@@ -868,7 +1152,6 @@
             // 
             // container20
             // 
-            this.container20.Controls.Add(this.chkbox_UseMeditate);
             this.container20.Controls.Add(this.container21);
             this.container20.Controls.Add(this.label11);
             this.container20.Controls.Add(this.btn_AddToManaRecover);
@@ -876,23 +1159,13 @@
             this.container20.Location = new System.Drawing.Point(352, 21);
             this.container20.Name = "container20";
             this.container20.Padding = new System.Windows.Forms.Padding(3);
-            this.container20.Size = new System.Drawing.Size(160, 149);
+            this.container20.Size = new System.Drawing.Size(160, 126);
             this.container20.TabIndex = 70;
-            // 
-            // chkbox_UseMeditate
-            // 
-            this.chkbox_UseMeditate.AutoSize = true;
-            this.chkbox_UseMeditate.Location = new System.Drawing.Point(14, 38);
-            this.chkbox_UseMeditate.Name = "chkbox_UseMeditate";
-            this.chkbox_UseMeditate.Size = new System.Drawing.Size(94, 17);
-            this.chkbox_UseMeditate.TabIndex = 74;
-            this.chkbox_UseMeditate.Text = "Use Meditate";
-            this.chkbox_UseMeditate.UseVisualStyleBackColor = true;
             // 
             // container21
             // 
             this.container21.Controls.Add(this.lbox_ManaRecoverItems);
-            this.container21.Location = new System.Drawing.Point(0, 61);
+            this.container21.Location = new System.Drawing.Point(0, 38);
             this.container21.Name = "container21";
             this.container21.Size = new System.Drawing.Size(160, 51);
             this.container21.TabIndex = 67;
@@ -919,7 +1192,7 @@
             // btn_AddToManaRecover
             // 
             this.btn_AddToManaRecover.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_AddToManaRecover.Location = new System.Drawing.Point(91, 118);
+            this.btn_AddToManaRecover.Location = new System.Drawing.Point(91, 95);
             this.btn_AddToManaRecover.Name = "btn_AddToManaRecover";
             this.btn_AddToManaRecover.Size = new System.Drawing.Size(63, 25);
             this.btn_AddToManaRecover.TabIndex = 42;
@@ -958,7 +1231,7 @@
             this.container11.Location = new System.Drawing.Point(8, 59);
             this.container11.Name = "container11";
             this.container11.Padding = new System.Windows.Forms.Padding(3);
-            this.container11.Size = new System.Drawing.Size(160, 160);
+            this.container11.Size = new System.Drawing.Size(160, 226);
             this.container11.TabIndex = 45;
             // 
             // lbox_ItemsList
@@ -967,13 +1240,13 @@
             this.lbox_ItemsList.FormattingEnabled = true;
             this.lbox_ItemsList.Location = new System.Drawing.Point(6, 6);
             this.lbox_ItemsList.Name = "lbox_ItemsList";
-            this.lbox_ItemsList.Size = new System.Drawing.Size(148, 117);
+            this.lbox_ItemsList.Size = new System.Drawing.Size(148, 182);
             this.lbox_ItemsList.TabIndex = 0;
             // 
             // btn_GetInventoryItems
             // 
             this.btn_GetInventoryItems.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_GetInventoryItems.Location = new System.Drawing.Point(65, 129);
+            this.btn_GetInventoryItems.Location = new System.Drawing.Point(65, 195);
             this.btn_GetInventoryItems.Name = "btn_GetInventoryItems";
             this.btn_GetInventoryItems.Size = new System.Drawing.Size(89, 25);
             this.btn_GetInventoryItems.TabIndex = 41;
@@ -983,7 +1256,6 @@
             // 
             // container18
             // 
-            this.container18.Controls.Add(this.chkbox_UsePlayDead);
             this.container18.Controls.Add(this.num_MinHitpoints);
             this.container18.Controls.Add(this.container22);
             this.container18.Controls.Add(this.label3);
@@ -991,18 +1263,8 @@
             this.container18.Location = new System.Drawing.Point(180, 21);
             this.container18.Name = "container18";
             this.container18.Padding = new System.Windows.Forms.Padding(3);
-            this.container18.Size = new System.Drawing.Size(160, 149);
+            this.container18.Size = new System.Drawing.Size(160, 126);
             this.container18.TabIndex = 72;
-            // 
-            // chkbox_UsePlayDead
-            // 
-            this.chkbox_UsePlayDead.AutoSize = true;
-            this.chkbox_UsePlayDead.Location = new System.Drawing.Point(14, 38);
-            this.chkbox_UsePlayDead.Name = "chkbox_UsePlayDead";
-            this.chkbox_UsePlayDead.Size = new System.Drawing.Size(98, 17);
-            this.chkbox_UsePlayDead.TabIndex = 75;
-            this.chkbox_UsePlayDead.Text = "Use Play Dead";
-            this.chkbox_UsePlayDead.UseVisualStyleBackColor = true;
             // 
             // num_MinHitpoints
             // 
@@ -1031,7 +1293,7 @@
             // container22
             // 
             this.container22.Controls.Add(this.lbox_HpRecoverItems);
-            this.container22.Location = new System.Drawing.Point(0, 61);
+            this.container22.Location = new System.Drawing.Point(0, 38);
             this.container22.Name = "container22";
             this.container22.Size = new System.Drawing.Size(160, 51);
             this.container22.TabIndex = 67;
@@ -1058,7 +1320,7 @@
             // btn_AddToHpRecover
             // 
             this.btn_AddToHpRecover.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_AddToHpRecover.Location = new System.Drawing.Point(91, 118);
+            this.btn_AddToHpRecover.Location = new System.Drawing.Point(91, 95);
             this.btn_AddToHpRecover.Name = "btn_AddToHpRecover";
             this.btn_AddToHpRecover.Size = new System.Drawing.Size(63, 25);
             this.btn_AddToHpRecover.TabIndex = 42;
@@ -1066,14 +1328,63 @@
             this.btn_AddToHpRecover.UseVisualStyleBackColor = true;
             this.btn_AddToHpRecover.Click += new System.EventHandler(this.btn_AddToHpRecover_Click);
             // 
+            // container37
+            // 
+            this.container37.Controls.Add(this.lbox_ComboTriggerSkills);
+            this.container37.Controls.Add(this.btn_AddToComboTriggerSkills);
+            this.container37.Location = new System.Drawing.Point(352, 159);
+            this.container37.Name = "container37";
+            this.container37.Size = new System.Drawing.Size(160, 82);
+            this.container37.TabIndex = 28;
+            // 
+            // lbox_ComboTriggerSkills
+            // 
+            this.lbox_ComboTriggerSkills.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbox_ComboTriggerSkills.FormattingEnabled = true;
+            this.lbox_ComboTriggerSkills.Location = new System.Drawing.Point(6, 6);
+            this.lbox_ComboTriggerSkills.Name = "lbox_ComboTriggerSkills";
+            this.lbox_ComboTriggerSkills.Size = new System.Drawing.Size(148, 39);
+            this.lbox_ComboTriggerSkills.TabIndex = 25;
+            this.lbox_ComboTriggerSkills.DoubleClick += new System.EventHandler(this.lbox_ComboTriggerSkills_DoubleClick);
+            // 
+            // btn_AddToComboTriggerSkills
+            // 
+            this.btn_AddToComboTriggerSkills.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_AddToComboTriggerSkills.Location = new System.Drawing.Point(50, 51);
+            this.btn_AddToComboTriggerSkills.Name = "btn_AddToComboTriggerSkills";
+            this.btn_AddToComboTriggerSkills.Size = new System.Drawing.Size(104, 25);
+            this.btn_AddToComboTriggerSkills.TabIndex = 26;
+            this.btn_AddToComboTriggerSkills.Text = "Add Trigger Skill";
+            this.btn_AddToComboTriggerSkills.UseVisualStyleBackColor = true;
+            this.btn_AddToComboTriggerSkills.Click += new System.EventHandler(this.btn_AddToComboTriggerSkills_Click);
+            // 
+            // container36
+            // 
+            this.container36.Controls.Add(this.lbox_ComboTriggers);
+            this.container36.Location = new System.Drawing.Point(352, 70);
+            this.container36.Name = "container36";
+            this.container36.Size = new System.Drawing.Size(160, 90);
+            this.container36.TabIndex = 27;
+            // 
+            // lbox_ComboTriggers
+            // 
+            this.lbox_ComboTriggers.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbox_ComboTriggers.FormattingEnabled = true;
+            this.lbox_ComboTriggers.Location = new System.Drawing.Point(6, 6);
+            this.lbox_ComboTriggers.Name = "lbox_ComboTriggers";
+            this.lbox_ComboTriggers.Size = new System.Drawing.Size(148, 78);
+            this.lbox_ComboTriggers.TabIndex = 0;
+            this.lbox_ComboTriggers.SelectedIndexChanged += new System.EventHandler(this.lbox_ComboTriggers_SelectedIndexChanged);
+            this.lbox_ComboTriggers.DoubleClick += new System.EventHandler(this.lbox_ComboTriggers_DoubleClick);
+            // 
             // container17
             // 
             this.container17.Controls.Add(this.lbox_Conditions);
             this.container17.Controls.Add(this.btn_AddCondition);
-            this.container17.Location = new System.Drawing.Point(352, 164);
+            this.container17.Location = new System.Drawing.Point(8, 345);
             this.container17.Name = "container17";
             this.container17.Padding = new System.Windows.Forms.Padding(3);
-            this.container17.Size = new System.Drawing.Size(160, 95);
+            this.container17.Size = new System.Drawing.Size(160, 82);
             this.container17.TabIndex = 21;
             // 
             // lbox_Conditions
@@ -1082,14 +1393,14 @@
             this.lbox_Conditions.FormattingEnabled = true;
             this.lbox_Conditions.Location = new System.Drawing.Point(6, 6);
             this.lbox_Conditions.Name = "lbox_Conditions";
-            this.lbox_Conditions.Size = new System.Drawing.Size(148, 52);
+            this.lbox_Conditions.Size = new System.Drawing.Size(148, 39);
             this.lbox_Conditions.TabIndex = 0;
             this.lbox_Conditions.DoubleClick += new System.EventHandler(this.lbox_Conditions_DoubleClick);
             // 
             // btn_AddCondition
             // 
             this.btn_AddCondition.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_AddCondition.Location = new System.Drawing.Point(55, 64);
+            this.btn_AddCondition.Location = new System.Drawing.Point(55, 51);
             this.btn_AddCondition.Name = "btn_AddCondition";
             this.btn_AddCondition.Size = new System.Drawing.Size(99, 25);
             this.btn_AddCondition.TabIndex = 5;
@@ -1100,7 +1411,7 @@
             // container16
             // 
             this.container16.Controls.Add(this.txtbox_ConditionValue);
-            this.container16.Location = new System.Drawing.Point(267, 265);
+            this.container16.Location = new System.Drawing.Point(95, 433);
             this.container16.Name = "container16";
             this.container16.Padding = new System.Windows.Forms.Padding(3);
             this.container16.Size = new System.Drawing.Size(73, 27);
@@ -1117,7 +1428,7 @@
             // container15
             // 
             this.container15.Controls.Add(this.cmbox_Conditions);
-            this.container15.Location = new System.Drawing.Point(180, 232);
+            this.container15.Location = new System.Drawing.Point(8, 319);
             this.container15.Name = "container15";
             this.container15.Size = new System.Drawing.Size(160, 27);
             this.container15.TabIndex = 17;
@@ -1138,7 +1449,7 @@
             this.container13.Controls.Add(this.btn_MoveBoostingBuffsDown);
             this.container13.Controls.Add(this.lbox_BoostingBuffs);
             this.container13.Controls.Add(this.btn_AddToBoostingBuffs);
-            this.container13.Location = new System.Drawing.Point(8, 350);
+            this.container13.Location = new System.Drawing.Point(180, 352);
             this.container13.Name = "container13";
             this.container13.Padding = new System.Windows.Forms.Padding(3);
             this.container13.Size = new System.Drawing.Size(160, 108);
@@ -1210,7 +1521,7 @@
             this.container12.Controls.Add(this.btn_MoveCombatBuffsDown);
             this.container12.Controls.Add(this.lbox_CombatBuffs);
             this.container12.Controls.Add(this.btn_AddToCombatBuffs);
-            this.container12.Location = new System.Drawing.Point(180, 350);
+            this.container12.Location = new System.Drawing.Point(180, 218);
             this.container12.Name = "container12";
             this.container12.Padding = new System.Windows.Forms.Padding(3);
             this.container12.Size = new System.Drawing.Size(160, 108);
@@ -1261,29 +1572,35 @@
             // 
             // container3
             // 
-            this.container3.Controls.Add(this.lbox_ComboTriggers);
+            this.container3.Controls.Add(this.container35);
             this.container3.Controls.Add(this.btn_AddToComboTriggers);
             this.container3.Location = new System.Drawing.Point(352, 31);
             this.container3.Name = "container3";
             this.container3.Padding = new System.Windows.Forms.Padding(3);
-            this.container3.Size = new System.Drawing.Size(160, 134);
+            this.container3.Size = new System.Drawing.Size(160, 116);
             this.container3.TabIndex = 5;
             // 
-            // lbox_ComboTriggers
+            // container35
             // 
-            this.lbox_ComboTriggers.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lbox_ComboTriggers.FormattingEnabled = true;
-            this.lbox_ComboTriggers.Location = new System.Drawing.Point(6, 6);
-            this.lbox_ComboTriggers.Name = "lbox_ComboTriggers";
-            this.lbox_ComboTriggers.Size = new System.Drawing.Size(148, 91);
-            this.lbox_ComboTriggers.TabIndex = 0;
-            this.lbox_ComboTriggers.SelectedIndexChanged += new System.EventHandler(this.lbox_ComboTriggers_SelectedIndexChanged);
-            this.lbox_ComboTriggers.DoubleClick += new System.EventHandler(this.lbox_ComboTriggers_DoubleClick);
+            this.container35.Controls.Add(this.txtbox_TriggerName);
+            this.container35.Location = new System.Drawing.Point(6, 6);
+            this.container35.Name = "container35";
+            this.container35.Padding = new System.Windows.Forms.Padding(3);
+            this.container35.Size = new System.Drawing.Size(98, 27);
+            this.container35.TabIndex = 24;
+            // 
+            // txtbox_TriggerName
+            // 
+            this.txtbox_TriggerName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtbox_TriggerName.Location = new System.Drawing.Point(6, 6);
+            this.txtbox_TriggerName.Name = "txtbox_TriggerName";
+            this.txtbox_TriggerName.Size = new System.Drawing.Size(86, 15);
+            this.txtbox_TriggerName.TabIndex = 19;
             // 
             // btn_AddToComboTriggers
             // 
             this.btn_AddToComboTriggers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_AddToComboTriggers.Location = new System.Drawing.Point(110, 103);
+            this.btn_AddToComboTriggers.Location = new System.Drawing.Point(110, 6);
             this.btn_AddToComboTriggers.Name = "btn_AddToComboTriggers";
             this.btn_AddToComboTriggers.Size = new System.Drawing.Size(44, 25);
             this.btn_AddToComboTriggers.TabIndex = 5;
@@ -1300,14 +1617,14 @@
             this.container2.Location = new System.Drawing.Point(180, 31);
             this.container2.Name = "container2";
             this.container2.Padding = new System.Windows.Forms.Padding(3);
-            this.container2.Size = new System.Drawing.Size(160, 173);
+            this.container2.Size = new System.Drawing.Size(160, 160);
             this.container2.TabIndex = 3;
             // 
             // btn_MoveRotationUp
             // 
             this.btn_MoveRotationUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_MoveRotationUp.Image = global::AeonGrinder.Properties.Resources.arrow_up;
-            this.btn_MoveRotationUp.Location = new System.Drawing.Point(6, 142);
+            this.btn_MoveRotationUp.Location = new System.Drawing.Point(6, 129);
             this.btn_MoveRotationUp.Name = "btn_MoveRotationUp";
             this.btn_MoveRotationUp.Size = new System.Drawing.Size(32, 20);
             this.btn_MoveRotationUp.TabIndex = 7;
@@ -1318,7 +1635,7 @@
             // 
             this.btn_MoveRotationDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_MoveRotationDown.Image = global::AeonGrinder.Properties.Resources.arrow_down;
-            this.btn_MoveRotationDown.Location = new System.Drawing.Point(41, 142);
+            this.btn_MoveRotationDown.Location = new System.Drawing.Point(41, 129);
             this.btn_MoveRotationDown.Name = "btn_MoveRotationDown";
             this.btn_MoveRotationDown.Size = new System.Drawing.Size(32, 20);
             this.btn_MoveRotationDown.TabIndex = 6;
@@ -1331,14 +1648,14 @@
             this.lbox_Rotation.FormattingEnabled = true;
             this.lbox_Rotation.Location = new System.Drawing.Point(6, 6);
             this.lbox_Rotation.Name = "lbox_Rotation";
-            this.lbox_Rotation.Size = new System.Drawing.Size(148, 130);
+            this.lbox_Rotation.Size = new System.Drawing.Size(148, 117);
             this.lbox_Rotation.TabIndex = 0;
             this.lbox_Rotation.DoubleClick += new System.EventHandler(this.lbox_Rotation_DoubleClick);
             // 
             // btn_AddToRotation
             // 
             this.btn_AddToRotation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_AddToRotation.Location = new System.Drawing.Point(110, 142);
+            this.btn_AddToRotation.Location = new System.Drawing.Point(110, 129);
             this.btn_AddToRotation.Name = "btn_AddToRotation";
             this.btn_AddToRotation.Size = new System.Drawing.Size(44, 25);
             this.btn_AddToRotation.TabIndex = 5;
@@ -1349,10 +1666,10 @@
             // container1
             // 
             this.container1.Controls.Add(this.lbox_SkillsList);
-            this.container1.Location = new System.Drawing.Point(8, 117);
+            this.container1.Location = new System.Drawing.Point(8, 115);
             this.container1.Name = "container1";
             this.container1.Padding = new System.Windows.Forms.Padding(3);
-            this.container1.Size = new System.Drawing.Size(160, 207);
+            this.container1.Size = new System.Drawing.Size(160, 178);
             this.container1.TabIndex = 1;
             // 
             // lbox_SkillsList
@@ -1361,7 +1678,7 @@
             this.lbox_SkillsList.FormattingEnabled = true;
             this.lbox_SkillsList.Location = new System.Drawing.Point(6, 6);
             this.lbox_SkillsList.Name = "lbox_SkillsList";
-            this.lbox_SkillsList.Size = new System.Drawing.Size(148, 195);
+            this.lbox_SkillsList.Size = new System.Drawing.Size(148, 156);
             this.lbox_SkillsList.TabIndex = 0;
             // 
             // container4
@@ -1370,17 +1687,17 @@
             this.container4.Controls.Add(this.btn_MoveComboRotationDown);
             this.container4.Controls.Add(this.lbox_ComboRotations);
             this.container4.Controls.Add(this.btn_AddToComboRotations);
-            this.container4.Location = new System.Drawing.Point(352, 285);
+            this.container4.Location = new System.Drawing.Point(352, 267);
             this.container4.Name = "container4";
             this.container4.Padding = new System.Windows.Forms.Padding(3);
-            this.container4.Size = new System.Drawing.Size(160, 173);
+            this.container4.Size = new System.Drawing.Size(160, 160);
             this.container4.TabIndex = 7;
             // 
             // btn_MoveComboRotationUp
             // 
             this.btn_MoveComboRotationUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_MoveComboRotationUp.Image = global::AeonGrinder.Properties.Resources.arrow_up;
-            this.btn_MoveComboRotationUp.Location = new System.Drawing.Point(6, 142);
+            this.btn_MoveComboRotationUp.Location = new System.Drawing.Point(6, 129);
             this.btn_MoveComboRotationUp.Name = "btn_MoveComboRotationUp";
             this.btn_MoveComboRotationUp.Size = new System.Drawing.Size(32, 20);
             this.btn_MoveComboRotationUp.TabIndex = 7;
@@ -1391,7 +1708,7 @@
             // 
             this.btn_MoveComboRotationDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_MoveComboRotationDown.Image = global::AeonGrinder.Properties.Resources.arrow_down;
-            this.btn_MoveComboRotationDown.Location = new System.Drawing.Point(41, 142);
+            this.btn_MoveComboRotationDown.Location = new System.Drawing.Point(41, 129);
             this.btn_MoveComboRotationDown.Name = "btn_MoveComboRotationDown";
             this.btn_MoveComboRotationDown.Size = new System.Drawing.Size(32, 20);
             this.btn_MoveComboRotationDown.TabIndex = 6;
@@ -1404,14 +1721,14 @@
             this.lbox_ComboRotations.FormattingEnabled = true;
             this.lbox_ComboRotations.Location = new System.Drawing.Point(6, 6);
             this.lbox_ComboRotations.Name = "lbox_ComboRotations";
-            this.lbox_ComboRotations.Size = new System.Drawing.Size(148, 130);
+            this.lbox_ComboRotations.Size = new System.Drawing.Size(148, 117);
             this.lbox_ComboRotations.TabIndex = 0;
             this.lbox_ComboRotations.DoubleClick += new System.EventHandler(this.lbox_ComboRotations_DoubleClick);
             // 
             // btn_AddToComboRotations
             // 
             this.btn_AddToComboRotations.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_AddToComboRotations.Location = new System.Drawing.Point(110, 142);
+            this.btn_AddToComboRotations.Location = new System.Drawing.Point(110, 129);
             this.btn_AddToComboRotations.Name = "btn_AddToComboRotations";
             this.btn_AddToComboRotations.Size = new System.Drawing.Size(44, 25);
             this.btn_AddToComboRotations.TabIndex = 5;
@@ -1514,7 +1831,7 @@
             this.container26.Controls.Add(this.container25);
             this.container26.Location = new System.Drawing.Point(8, 210);
             this.container26.Name = "container26";
-            this.container26.Size = new System.Drawing.Size(506, 250);
+            this.container26.Size = new System.Drawing.Size(506, 164);
             this.container26.TabIndex = 20;
             // 
             // container27
@@ -1522,7 +1839,7 @@
             this.container27.Controls.Add(this.dtg_Mobs);
             this.container27.Location = new System.Drawing.Point(253, 0);
             this.container27.Name = "container27";
-            this.container27.Size = new System.Drawing.Size(253, 250);
+            this.container27.Size = new System.Drawing.Size(253, 164);
             this.container27.TabIndex = 20;
             // 
             // dtg_Mobs
@@ -1543,7 +1860,7 @@
             this.dtg_Mobs.Name = "dtg_Mobs";
             this.dtg_Mobs.RowHeadersVisible = false;
             this.dtg_Mobs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtg_Mobs.Size = new System.Drawing.Size(247, 244);
+            this.dtg_Mobs.Size = new System.Drawing.Size(247, 158);
             this.dtg_Mobs.TabIndex = 9;
             // 
             // dataGridViewTextBoxColumn1
@@ -1565,7 +1882,7 @@
             this.container25.Controls.Add(this.dtg_Items);
             this.container25.Location = new System.Drawing.Point(0, 0);
             this.container25.Name = "container25";
-            this.container25.Size = new System.Drawing.Size(253, 250);
+            this.container25.Size = new System.Drawing.Size(253, 164);
             this.container25.TabIndex = 19;
             // 
             // dtg_Items
@@ -1586,7 +1903,7 @@
             this.dtg_Items.Name = "dtg_Items";
             this.dtg_Items.RowHeadersVisible = false;
             this.dtg_Items.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtg_Items.Size = new System.Drawing.Size(247, 244);
+            this.dtg_Items.Size = new System.Drawing.Size(247, 158);
             this.dtg_Items.TabIndex = 9;
             // 
             // dtg_ItemName
@@ -1796,24 +2113,32 @@
             this.tabControl1.ResumeLayout(false);
             this.tab_Setup.ResumeLayout(false);
             this.tab_Setup.PerformLayout();
-            this.tab_Options.ResumeLayout(false);
-            this.tab_Options.PerformLayout();
+            this.tab_Items.ResumeLayout(false);
+            this.tab_Items.PerformLayout();
             this.tab_Routine.ResumeLayout(false);
             this.tab_Routine.PerformLayout();
             this.tab_Extra.ResumeLayout(false);
             this.tab_Extra.PerformLayout();
             this.tab_Statistics.ResumeLayout(false);
             this.tab_Statistics.PerformLayout();
-            this.container23.ResumeLayout(false);
-            this.container23.PerformLayout();
+            this.container34.ResumeLayout(false);
+            this.container33.ResumeLayout(false);
+            this.container33.PerformLayout();
             this.container28.ResumeLayout(false);
             this.container8.ResumeLayout(false);
+            this.container31.ResumeLayout(false);
+            this.container31.PerformLayout();
             this.container14.ResumeLayout(false);
             this.container9.ResumeLayout(false);
             this.container9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_FightRadius)).EndInit();
             this.container6.ResumeLayout(false);
             this.container7.ResumeLayout(false);
+            this.container23.ResumeLayout(false);
+            this.container29.ResumeLayout(false);
+            this.container29.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_MinHpQuick)).EndInit();
+            this.container30.ResumeLayout(false);
             this.container19.ResumeLayout(false);
             this.container10.ResumeLayout(false);
             this.container20.ResumeLayout(false);
@@ -1825,6 +2150,8 @@
             this.container18.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_MinHitpoints)).EndInit();
             this.container22.ResumeLayout(false);
+            this.container37.ResumeLayout(false);
+            this.container36.ResumeLayout(false);
             this.container17.ResumeLayout(false);
             this.container16.ResumeLayout(false);
             this.container16.PerformLayout();
@@ -1833,6 +2160,8 @@
             this.container5.ResumeLayout(false);
             this.container12.ResumeLayout(false);
             this.container3.ResumeLayout(false);
+            this.container35.ResumeLayout(false);
+            this.container35.PerformLayout();
             this.container2.ResumeLayout(false);
             this.container1.ResumeLayout(false);
             this.container4.ResumeLayout(false);
@@ -1956,13 +2285,8 @@
         private Container container22;
         private System.Windows.Forms.ListBox lbox_HpRecoverItems;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TabPage tab_Options;
+        private System.Windows.Forms.TabPage tab_Items;
         private System.Windows.Forms.CheckBox chkbox_UseMeditate;
-        private System.Windows.Forms.CheckBox chkbox_UsePlayDead;
-        private System.Windows.Forms.Label label5;
-        private Container container23;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox chkbox_ResetStats;
         private System.Windows.Forms.Label label8;
         private Container container24;
@@ -1995,5 +2319,36 @@
         private Container container28;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.CheckBox chkbox_LevelFamiliars;
+        private System.Windows.Forms.Label label26;
+        private Container container29;
+        private System.Windows.Forms.NumericUpDown num_MinHpQuick;
+        private Container container30;
+        private System.Windows.Forms.ListBox lbox_HpPotions;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Button btn_AddToHpPotions;
+        private System.Windows.Forms.CheckBox chkbox_UseInstruments;
+        private System.Windows.Forms.Label label28;
+        private Container container31;
+        private System.Windows.Forms.Label label5;
+        private Container container23;
+        private System.Windows.Forms.Button btn_AddToProcessItems;
+        private System.Windows.Forms.ListBox lbox_ProcessItems;
+        private System.Windows.Forms.Label label29;
+        private Container container32;
+        private System.Windows.Forms.Label label30;
+        private Container container33;
+        private System.Windows.Forms.CheckBox chkbox_ManualMovement;
+        private Container container34;
+        private System.Windows.Forms.Button btn_MoveHealsUp;
+        private System.Windows.Forms.Button btn_MoveHealsDown;
+        private System.Windows.Forms.ListBox lbox_Heals;
+        private System.Windows.Forms.Button btn_AddToHeals;
+        private System.Windows.Forms.Label label31;
+        private Container container35;
+        private System.Windows.Forms.TextBox txtbox_TriggerName;
+        private System.Windows.Forms.ListBox lbox_ComboTriggerSkills;
+        private System.Windows.Forms.Button btn_AddToComboTriggerSkills;
+        private Container container36;
+        private Container container37;
     }
 }

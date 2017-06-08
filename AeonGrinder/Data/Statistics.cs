@@ -27,7 +27,7 @@ namespace AeonGrinder.Data
         public Statistics(Window window)
         {
             UI = window;
-            UI.ClearLootBag();
+            UI.ClearStatsBags();
         }
 
         public int RunTime

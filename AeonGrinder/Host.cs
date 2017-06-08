@@ -18,7 +18,7 @@ namespace AeonGrinder
 
         public static string PluginVersion()
         {
-            return "1.0.0";
+            return "1.0.5";
         }
 
 #if !DEBUG
@@ -94,6 +94,22 @@ namespace AeonGrinder
         }
 
         #region DEBUG DUMPS
+
+        private void DumpSkills()
+        {
+            foreach (var s in me.getSkills())
+            {
+                Log(s.name + " " + s.id);
+            }
+        }
+
+        private void DumpEqItems()
+        {
+            foreach (var i in me.getAllEquipedItems())
+            {
+                Log(i.name + " " + i.id + " " + i.armorType + " " + i.weaponType);
+            }
+        }
 
         private void DumpMountsAndPets()
         {

@@ -6,6 +6,18 @@ namespace AeonGrinder.Data
 
     public class Condition
     {
+        public Condition()
+        {
+        }
+
+        public Condition(string name, string value, ConditionType type)
+        {
+            Name = name;
+            Value = value;
+            Type = type;
+        }
+
+        
         [XmlAttribute("Name")]
         public string Name { get; set; }
 

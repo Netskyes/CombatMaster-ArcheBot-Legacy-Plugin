@@ -36,6 +36,11 @@ namespace AeonGrinder
             return Host.getBuff(8000011) != null;
         }
 
+        public bool IsPeaceZone()
+        {
+            return Host.getBuff(2149) != null;
+        }
+
         public bool CanUpgradeLevel(uint profId)
         {
             int[] levels = new int[] 
@@ -59,17 +64,17 @@ namespace AeonGrinder
             return Host.me.getActabilities().Find(a => a.db.id == profId)?.points ?? 0;
         }
 
-        public bool IsBuffExists(uint buffId)
+        public bool BuffExists(uint buffId)
         {
             return Host.getBuff(buffId) != null;
         }
 
-        public bool IsBuffExists(Creature obj, uint buffId)
+        public bool BuffExists(Creature obj, uint buffId)
         {
             return (Host.getBuff(obj, buffId) != null);
         }
 
-        public bool IsAnyBuffExists(IEnumerable<uint> buffs)
+        public bool AnyBuffExists(IEnumerable<uint> buffs)
         {
             return Host.me.getBuffs().Any(b => buffs.Contains(b.id));
         }
@@ -82,6 +87,11 @@ namespace AeonGrinder
             {
                 foreach (var b in active) b.CancelBuff();
             }
+        }
+
+        public uint GetBuffByItem(uint itemId)
+        {
+            return Host.sqlCore.sqlItems.FirstOrDefault(i => i.Value.id == itemId).Value?.useSkillId ?? 0;
         }
 
         public bool IsItemExists(uint id)
@@ -123,6 +133,13 @@ namespace AeonGrinder
         {
             return CanUseItem(Host.getInvItem(itemName));
         }
+
+        public bool IsWeaponTypeEquiped(int type)
+        {
+            return Host.me.getAllEquipedItems().Any(i => i.db.weaponTypeId == type);
+        }
+
+        public void CancelMove() => Host.CancelMoveTo();
 
         #endregion
 
@@ -174,7 +191,7 @@ namespace AeonGrinder
 
         public bool IsAttackable(Creature obj)
         {
-            return (obj.isAlive() && Host.isAttackable(obj) && !IsAttackImmune(obj) && !IsBuffExists(obj, 550));
+            return (obj.isAlive() && Host.isAttackable(obj) && !IsAttackImmune(obj) && !BuffExists(obj, 550));
         }
 
         public bool IsAttackImmune(Creature obj)

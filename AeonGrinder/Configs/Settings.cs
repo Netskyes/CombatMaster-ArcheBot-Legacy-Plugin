@@ -11,8 +11,9 @@ namespace AeonGrinder.Configs
         public bool LootTargets;
         public bool RunPlugin;
         public bool UseMeditate;
-        public bool UsePlayDead;
+        public bool UseInstruments;
         public bool LevelFamiliars;
+        public bool ManualMovement;
 
         public string TemplateName = string.Empty;
         public string MapName = string.Empty;
@@ -23,18 +24,26 @@ namespace AeonGrinder.Configs
         public int FightRadius = 60;
         public int MinHitpoints = 40;
         public int MinMana = 30;
+        public int MinHpQuick = 25;
+
 
         [XmlArrayItem("Name")]
         public List<string> Targets { get; set; }
 
         [XmlArrayItem("Name")]
         public List<string> CleanItems { get; set; }
-        
+
+        [XmlArrayItem("Name")]
+        public List<string> ProcessItems { get; set; }
+
         [XmlArrayItem("Name")]
         public List<string> HpRecoverItems { get; set; }
 
         [XmlArrayItem("Name")]
         public List<string> ManaRecoverItems { get; set; }
+
+        [XmlArrayItem("Name")]
+        public List<string> HpPotions { get; set; }
 
         [XmlArrayItem("Name")]
         public List<string> CombatBoosts { get; set; }
@@ -43,6 +52,7 @@ namespace AeonGrinder.Configs
         {
             Targets = new List<string>();
             CleanItems = new List<string>();
+            ProcessItems = new List<string>();
             HpRecoverItems = new List<string>();
             ManaRecoverItems = new List<string>();
             CombatBoosts = new List<string>();

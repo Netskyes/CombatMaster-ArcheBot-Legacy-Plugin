@@ -3,22 +3,36 @@ using System.Xml.Serialization;
 
 namespace AeonGrinder.Data
 {
-    using Enums;
-
     public class Combos
     {
+        public Combos()
+        {
+            Init();
+        }
+
+        public Combos(string name, List<string> skills, List<string> triggers)
+        {
+            Name = name;
+            Skills = skills;
+            Triggers = triggers;
+
+            Init();
+        }
+
+
         [XmlAttribute("Trigger")]
         public string Name { get; set; }
-
-        public List<Condition> Conditions { get; set; }
 
         [XmlArrayItem("Name")]
         public List<string> Skills { get; set; }
 
-        public Combos()
+        [XmlArrayItem("Name")]
+        public List<string> Triggers { get; set; }
+
+        private void Init()
         {
-            Conditions = new List<Condition>();
             Skills = new List<string>();
+            Triggers = new List<string>();
         }
     }
 }

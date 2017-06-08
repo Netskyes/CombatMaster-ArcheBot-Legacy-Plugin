@@ -9,6 +9,8 @@ namespace AeonGrinder.Configs
     [Serializable]
     public class Template
     {
+        public string Name { get; set; }
+
         [XmlArrayItem("Name")]
         public List<string> Rotation { get; set; }
 
@@ -21,12 +23,16 @@ namespace AeonGrinder.Configs
         [XmlArrayItem("Name")]
         public List<string> CombatBuffs { get; set; }
 
+        [XmlArrayItem("Name")]
+        public List<Condition> Conditions { get; set; }
+
         public Template()
         {
             Rotation = new List<string>();
             Combos = new List<Combos>();
             BoostingBuffs = new List<string>();
             CombatBuffs = new List<string>();
+            Conditions = new List<Condition>();
         }
     }
 }

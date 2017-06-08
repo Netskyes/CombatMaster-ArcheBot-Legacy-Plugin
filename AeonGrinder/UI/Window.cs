@@ -33,7 +33,7 @@ namespace AeonGrinder.UI
             GetSkills();
             GetTargets();
             GetSlaves();
-            GetTemplates();
+            GetTemplatesList();
             GetZoneMaps();
             SetConditions();
             SetTooltips();
@@ -148,6 +148,7 @@ namespace AeonGrinder.UI
             MoveListItem(direction, lbox_ComboRotations);
         }
 
+
         public void UpdateButtonState(string text, bool state = true)
         {
             Utils.InvokeOn(btn_Begin, () =>
@@ -157,6 +158,9 @@ namespace AeonGrinder.UI
             });
         }
 
+        public void UpdateLabel(Label label, string text) => Utils.InvokeOn(this, () => label.Text = text);
+
+
         private string GetTemplateName()
         {
             string name = string.Empty;
@@ -165,6 +169,16 @@ namespace AeonGrinder.UI
 
 
             return name;
+        }
+
+        private string[] GetTemplateNames()
+        {
+            string[] templates = new string[] {};
+
+            Utils.InvokeOn(this, () => { templates = cmbox_Templates.Items.OfType<string>().ToArray(); });
+
+
+            return templates;
         }
 
         public bool StatsReset()
@@ -185,8 +199,7 @@ namespace AeonGrinder.UI
             return result;
         }
 
-        public void ClearLootBag() => Utils.InvokeOn(this, () => dtg_Items.Rows.Clear());
-        public void UpdateLabel(Label label, string text) => Utils.InvokeOn(this, () => label.Text = text);
+        public void ClearStatsBags() => Utils.InvokeOn(this, () => { dtg_Items.Rows.Clear(); dtg_Mobs.Rows.Clear(); });
 
         #endregion
 
@@ -201,6 +214,7 @@ namespace AeonGrinder.UI
         private Task queryTask;
 
         private Dictionary<string, Combos> combos = new Dictionary<string, Combos>();
+        private Dictionary<string, Condition> conditions = new Dictionary<string, Condition>();
 
         #endregion
 
@@ -232,8 +246,9 @@ namespace AeonGrinder.UI
                 chkbox_LootTargets.Checked = settings.LootTargets;
                 chkbox_RunPlugin.Checked = settings.RunPlugin;
                 chkbox_UseMeditate.Checked = settings.UseMeditate;
-                chkbox_UsePlayDead.Checked = settings.UsePlayDead;
+                chkbox_UseInstruments.Checked = settings.UseInstruments;
                 chkbox_LevelFamiliars.Checked = settings.LevelFamiliars;
+                chkbox_ManualMovement.Checked = settings.ManualMovement;
 
 
                 int index = 0;
@@ -267,12 +282,15 @@ namespace AeonGrinder.UI
                 num_FightRadius.Value = settings.FightRadius;
                 num_MinHitpoints.Value = settings.MinHitpoints;
                 num_MinMana.Value = settings.MinMana;
+                num_MinHpQuick.Value = settings.MinHpQuick;
 
 
                 lbox_Targets.Items.AddRange(settings.Targets.ToArray());
                 lbox_CleanItems.Items.AddRange(settings.CleanItems.ToArray());
+                lbox_ProcessItems.Items.AddRange(settings.ProcessItems.ToArray());
                 lbox_HpRecoverItems.Items.AddRange(settings.HpRecoverItems.ToArray());
                 lbox_ManaRecoverItems.Items.AddRange(settings.ManaRecoverItems.ToArray());
+                lbox_HpPotions.Items.AddRange(settings.HpPotions.ToArray());
                 lbox_CombatBoosts.Items.AddRange(settings.CombatBoosts.ToArray());
             });
         }
@@ -287,8 +305,9 @@ namespace AeonGrinder.UI
                 settings.LootTargets = chkbox_LootTargets.Checked;
                 settings.RunPlugin = chkbox_RunPlugin.Checked;
                 settings.UseMeditate = chkbox_UseMeditate.Checked;
-                settings.UsePlayDead = chkbox_UsePlayDead.Checked;
+                settings.UseInstruments = chkbox_UseInstruments.Checked;
                 settings.LevelFamiliars = chkbox_LevelFamiliars.Checked;
+                settings.ManualMovement = chkbox_ManualMovement.Checked;
                 settings.TemplateName = cmbox_Templates.Text;
                 settings.MapName = (cmbox_ZoneMaps.SelectedIndex != 0) ? cmbox_ZoneMaps.Text : string.Empty;
                 settings.RunPluginName = txtbox_PluginRunName.Text;
@@ -296,11 +315,14 @@ namespace AeonGrinder.UI
                 settings.FightRadius = (int)num_FightRadius.Value;
                 settings.MinHitpoints = (int)num_MinHitpoints.Value;
                 settings.MinMana = (int)num_MinMana.Value;
+                settings.MinHpQuick = (int)num_MinHpQuick.Value;
                 settings.FinalAction = container_WhenDone.Controls.OfType<OptionBox>().FirstOrDefault(r => r.Checked)?.OptionName;
                 settings.Targets = lbox_Targets.Items.OfType<string>().ToList();
                 settings.CleanItems = lbox_CleanItems.Items.OfType<string>().ToList();
+                settings.ProcessItems = lbox_ProcessItems.Items.OfType<string>().ToList();
                 settings.HpRecoverItems = lbox_HpRecoverItems.Items.OfType<string>().ToList();
                 settings.ManaRecoverItems = lbox_ManaRecoverItems.Items.OfType<string>().ToList();
+                settings.HpPotions = lbox_HpPotions.Items.OfType<string>().ToList();
                 settings.CombatBoosts = lbox_CombatBoosts.Items.OfType<string>().ToList();
             });
 
@@ -311,7 +333,7 @@ namespace AeonGrinder.UI
 
         public Template SaveTemplate(string name)
         {
-            var template = GetTemplate();
+            var template = FetchTemplate();
 
             if (template != null && Serializer.Save(template, $"{Paths.Templates}{name}.template"))
             {
@@ -328,19 +350,28 @@ namespace AeonGrinder.UI
             return (name.Length > 1 && SaveTemplate(name) != null);
         }
 
-        public Template GetTemplate()
+        public Template GetTemplate(string path) => Serializer.Load(new Template(), path);
+
+        public Template FetchTemplate()
         {
             Template template = new Template();
 
             Utils.InvokeOn(this, () =>
             {
+                template.Name = GetTemplateName();
                 template.Rotation = lbox_Rotation.Items.OfType<string>().ToList();
-                template.Combos = combos.Select(c => new Combos() { Name = c.Key, Skills = c.Value.Skills, Conditions = c.Value.Conditions }).ToList();
+                template.Combos = combos.Select(c => new Combos(c.Key, c.Value.Skills, c.Value.Triggers)).ToList();
+                template.Conditions = conditions.Select(c => new Condition(c.Key, c.Value.Value, c.Value.Type)).ToList();
                 template.BoostingBuffs = lbox_BoostingBuffs.Items.OfType<string>().ToList();
                 template.CombatBuffs = lbox_CombatBuffs.Items.OfType<string>().ToList();
             });
 
             return template;
+        }
+
+        public List<Template> GetTemplates()
+        {
+            return GetTemplateNames().Select(name => GetTemplate(Paths.Templates + $"{name}.template")).Where(t => t != null).ToList();
         }
 
         public void LoadTemplate(string path)
@@ -363,6 +394,11 @@ namespace AeonGrinder.UI
                     combos.Add(combo.Name, combo);
                     // Add to combo triggers list
                     lbox_ComboTriggers.Items.Add(combo.Name);
+                }
+
+                foreach (var cond in template.Conditions)
+                {
+                    conditions.Add(cond.Name, cond);
                 }
 
                 lbox_CombatBuffs.Items.AddRange(template.CombatBuffs.ToArray());
@@ -479,7 +515,7 @@ namespace AeonGrinder.UI
             });
         }
 
-        private void GetTemplates()
+        private void GetTemplatesList()
         {
             var files = Directory.GetFiles(Paths.Templates, "*.template").Select(f => Path.GetFileNameWithoutExtension(f));
 
@@ -611,7 +647,7 @@ namespace AeonGrinder.UI
                 return;
 
 
-            GetTemplates();
+            GetTemplatesList();
 
             Utils.InvokeOn(this, () =>
             {
@@ -629,15 +665,21 @@ namespace AeonGrinder.UI
 
         private void btn_AddToHpRecover_Click(object sender, EventArgs e) => AddItemToList(lbox_ItemsList, lbox_HpRecoverItems, true);
         private void btn_AddToManaRecover_Click(object sender, EventArgs e) => AddItemToList(lbox_ItemsList, lbox_ManaRecoverItems, true);
+        private void btn_AddToHpPotions_Click(object sender, EventArgs e) => AddItemToList(lbox_ItemsList, lbox_HpPotions, true);
         private void btn_AddToCombatBoosts_Click(object sender, EventArgs e) => AddItemToList(lbox_ItemsList, lbox_CombatBoosts, true);
 
         private void btn_AddToCleanItems_Click(object sender, EventArgs e) => AddItemToList(lbox_ItemsList, lbox_CleanItems, true);
+        private void btn_AddToProcessItems_Click(object sender, EventArgs e) => AddItemToList(lbox_ItemsList, lbox_ProcessItems, true);
         private void btn_AddToTargets_Click(object sender, EventArgs e) => AddItemToList(cmbox_Targets, lbox_Targets, true);
 
         private void btn_AddToRotation_Click(object sender, EventArgs e) => AddItemToList(lbox_SkillsList, lbox_Rotation);
         private void btn_MoveRotationUp_Click(object sender, EventArgs e) => MoveListItem(-1, lbox_Rotation);
         private void btn_MoveRotationDown_Click(object sender, EventArgs e) => MoveListItem(1, lbox_Rotation);
-        
+
+        private void btn_AddToHeals_Click(object sender, EventArgs e) => AddItemToList(lbox_SkillsList, lbox_Heals, true);
+        private void btn_MoveHealsUp_Click(object sender, EventArgs e) => MoveListItem(-1, lbox_Heals);
+        private void btn_MoveHealsDown_Click(object sender, EventArgs e) => MoveListItem(1, lbox_Heals);
+
         private void btn_AddToCombatBuffs_Click(object sender, EventArgs e) => AddItemToList(lbox_SkillsList, lbox_CombatBuffs, true);
         private void btn_MoveCombatBuffsUp_Click(object sender, EventArgs e) => MoveListItem(-1, lbox_CombatBuffs);
         private void btn_MoveCombatBuffsDown_Click(object sender, EventArgs e) => MoveListItem(1, lbox_CombatBuffs);
@@ -645,27 +687,42 @@ namespace AeonGrinder.UI
         private void btn_AddToBoostingBuffs_Click(object sender, EventArgs e) => AddItemToList(lbox_SkillsList, lbox_BoostingBuffs, true);
         private void btn_MoveBoostingBuffsUp_Click(object sender, EventArgs e) => MoveListItem(-1, lbox_BoostingBuffs);
         private void btn_MoveBoostingBuffsDown_Click(object sender, EventArgs e) => MoveListItem(1, lbox_BoostingBuffs);
-        
+
         
         private void btn_AddToComboTriggers_Click(object sender, EventArgs e)
         {
             Utils.InvokeOn(this, () =>
             {
-                var selected = lbox_Rotation.SelectedItem;
+                var name = txtbox_TriggerName.Text;
 
-                if (selected == null)
+                if (name.Length < 1)
                     return;
 
 
-                if (!combos.ContainsKey(selected.ToString()))
+                if (!combos.ContainsKey(name))
                 {
-                    combos.Add(selected.ToString(), new Combos());
+                    combos.Add(name, new Combos());
                 }
 
-                if (!lbox_ComboTriggers.Items.Contains(selected)) lbox_ComboTriggers.Items.Add(selected);
+                if (!lbox_ComboTriggers.Items.Contains(name)) lbox_ComboTriggers.Items.Add(name);
             });
         }
 
+        private void btn_AddToComboTriggerSkills_Click(object sender, EventArgs e)
+        {
+            Utils.InvokeOn(this, () =>
+            {
+                var s1 = lbox_SkillsList.SelectedItem;
+                var s2 = lbox_ComboTriggers.SelectedItem;
+
+                if (s1 == null || s2 == null || !combos.ContainsKey(s2.ToString()))
+                    return;
+
+
+                combos[s2.ToString()].Triggers.Add(s1.ToString());
+                lbox_ComboTriggerSkills.Items.Add(s1);
+            });
+        }
 
         private void btn_AddToComboRotations_Click(object sender, EventArgs e)
         {
@@ -691,20 +748,15 @@ namespace AeonGrinder.UI
         {
             Utils.InvokeOn(this, () =>
             {
-                var s1 = lbox_ComboTriggers.SelectedItem;
+                /*
                 var s2 = cmbox_Conditions.SelectedItem as ComboBoxItem;
 
                 if (s1 == null || s2 == null || !combos.ContainsKey(s1.ToString()))
                     return;
 
-                var combo = combos[s1.ToString()];
-
                 
                 var condType = (ConditionType)s2.Value;
 
-                if (combo.Conditions.Any(c => c.Type == condType))
-                    return;
-                
 
                 var condValue = txtbox_ConditionValue.Text;
 
@@ -714,8 +766,9 @@ namespace AeonGrinder.UI
 
                 var condName = $"{s2.Text} | {condValue}";
 
-                combo.Conditions.Add(new Condition() { Name = condName, Type = condType, Value = condValue });
+                //combo.Conditions.Add(new Condition() { Name = condName, Type = condType, Value = condValue });
                 lbox_Conditions.Items.Add(condName);
+                */
             });
         }
 
@@ -725,12 +778,16 @@ namespace AeonGrinder.UI
 
         private void lbox_Rotation_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_Rotation);
         private void lbox_CombatBuffs_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_CombatBuffs);
+        private void lbox_Heals_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_Heals);
         private void lbox_BoostingBuffs_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_BoostingBuffs);
         private void lbox_Targets_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_Targets);
         private void lbox_CleanItems_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_CleanItems);
+        private void lbox_ProcessItems_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_ProcessItems);
         private void lbox_HpRecoverItems_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_HpRecoverItems);
         private void lbox_ManaRecoverItems_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_ManaRecoverItems);
+        private void lbox_HpPotions_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_HpPotions);
         private void lbox_CombatBoosts_DoubleClick(object sender, EventArgs e) => PopFromList(lbox_CombatBoosts);
+
 
         private void lbox_ComboTriggers_DoubleClick(object sender, EventArgs e)
         {
@@ -748,6 +805,22 @@ namespace AeonGrinder.UI
                 }
 
                 if (lbox_ComboTriggers.Items.Contains(selected)) lbox_ComboTriggers.Items.Remove(selected);
+            });
+        }
+
+        private void lbox_ComboTriggerSkills_DoubleClick(object sender, EventArgs e)
+        {
+            Utils.InvokeOn(this, () =>
+            {
+                var s1 = lbox_ComboTriggers.SelectedItem;
+                var s2 = lbox_ComboTriggerSkills.SelectedItem;
+
+                if (s1 == null || s2 == null || !combos.ContainsKey(s1.ToString()))
+                    return;
+
+
+                lbox_ComboTriggerSkills.Items.Remove(s2);
+                combos[s1.ToString()].Triggers.Remove(s2.ToString());
             });
         }
 
@@ -771,6 +844,7 @@ namespace AeonGrinder.UI
         {
             Utils.InvokeOn(this, () =>
             {
+                /*
                 var s1 = lbox_ComboTriggers.SelectedItem;
                 var s2 = lbox_Conditions.SelectedItem;
 
@@ -785,6 +859,7 @@ namespace AeonGrinder.UI
                 {
                     combos[s1.ToString()].Conditions.RemoveAt(index);
                 }
+                */
             });
         }
 
@@ -811,11 +886,11 @@ namespace AeonGrinder.UI
 
                 var combo = combos[selected.ToString()];
 
+                lbox_ComboTriggerSkills.Items.Clear();
+                lbox_ComboTriggerSkills.Items.AddRange(combo.Triggers.ToArray());
+
                 lbox_ComboRotations.Items.Clear();
                 lbox_ComboRotations.Items.AddRange(combo.Skills.ToArray());
-
-                lbox_Conditions.Items.Clear();
-                lbox_Conditions.Items.AddRange(combo.Conditions.Select(c => c.Name).ToArray());
             });
         }
 

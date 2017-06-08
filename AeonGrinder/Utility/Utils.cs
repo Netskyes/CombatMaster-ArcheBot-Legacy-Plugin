@@ -30,7 +30,7 @@ namespace AeonGrinder
 
         public static void Delay(int min, int max, CancellationToken token)
         {
-            Task.Delay(RandomNum(min, max), token).Wait();
+            Task.Delay(Rand(min, max), token).Wait();
         }
 
         public static void Sleep(int ms)
@@ -46,7 +46,7 @@ namespace AeonGrinder
             Thread.Sleep(ms);
         }
 
-        public static int RandomNum(int min, int max)
+        public static int Rand(int min, int max)
         {
             Random rand = new Random();
             return rand.Next(min, max);
@@ -54,7 +54,7 @@ namespace AeonGrinder
 
         public static void Delay(int[] t1, int[] t2, CancellationToken token)
         {
-            switch (RandomNum(0, 2))
+            switch (Rand(0, 2))
             {
                 case 0: Delay(t1[0], t1[1], token); break;
                 case 1: Delay(t2[0], t2[1], token); break;
@@ -63,7 +63,7 @@ namespace AeonGrinder
 
         public static void Delay(int[] t1, int[] t2, int[] t3, CancellationToken token)
         {
-            switch (RandomNum(0, 3))
+            switch (Rand(0, 3))
             {
                 case 0: Delay(t1[0], t1[1], token); break;
                 case 1: Delay(t2[0], t2[1], token); break;
@@ -71,7 +71,7 @@ namespace AeonGrinder
             }
         }
 
-        public static double RandomDouble(double min, double max)
+        public static double Rand(double min, double max)
         {
             Random rand = new Random();
             return rand.NextDouble() * (min - max) + max;

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace AeonGrinder.Modules
 {
     using UI;
+    using Data;
     using Configs;
 
     public sealed partial class BaseModule
@@ -30,13 +31,16 @@ namespace AeonGrinder.Modules
         private Task timeTask;
         private CancellationTokenSource ts;
         private CancellationToken token;
+        private TimeSpan runtime;
 
-        // Modules
         private GpsModule gps;
+        private NavModule nav;
+        private CombatModule combat;
+
+        private MemLock memory = new MemLock();
 
         // Preferences
         private Settings settings;
-        private Template template;
 
         
         private bool StartUp()
@@ -44,12 +48,11 @@ namespace AeonGrinder.Modules
             // Fetch and save settings
             settings = UI.SaveSettings() ?? UI.GetSettings();
 
-            // Fetch template
-            template = UI.GetTemplate();
-
-
             // Initialize modules
             gps = new GpsModule(Host);
+            nav = new NavModule(Host, gps, settings);
+
+            combat = new CombatModule(Host, token, settings, memory);
 
             return Initialize();
         }
@@ -125,15 +128,41 @@ namespace AeonGrinder.Modules
 
         private void RunTime()
         {
+            DateTime beginTime = DateTime.Now;
+
             while (token.IsAlive())
             {
-                // Session time
+                runtime = (DateTime.Now - beginTime);
+
+                // Other ticks
                 if (stats != null)
                 {
                     stats.RunTime += 1;
                 }
-                
+
+
                 Utils.Delay(1000, token);
+            }
+        }
+
+        private void StopRequest()
+        {
+            Stop();
+
+            switch (settings.FinalAction)
+            {
+                case "TerminateClient":
+                    Host.TerminateGameClient();
+                    break;
+
+                case "ToSelectionScreen":
+                    Host.LeaveWorldToCharacterSelect();
+                    break;
+            }
+
+            if (settings.RunPlugin && settings.RunPluginName != string.Empty)
+            {
+                Host.RunPlugin(settings.RunPluginName);
             }
         }
 
