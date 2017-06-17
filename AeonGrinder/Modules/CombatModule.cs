@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ArcheBot.Bot.Classes;
+using System.Diagnostics;
 
 namespace AeonGrinder.Modules
 {
@@ -188,22 +189,33 @@ namespace AeonGrinder.Modules
             }
 
 
+            var conds = Routine.GetConditions(name);
+
+            if (conds != null && !conds.All(c => CheckCondition(c)))
+            {
+                if (!isLoaded)
+                {
+                    Routine.PushNext();
+                }
+                else
+                {
+                    Routine.QueueTake();
+                }
+
+                return;
+            }
+
+
             var isBoosts = Routine.IsCombatBuff(name);
 
-
+ 
             bool isCombo = false;
             List<string> combo = null;
 
             if (!isLoaded && !isBoosts && Routine.IsCombo(name))
             {
-                var isValid = true; // Routine.Combos[name].Conditions.All(c => CheckCondition(c));
-
-                if (isValid)
-                {
-                    combo = Routine.Combos[name].Skills;
-
-                    isCombo = (combo != null && combo.Count > 0 && !combo.Any(s => (Host.getSkill(s) == null) || (Host.skillCooldown(s) > 0)));
-                }
+                combo = Routine.GetCombo(name);
+                isCombo = (combo != null && !combo.Any(s => (Host.getSkill(s) == null) || (Host.skillCooldown(s) > 0)));
             }
 
 

@@ -20,7 +20,7 @@ namespace AeonGrinder.Data
         }
 
 
-        [XmlAttribute("Trigger")]
+        [XmlAttribute("Name")]
         public string Name { get; set; }
 
         [XmlArrayItem("Name")]
@@ -31,8 +31,15 @@ namespace AeonGrinder.Data
 
         private void Init()
         {
-            Skills = new List<string>();
-            Triggers = new List<string>();
+            if (Skills == null)
+            {
+                Skills = new List<string>();
+            }
+            
+            if (Triggers == null)
+            {
+                Triggers = new List<string>();
+            }
         }
     }
 }

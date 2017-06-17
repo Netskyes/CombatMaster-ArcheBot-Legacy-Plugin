@@ -214,7 +214,7 @@ namespace AeonGrinder.UI
         private Task queryTask;
 
         private Dictionary<string, Combos> combos = new Dictionary<string, Combos>();
-        private Dictionary<string, Condition> conditions = new Dictionary<string, Condition>();
+        private Dictionary<string, List<Condition>> conditions = new Dictionary<string, List<Condition>>();
 
         #endregion
 
@@ -361,7 +361,7 @@ namespace AeonGrinder.UI
                 template.Name = GetTemplateName();
                 template.Rotation = lbox_Rotation.Items.OfType<string>().ToList();
                 template.Combos = combos.Select(c => new Combos(c.Key, c.Value.Skills, c.Value.Triggers)).ToList();
-                template.Conditions = conditions.Select(c => new Condition(c.Key, c.Value.Value, c.Value.Type)).ToList();
+                template.CastConditions = conditions.Select(c => new Conditions() { SkillName = c.Key, ConditionsList = c.Value }).ToList();
                 template.BoostingBuffs = lbox_BoostingBuffs.Items.OfType<string>().ToList();
                 template.CombatBuffs = lbox_CombatBuffs.Items.OfType<string>().ToList();
             });
@@ -371,7 +371,7 @@ namespace AeonGrinder.UI
 
         public List<Template> GetTemplates()
         {
-            return GetTemplateNames().Select(name => GetTemplate(Paths.Templates + $"{name}.template")).Where(t => t != null).ToList();
+            return GetTemplateNames().Select(name => GetTemplate(Paths.Templates + $"{name}.template")).Where(t => t != null && t.Name != null).ToList();
         }
 
         public void LoadTemplate(string path)
@@ -388,19 +388,19 @@ namespace AeonGrinder.UI
             {
                 lbox_Rotation.Items.AddRange(template.Rotation.ToArray());
 
-                foreach (var combo in template.Combos)
+                foreach (var combo in template.Combos.Where(c => c.Name != null))
                 {
                     // Add to dictionary
                     combos.Add(combo.Name, combo);
                     // Add to combo triggers list
                     lbox_ComboTriggers.Items.Add(combo.Name);
                 }
-
-                foreach (var cond in template.Conditions)
+                
+                foreach (var cond in template.CastConditions.Where(c => c.SkillName != null))
                 {
-                    conditions.Add(cond.Name, cond);
+                    conditions.Add(cond.SkillName, cond.ConditionsList);
                 }
-
+                
                 lbox_CombatBuffs.Items.AddRange(template.CombatBuffs.ToArray());
                 lbox_BoostingBuffs.Items.AddRange(template.BoostingBuffs.ToArray());
             });
@@ -429,6 +429,7 @@ namespace AeonGrinder.UI
                 lbox_BoostingBuffs.Items.Clear();
                 
                 combos.Clear();
+                conditions.Clear();
             });
         }
 
@@ -460,6 +461,10 @@ namespace AeonGrinder.UI
         {
             var slaves = Host.getAllInvItems().Where
                 (i => Slaves.ItemExists(i.id)).OrderBy(i => i.name).Select(i => i.name);
+
+            if (slaves.Count() < 1)
+                return;
+
 
             Utils.InvokeOn(this, () =>
             {
@@ -748,27 +753,35 @@ namespace AeonGrinder.UI
         {
             Utils.InvokeOn(this, () =>
             {
-                /*
+                var s1 = lbox_SkillsList.SelectedItem;
                 var s2 = cmbox_Conditions.SelectedItem as ComboBoxItem;
 
-                if (s1 == null || s2 == null || !combos.ContainsKey(s1.ToString()))
+                if (s1 == null || s2 == null)
                     return;
 
-                
-                var condType = (ConditionType)s2.Value;
+
+                var keyName = s1.ToString();
+
+                if (!conditions.ContainsKey(keyName))
+                {
+                    conditions.Add(keyName, new List<Condition>());
+                }
 
 
-                var condValue = txtbox_ConditionValue.Text;
+                var type = (ConditionType)s2.Value;
+                var value = txtbox_ConditionValue.Text;
 
-                if (condValue.Length < 1)
+                if (value.Length < 1)
                     return;
-                
 
-                var condName = $"{s2.Text} | {condValue}";
+                if (conditions[keyName].Any(c => c.Type == type))
+                    return;
 
-                //combo.Conditions.Add(new Condition() { Name = condName, Type = condType, Value = condValue });
-                lbox_Conditions.Items.Add(condName);
-                */
+
+                var name = $"{s2.Text} | {value}";
+
+                conditions[keyName].Add(new Condition() { Name = name, Type = type, Value = value });
+                lbox_Conditions.Items.Add(name);
             });
         }
 
@@ -844,22 +857,24 @@ namespace AeonGrinder.UI
         {
             Utils.InvokeOn(this, () =>
             {
-                /*
-                var s1 = lbox_ComboTriggers.SelectedItem;
+                var s1 = lbox_SkillsList.SelectedItem;
                 var s2 = lbox_Conditions.SelectedItem;
 
-                if (s1 == null || s2 == null || !combos.ContainsKey(s1.ToString()))
+                if (s1 == null || s2 == null || !conditions.ContainsKey(s1.ToString()))
                     return;
 
+                var keyName = s1.ToString();
+                
 
                 int index = lbox_Conditions.Items.IndexOf(s2);
                 lbox_Conditions.Items.Remove(s2);
 
                 if (index != -1)
                 {
-                    combos[s1.ToString()].Conditions.RemoveAt(index);
+                    conditions[keyName].RemoveAt(index);
+
+                    if (conditions[keyName].Count < 1) conditions.Remove(keyName);
                 }
-                */
             });
         }
 
@@ -892,6 +907,24 @@ namespace AeonGrinder.UI
                 lbox_ComboRotations.Items.Clear();
                 lbox_ComboRotations.Items.AddRange(combo.Skills.ToArray());
             });
+        }
+
+        private void lbox_SkillsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selected = lbox_SkillsList.SelectedItem;
+
+            if (selected == null)
+                return;
+
+
+            lbox_Conditions.Items.Clear();
+
+            if (!conditions.ContainsKey(selected.ToString()))
+                return;
+
+
+            var conds = conditions[selected.ToString()].Select(c => c.Name);
+            lbox_Conditions.Items.AddRange(conds.ToArray());
         }
 
         private void cmbox_ZoneMaps_SelectedIndexChanged(object sender, EventArgs e)

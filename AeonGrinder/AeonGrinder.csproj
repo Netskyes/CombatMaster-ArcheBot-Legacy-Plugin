@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configs\Conditions.cs" />
     <Compile Include="Configs\Settings.cs" />
     <Compile Include="Configs\Template.cs" />
     <Compile Include="Data\Collections\Abilities.cs" />

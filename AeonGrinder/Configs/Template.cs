@@ -23,8 +23,8 @@ namespace AeonGrinder.Configs
         [XmlArrayItem("Name")]
         public List<string> CombatBuffs { get; set; }
 
-        [XmlArrayItem("Name")]
-        public List<Condition> Conditions { get; set; }
+        [XmlArrayItem("Skill")]
+        public List<Conditions> CastConditions { get; set; }
 
         public Template()
         {
@@ -32,7 +32,7 @@ namespace AeonGrinder.Configs
             Combos = new List<Combos>();
             BoostingBuffs = new List<string>();
             CombatBuffs = new List<string>();
-            Conditions = new List<Condition>();
+            CastConditions = new List<Conditions>();
         }
     }
 }

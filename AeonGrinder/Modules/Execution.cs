@@ -287,10 +287,6 @@ namespace AeonGrinder.Modules
 
                     memory.Lock("LootMobs", Utils.Rand(1, 2), Utils.Rand(5, 12), true);
                 }
-                else
-                {
-                    Log("Inventory is full!");
-                }
             }
 
 

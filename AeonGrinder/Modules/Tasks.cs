@@ -169,17 +169,16 @@ namespace AeonGrinder.Modules
             Log("Resurrecting in: " + (secs / 1000) + " seconds");
             Utils.Delay(secs, token);
 
-            bool result = Host.ResToRespoint();
 
-
-            if (result)
+            while (token.IsAlive() && !Host.me.isAlive() && !Host.ResToRespoint())
             {
-                Utils.Delay(850, token);
-
-                while (!Host.IsGameReady()) Utils.Delay(50, token);
+                Utils.Delay(1650, 3250, token);
             }
 
-            return result;
+            while (!Host.IsGameReady()) Utils.Delay(50, token);
+
+
+            return Host.me.isAlive();
         }
 
         private bool EscapeDeath()

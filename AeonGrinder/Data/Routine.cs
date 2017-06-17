@@ -18,7 +18,7 @@ namespace AeonGrinder.Data
         public Template Template { get; private set; }
 
         public List<string> Rotation { get; private set; }
-        public Dictionary<string, Combos> Combos { get; private set; }
+        public Dictionary<List<string>, List<string>> Combos { get; private set; }
         public Queue<string> Loader { get; private set; }
         public int Sequence { get; private set; }
 
@@ -49,7 +49,7 @@ namespace AeonGrinder.Data
             Rotation = Template.CombatBuffs;
             Rotation = Rotation.Concat(Template.Rotation).ToList();
 
-            Combos = Template.Combos.ToDictionary(combo => combo.Name, combo => combo);
+            Combos = Template.Combos.ToDictionary(c => c.Triggers, c => c.Skills);
             Loader = new Queue<string>();
         }
 
@@ -61,10 +61,11 @@ namespace AeonGrinder.Data
 
         public void LoadCombo(string name)
         {
-            if (!Combos.ContainsKey(name))
+            var combos = GetCombo(name);
+            if (combos == null)
                 return;
-
-            foreach (string combo in Combos[name].Skills) Loader.Enqueue(combo);
+            
+            foreach (string combo in combos) Loader.Enqueue(combo);
         }
 
         public void EmptyLoader()
@@ -83,9 +84,19 @@ namespace AeonGrinder.Data
             return Template.BoostingBuffs.Contains(skillName);
         }
 
-        public bool IsCombo(string skillName)
+        public bool IsCombo(string skillName) => (GetCombo(skillName) != null);
+
+        public List<string> GetCombo(string skillName)
         {
-            return Combos.ContainsKey(skillName);
+            var combo = Combos.Where
+                (c => c.Key.Any(s => s == skillName));
+
+            return (combo.Count() > 0) ? combo.FirstOrDefault().Value : null;
+        }
+
+        public List<Condition> GetConditions(string skillName)
+        {
+            return Template.CastConditions.Find(c => c.SkillName == skillName)?.ConditionsList ?? null;
         }
 
 
@@ -96,7 +107,7 @@ namespace AeonGrinder.Data
 
         public bool Exists(string name)
         {
-            return templates.ContainsKey(name);
+            return name != null && templates.ContainsKey(name);
         }
 
         public bool IsValid()

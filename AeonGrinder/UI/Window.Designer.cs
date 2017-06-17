@@ -308,14 +308,14 @@
             this.label30.ForeColor = System.Drawing.Color.Gray;
             this.label30.Location = new System.Drawing.Point(357, 343);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(90, 13);
+            this.label30.Size = new System.Drawing.Size(117, 13);
             this.label30.TabIndex = 82;
-            this.label30.Text = "General options";
+            this.label30.Text = "Semi-Manual options";
             // 
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(124, 271);
+            this.label31.Location = new System.Drawing.Point(8, 334);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(38, 13);
             this.label31.TabIndex = 25;
@@ -344,7 +344,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(180, 168);
+            this.label24.Location = new System.Drawing.Point(177, 163);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(81, 13);
             this.label24.TabIndex = 76;
@@ -498,6 +498,14 @@
             this.tab_Routine.Controls.Add(this.label16);
             this.tab_Routine.Controls.Add(this.btn_LoadTemplate);
             this.tab_Routine.Controls.Add(this.btn_SaveTemplate);
+            this.tab_Routine.Controls.Add(this.label_Conditions);
+            this.tab_Routine.Controls.Add(this.label_BoostingBuffs);
+            this.tab_Routine.Controls.Add(this.label_Skills);
+            this.tab_Routine.Controls.Add(this.label_Rotation);
+            this.tab_Routine.Controls.Add(this.label_ComboTriggers);
+            this.tab_Routine.Controls.Add(this.label_CombatBuffs);
+            this.tab_Routine.Controls.Add(this.label_Template);
+            this.tab_Routine.Controls.Add(this.label_ComboRotations);
             this.tab_Routine.Controls.Add(this.container17);
             this.tab_Routine.Controls.Add(this.container16);
             this.tab_Routine.Controls.Add(this.container15);
@@ -508,14 +516,6 @@
             this.tab_Routine.Controls.Add(this.container2);
             this.tab_Routine.Controls.Add(this.container1);
             this.tab_Routine.Controls.Add(this.container4);
-            this.tab_Routine.Controls.Add(this.label_Conditions);
-            this.tab_Routine.Controls.Add(this.label_BoostingBuffs);
-            this.tab_Routine.Controls.Add(this.label_Skills);
-            this.tab_Routine.Controls.Add(this.label_Rotation);
-            this.tab_Routine.Controls.Add(this.label_ComboTriggers);
-            this.tab_Routine.Controls.Add(this.label_CombatBuffs);
-            this.tab_Routine.Controls.Add(this.label_Template);
-            this.tab_Routine.Controls.Add(this.label_ComboRotations);
             this.tab_Routine.Location = new System.Drawing.Point(4, 22);
             this.tab_Routine.Name = "tab_Routine";
             this.tab_Routine.Padding = new System.Windows.Forms.Padding(3);
@@ -558,7 +558,7 @@
             // label_Conditions
             // 
             this.label_Conditions.AutoSize = true;
-            this.label_Conditions.Location = new System.Drawing.Point(5, 302);
+            this.label_Conditions.Location = new System.Drawing.Point(5, 305);
             this.label_Conditions.Name = "label_Conditions";
             this.label_Conditions.Size = new System.Drawing.Size(67, 13);
             this.label_Conditions.TabIndex = 18;
@@ -698,7 +698,7 @@
             this.container34.Controls.Add(this.btn_MoveHealsDown);
             this.container34.Controls.Add(this.lbox_Heals);
             this.container34.Controls.Add(this.btn_AddToHeals);
-            this.container34.Location = new System.Drawing.Point(124, 287);
+            this.container34.Location = new System.Drawing.Point(8, 350);
             this.container34.Name = "container34";
             this.container34.Padding = new System.Windows.Forms.Padding(3);
             this.container34.Size = new System.Drawing.Size(160, 95);
@@ -777,7 +777,7 @@
             // container28
             // 
             this.container28.Controls.Add(this.cmbox_Familiars);
-            this.container28.Location = new System.Drawing.Point(183, 185);
+            this.container28.Location = new System.Drawing.Point(180, 180);
             this.container28.Name = "container28";
             this.container28.Size = new System.Drawing.Size(160, 27);
             this.container28.TabIndex = 75;
@@ -1126,13 +1126,13 @@
             this.container10.Location = new System.Drawing.Point(8, 297);
             this.container10.Name = "container10";
             this.container10.Padding = new System.Windows.Forms.Padding(3);
-            this.container10.Size = new System.Drawing.Size(160, 117);
+            this.container10.Size = new System.Drawing.Size(160, 143);
             this.container10.TabIndex = 47;
             // 
             // btn_AddToCleanItems
             // 
             this.btn_AddToCleanItems.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_AddToCleanItems.Location = new System.Drawing.Point(91, 86);
+            this.btn_AddToCleanItems.Location = new System.Drawing.Point(91, 112);
             this.btn_AddToCleanItems.Name = "btn_AddToCleanItems";
             this.btn_AddToCleanItems.Size = new System.Drawing.Size(63, 25);
             this.btn_AddToCleanItems.TabIndex = 42;
@@ -1146,7 +1146,7 @@
             this.lbox_CleanItems.FormattingEnabled = true;
             this.lbox_CleanItems.Location = new System.Drawing.Point(6, 15);
             this.lbox_CleanItems.Name = "lbox_CleanItems";
-            this.lbox_CleanItems.Size = new System.Drawing.Size(148, 65);
+            this.lbox_CleanItems.Size = new System.Drawing.Size(148, 91);
             this.lbox_CleanItems.TabIndex = 1;
             this.lbox_CleanItems.DoubleClick += new System.EventHandler(this.lbox_CleanItems_DoubleClick);
             // 
@@ -1381,7 +1381,7 @@
             // 
             this.container17.Controls.Add(this.lbox_Conditions);
             this.container17.Controls.Add(this.btn_AddCondition);
-            this.container17.Location = new System.Drawing.Point(8, 345);
+            this.container17.Location = new System.Drawing.Point(8, 348);
             this.container17.Name = "container17";
             this.container17.Padding = new System.Windows.Forms.Padding(3);
             this.container17.Size = new System.Drawing.Size(160, 82);
@@ -1428,7 +1428,7 @@
             // container15
             // 
             this.container15.Controls.Add(this.cmbox_Conditions);
-            this.container15.Location = new System.Drawing.Point(8, 319);
+            this.container15.Location = new System.Drawing.Point(8, 322);
             this.container15.Name = "container15";
             this.container15.Size = new System.Drawing.Size(160, 27);
             this.container15.TabIndex = 17;
@@ -1669,7 +1669,7 @@
             this.container1.Location = new System.Drawing.Point(8, 115);
             this.container1.Name = "container1";
             this.container1.Padding = new System.Windows.Forms.Padding(3);
-            this.container1.Size = new System.Drawing.Size(160, 178);
+            this.container1.Size = new System.Drawing.Size(160, 181);
             this.container1.TabIndex = 1;
             // 
             // lbox_SkillsList
@@ -1678,8 +1678,9 @@
             this.lbox_SkillsList.FormattingEnabled = true;
             this.lbox_SkillsList.Location = new System.Drawing.Point(6, 6);
             this.lbox_SkillsList.Name = "lbox_SkillsList";
-            this.lbox_SkillsList.Size = new System.Drawing.Size(148, 156);
+            this.lbox_SkillsList.Size = new System.Drawing.Size(148, 169);
             this.lbox_SkillsList.TabIndex = 0;
+            this.lbox_SkillsList.SelectedIndexChanged += new System.EventHandler(this.lbox_SkillsList_SelectedIndexChanged);
             // 
             // container4
             // 

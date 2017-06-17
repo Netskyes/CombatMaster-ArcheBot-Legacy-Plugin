@@ -18,7 +18,7 @@ namespace AeonGrinder
 
         public static string PluginVersion()
         {
-            return "1.0.5";
+            return "1.0.12";
         }
 
 #if !DEBUG
