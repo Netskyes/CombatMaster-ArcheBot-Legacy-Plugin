@@ -14,6 +14,7 @@ namespace AeonGrinder.Configs
         public bool UseInstruments;
         public bool LevelFamiliars;
         public bool ManualMovement;
+        public bool SwitchRoutines;
 
         public string TemplateName = string.Empty;
         public string MapName = string.Empty;
@@ -24,11 +25,16 @@ namespace AeonGrinder.Configs
         public int FightRadius = 60;
         public int MinHitpoints = 40;
         public int MinMana = 30;
-        public int MinHpQuick = 25;
 
 
         [XmlArrayItem("Name")]
+        public List<string> Routines { get; set; }
+
+        [XmlArrayItem("Name")]
         public List<string> Targets { get; set; }
+
+        [XmlArrayItem("Name")]
+        public List<string> IgnoreTargets { get; set; }
 
         [XmlArrayItem("Name")]
         public List<string> CleanItems { get; set; }
@@ -50,7 +56,9 @@ namespace AeonGrinder.Configs
 
         public Settings()
         {
+            Routines = new List<string>();
             Targets = new List<string>();
+            IgnoreTargets = new List<string>();
             CleanItems = new List<string>();
             ProcessItems = new List<string>();
             HpRecoverItems = new List<string>();

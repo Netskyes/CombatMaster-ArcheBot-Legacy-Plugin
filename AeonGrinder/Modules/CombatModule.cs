@@ -39,6 +39,15 @@ namespace AeonGrinder.Modules
             // Set combat type considering settings
         }
 
+        public void NextRoutine()
+        {
+            var routines = settings.Routines;
+            int sequence = routines.IndexOf(Routine.Name);
+
+            int next = (sequence < (routines.Count - 1)) ? (sequence + 1) : 0;
+            Routine.Build(routines[next]);
+        }
+
         public bool IsRoutineValid()
         {
             return (Routine != null && Routine.IsValid());
@@ -62,7 +71,12 @@ namespace AeonGrinder.Modules
 
             if (settings.Targets.Count > 0)
             {
-                targets = targets.Where(c => settings.Targets.Contains(c.name));
+                targets = targets.Where(c => settings.Targets.Contains(c.name)).OrderBy(c => settings.Targets.IndexOf(c.name));
+            }
+
+            if (settings.IgnoreTargets.Count > 0)
+            {
+                targets = targets.Where(c => !settings.Targets.Contains(c.name));
             }
 
             if (targets.Count() < 1)
@@ -147,6 +161,11 @@ namespace AeonGrinder.Modules
 
         public void AttackTarget()
         {
+            if (Host.isMounted())
+            {
+                Host.StandFromMount();
+            }
+
             if (Host.me.mpp > 4)
             {
                 UseNextSkill();
@@ -235,12 +254,15 @@ namespace AeonGrinder.Modules
             }
             else
             {
-                if (!memory.IsLocked("Retry") && Host.GetLastError() == LastError.ActionNotAllowed)
+                if (!memory.IsLocked(name))
                 {
-                    memory.Lock("Retry", Utils.Rand(1, 3), 
-                        Utils.Rand(3, 6), true);
+                    memory.Lock(name, Utils.Rand(2, 4), Utils.Rand(6, 12), true);
 
                     return;
+                }
+                else if (isLoaded)
+                {
+                    Routine.QueueTake();
                 }
             }
 
@@ -248,6 +270,14 @@ namespace AeonGrinder.Modules
             if (!isLoaded)
             {
                 Routine.PushNext();
+
+
+                memory.Lock("Attacks", Utils.Rand(2, 5), Utils.Rand(8, 14), true);
+
+                if (memory.IsLocked("Attacks"))
+                {
+                    Utils.Delay(new int[] { 350, 550 }, new int[] { 450, 650 }, new int[] { 550, 750 }, token);
+                }
             }
         }
 
@@ -300,7 +330,10 @@ namespace AeonGrinder.Modules
                 Utils.Delay(50, token);
             }
 
-            if (Host.GetLastError() == LastError.NoLineOfSight && TargetDist() > 4)
+
+            var error = Host.GetLastError();
+
+            if ((error == LastError.NoLineOfSight || error == LastError.TargetTooFarAway) && TargetDist() >= 3.5)
             {
                 ComeToTarget(TargetDist() - 2.5);
             }
@@ -327,17 +360,14 @@ namespace AeonGrinder.Modules
             if (!AnyBoostExists())
                 return;
 
+            var boosts = Routine.Template.BoostingBuffs.Select
+                (s => Host.getSkill(s)).Where(s => s != null && Host.skillCooldown(s) == 0);
 
-            foreach (var name in Routine.Template.BoostingBuffs)
+
+            foreach (var skill in boosts)
             {
                 if (UnderAttack())
                     break;
-
-                var skill = Host.getSkill(name);
-
-                if (skill == null)
-                    continue;
-
 
                 var prods = SkillHelper.GetProdsBuffs(skill.id);
 
@@ -345,11 +375,168 @@ namespace AeonGrinder.Modules
                     continue;
 
 
-                if (Host.UseSkill(name, false, true) && !UnderAttack())
+                if (skill.UseSkill(false, true) && !UnderAttack())
                 {
                     Utils.Delay(450, 850, token);
                 }
             }
+        }
+
+        private bool RecoverHitpoints()
+        {
+            var heals = Routine.GetHeals();
+            
+            if (heals.Count > 0)
+            {
+                var random = new Random();
+
+                var skills = heals.Select
+                    (h => Host.getSkill(h)).Where(h => Host.skillCooldown(h) == 0).OrderBy(h => random.Next());
+
+                if (skills.Count() > 1)
+                {
+                    skills.FirstOrDefault().UseSkill(false, true);
+                }
+            }
+
+
+            var items = Host.getAllInvItems().Where
+                (i => settings.HpRecoverItems.Contains(i.name) && Host.itemCooldown(i) == 0);
+
+            if (items.Count() < 1)
+                return false;
+
+            var item = items.FirstOrDefault();
+
+
+            return (item != null && item.UseItem());
+        }
+
+        private bool RecoverMana()
+        {
+            if (settings.UseMeditate)
+            {
+                uint s1 = Abilities.Auramancy.Meditate;
+
+                if (SkillExists(s1) && Host.skillCooldown(s1) == 0)
+                {
+                    return Host.UseSkill(s1);
+                }
+            }
+
+
+            var items = Host.getAllInvItems().Where
+                (i => settings.ManaRecoverItems.Contains(i.name) && Host.itemCooldown(i) == 0);
+
+            if (items.Count() < 1)
+                return false;
+
+            var item = items.FirstOrDefault();
+
+
+            return (item != null && item.UseItem());
+        }
+
+        public void RecoverStats()
+        {
+            int resumeHpp = Math.Min(100, settings.MinHitpoints + Utils.Rand(15, 25));
+            int resumeMpp = Math.Min(100, settings.MinMana + Utils.Rand(15, 25));
+
+            bool hppRecover = Host.me.hpp <= settings.MinHitpoints;
+            bool mppRecover = Host.me.mpp <= settings.MinMana;
+            bool ready1 = false;
+            bool ready2 = false;
+
+
+            while (token.IsAlive() && !UnderAttack() && !(ready1 && ready2))
+            {
+                if (hppRecover && (Host.me.hpp < resumeHpp))
+                {
+                    if (!memory.IsLocked("HpRecover") && (resumeHpp - Host.me.hpp) >= 8)
+                    {
+                        RecoverHitpoints();
+
+                        memory.Lock("HpRecover", 8 * 1000);
+                    }
+                }
+                else
+                {
+                    ready1 = true;
+                }
+
+
+                if (UnderAttack())
+                    return;
+
+                if (mppRecover && (Host.me.mpp < resumeMpp))
+                {
+                    if (!memory.IsLocked("ManaRecover") && (resumeMpp - Host.me.mpp) >= 8)
+                    {
+                        RecoverMana();
+
+                        memory.Lock("ManaRecover", 8 * 1000);
+                    }
+                }
+                else
+                {
+                    ready2 = true;
+                }
+
+
+                if (UnderAttack())
+                    return;
+
+                if (settings.UseInstruments && !memory.IsLocked("Instrument"))
+                {
+                    if ((hppRecover && IsWeaponCatEquiped(80)) || (mppRecover && IsWeaponCatEquiped(81)))
+                    {
+                        PlayInstrument();
+
+                        memory.Lock("Instrument", Utils.Rand(10 * 1000, 16 * 1000), Utils.Rand(1, 3));
+                    }
+                }
+
+
+                Utils.Delay(50, token);
+            }
+        }
+
+        public bool EscapeDeath()
+        {
+            uint s1 = Abilities.Shadowplay.Stealth;
+            uint s2 = Abilities.Shadowplay.DropBack;
+            uint s3 = Abilities.Witchcraft.PlayDead;
+
+            if (SkillExists(s1))
+            {
+                if (SkillExists(s2) && Host.UseSkill(s2, false))
+                {
+                    Utils.Delay(350, 650, token);
+                }
+
+                if (Host.UseSkill(s1, false))
+                {
+                    Utils.Delay(650, 850, token);
+                }
+
+                if (!IsAnyAggro())
+                    return true;
+            }
+
+
+            if (SkillExists(s3) && Host.UseSkill(s3))
+            {
+                Utils.Delay(650, 850, token);
+
+                if (!IsAnyAggro())
+                {
+                    while (token.IsAlive() && !UnderAttack() && Host.me.hpp < 30) Utils.Delay(50, token);
+
+                    return true;
+                }
+            }
+
+            return false;
         }
 
 
@@ -377,7 +564,7 @@ namespace AeonGrinder.Modules
             return false;
         }
 
-
+        
         #region Helpers
 
         private int LoaderCount() => Routine.Loader.Count;
@@ -389,6 +576,9 @@ namespace AeonGrinder.Modules
         
         public void SetTarget(Creature obj) => Target = obj;
         public void ClearTarget() => Target = null;
+
+        public double TargetDist() => (Target != null) ? Host.dist(Target) : 0;
+
 
         private double CalcMaxSkillRange(Skill skill)
         {
@@ -406,7 +596,16 @@ namespace AeonGrinder.Modules
             return dist;
         }
 
-        public double TargetDist() => (Target != null) ? Host.dist(Target) : 0;
+        private void PlayInstrument()
+        {
+            if (IsWeaponTypeEquiped(23))
+                return;
+
+
+            Host.UseSkill(14900);
+
+            while (token.IsAlive() && !UnderAttack() && Host.me.isCasting) Utils.Delay(50, token);
+        }
 
         #endregion
     }

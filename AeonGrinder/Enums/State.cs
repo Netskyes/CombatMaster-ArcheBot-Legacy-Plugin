@@ -4,6 +4,7 @@
     {
         Check,
         Search,
+        TargetSearch,
         Move,
         Prepare,
         Ready,

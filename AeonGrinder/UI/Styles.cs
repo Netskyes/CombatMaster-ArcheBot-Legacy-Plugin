@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System;
 
 [DesignerCategory("Code")]
 internal class Container : Panel
@@ -23,4 +24,12 @@ internal class Container : Panel
 internal class OptionBox : RadioButton
 {
     public string OptionName { get; set; }
+}
+
+internal class FlatButton : Button
+{
+    public FlatButton() : base()
+    {
+        SetStyle(ControlStyles.Selectable, false);
+    }
 }

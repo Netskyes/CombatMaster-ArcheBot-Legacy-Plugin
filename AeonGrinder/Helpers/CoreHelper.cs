@@ -139,6 +139,13 @@ namespace AeonGrinder
             return Host.me.getAllEquipedItems().Any(i => i.db.weaponTypeId == type);
         }
 
+        public bool IsWeaponCatEquiped(int category)
+        {
+            return Host.me.getAllEquipedItems().Any(i => i.db.categoryId == category);
+        }
+
+        public bool SkillExists(uint skillId) => Host.isSkillLearned(skillId);
+
         public void CancelMove() => Host.CancelMoveTo();
 
         #endregion

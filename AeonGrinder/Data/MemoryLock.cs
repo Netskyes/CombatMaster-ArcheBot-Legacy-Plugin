@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,6 +12,16 @@ namespace AeonGrinder.Data
 
         private Dictionary<string, TimeNode> times = new Dictionary<string, TimeNode>();
         private readonly object timesLock = new object();
+
+        public List<string> NodeLocks
+        {
+            get { return nodes.Keys.ToList(); }
+        }
+
+        public List<string> TimeLocks
+        {
+            get { return times.Keys.ToList(); }
+        }
 
         public MemLock()
         {

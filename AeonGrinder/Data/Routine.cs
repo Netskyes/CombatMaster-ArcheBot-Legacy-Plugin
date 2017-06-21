@@ -11,12 +11,15 @@ namespace AeonGrinder.Data
     public class Routine
     {
         private Host Host;
+
+        // Available templates
         private Dictionary<string, Template> templates;
 
-
+        // Resources
         public string Name { get; private set; }
         public Template Template { get; private set; }
 
+        // Routine Core
         public List<string> Rotation { get; private set; }
         public Dictionary<List<string>, List<string>> Combos { get; private set; }
         public Queue<string> Loader { get; private set; }
@@ -47,6 +50,9 @@ namespace AeonGrinder.Data
 
             // Build routine
             Rotation = Template.CombatBuffs;
+
+            var random = new Random();
+            Rotation = Rotation.OrderBy(b => random.Next()).ToList();
             Rotation = Rotation.Concat(Template.Rotation).ToList();
 
             Combos = Template.Combos.ToDictionary(c => c.Triggers, c => c.Skills);
@@ -98,6 +104,8 @@ namespace AeonGrinder.Data
         {
             return Template.CastConditions.Find(c => c.SkillName == skillName)?.ConditionsList ?? null;
         }
+
+        public List<string> GetHeals() => Template.Heals;
 
 
         public bool Exists()

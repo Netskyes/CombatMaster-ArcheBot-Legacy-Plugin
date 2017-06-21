@@ -30,16 +30,19 @@ namespace AeonGrinder.Modules
             if (!nav.BuildZone())
                 return false;
 
-
-            combat.Routine = new Routine(Host, UI.GetTemplates());
-            combat.Routine.Build(settings.TemplateName);
-            
-            if (!combat.IsRoutineValid())
+            if (settings.Routines.Count < 1)
             {
-                Log("Please build your routine before starting!");
+                Log("Please add at least one routine before starting!");
 
                 return false;
             }
+
+            combat.Routine = new Routine(Host, UI.GetTemplates());
+            combat.Routine.Build(settings.Routines[0]);
+
+            if (settings.SwitchRoutines)
+                LockSwitches();
+            
 
             // Statistics
             if (stats == null || UI.StatsReset())
@@ -64,47 +67,37 @@ namespace AeonGrinder.Modules
         {
             CriticalCheck();
 
+#if DEBUG
+            Log("State: " + state);
+#endif
+
             switch (state)
             {
                 case State.Check:
-#if DEBUG
-                    Host.Log("State: Check");
-#endif              
                     Check();
                     break;
 
                 case State.Search:
-#if DEBUG
-                    Host.Log("State: Search");
-#endif              
                     Search();
                     break;
 
+                case State.TargetSearch:
+                    TargetSearch();
+                    break;
+
                 case State.Move:
-#if DEBUG
-                    Host.Log("State: Move");
-#endif              
                     Move();
                     break;
 
                 case State.Prepare:
-#if DEBUG
-                    Host.Log("State: Prepare");
-#endif              
                     Prepare();
                     break;
 
                 case State.Fight:
-#if DEBUG
-                    //Host.Log("State: Fight");
-#endif              
                     Fight();
                     break;
 
                 case State.Analyze:
-#if DEBUG
-                    Host.Log("State: Analyze");
-#endif              
                     Analyze();
                     break;
             }
@@ -121,7 +114,7 @@ namespace AeonGrinder.Modules
                 return;
             }
 
-            if (Host.me.hpp < 20 && EscapeDeath())
+            if (Host.me.hpp < 15 && EscapeDeath())
             {
                 SetState(State.Check);
 
@@ -133,27 +126,31 @@ namespace AeonGrinder.Modules
         {
             if (IsManual())
             {
-                SetState(State.Fight);
+                SetState(State.TargetSearch);
 
                 return;
             }
 
-            if (!UnderAttack() && !IsPeaceZone())
+
+            if (!UnderAttack() && NeedsResting() && !IsPeaceZone())
             {
-                if (NeedsResting())
-                {
-                    RecoverStats();
-                }
+                RecoverStats();
                 
                 if (!token.IsAlive())
                     return;
             }
 
-
             if (!UnderAttack())
             {
                 CheckTasks();
+
+                if (!token.IsAlive())
+                    return;
             }
+
+
+            // Weakened body
+            SleepWhile(() => BuffExists(1128), 400);
 
             if (settings.LevelFamiliars)
             {
@@ -161,6 +158,13 @@ namespace AeonGrinder.Modules
             }
 
 
+            memory.Lock("Cooldown", Utils.Rand(4, 14) * 1000, Utils.Rand(6, 14));
+
+            if (!UnderAttack() && memory.IsLocked("Cooldown"))
+                return;
+            
+            
+            
             SetState(State.Search);
         }
 
@@ -202,9 +206,21 @@ namespace AeonGrinder.Modules
             }
         }
 
+        // Manually
+        private void TargetSearch()
+        {
+            combat.SetTarget(Host.me.target);
+
+            if (!combat.IsTargetValid())
+                return;
+
+
+            SetState(State.Fight);
+        }
+
         private void Move()
         {
-            if (!ComeToTarget(Utils.Rand(14, 18)))
+            if (!ComeToTarget(Utils.Rand(10, 18)))
             {
                 SetState(State.Search);
             }
@@ -231,13 +247,9 @@ namespace AeonGrinder.Modules
                 Task.Run(() => FightWatch(), token);
             }
 
+
             if (IsCasting())
                 return;
-
-            if (IsManual())
-            {
-                combat.SetTarget(Host.me.target);
-            }
 
             if (combat.IsTargetValid())
             {
@@ -262,7 +274,14 @@ namespace AeonGrinder.Modules
 
             combat.Routine.EmptyLoader();
             isFighting = false;
+
             
+            if (settings.SwitchRoutines && !memory.IsLocked("Switch"))
+            {
+                combat.NextRoutine();
+                LockSwitches();
+            }
+
 
             SetState(State.Analyze);
         }
@@ -280,7 +299,7 @@ namespace AeonGrinder.Modules
             {
                 if (!memory.IsLocked("LootMobs") && !IsInventoryFull())
                 {
-                    Utils.Delay(new int[] { 250, 450 }, new int[] { 550, 750 }, new int[] { 850, 1050 }, token);
+                    Utils.Delay(new int[] { 450, 650 }, new int[] { 750, 950 }, new int[] { 1150, 1350 }, token);
 
                     LootMobs();
 
@@ -290,6 +309,10 @@ namespace AeonGrinder.Modules
             }
 
 
+            if (!UnderAttack() && !IsManual())
+            {
+                Utils.Delay(new int[] { 850, 1250 }, new int[] { 1250, 1650 }, new int[] { 1650, 2050 }, token);
+            }
 
             SetState(State.Check);
         }
@@ -297,7 +320,7 @@ namespace AeonGrinder.Modules
 
         private void CheckTasks()
         {
-            if (IsProcessEnabled() && !memory.IsLocked("Process"))
+            if (IsProcessEnabled() && !memory.IsLocked("Process") && ProcessItemsCount() >= Utils.Rand(14, 30))
             {
                 ProcessItems();
 
@@ -421,6 +444,9 @@ namespace AeonGrinder.Modules
         private void SetState(State nstate) => (state) = nstate;
         private void FlagFightZone() => nav.FlagFightZone();
         private void AddTargetLoot(Creature obj) => lootBag.Add(obj.GetHashCode());
+        private void LockSwitches() => memory.Lock("Switch", Utils.Rand(2, 7), 0, true);
+        private void RecoverStats() => combat.RecoverStats();
+
 
         private void Jump()
         {
@@ -430,14 +456,14 @@ namespace AeonGrinder.Modules
         }
 
         private int JunkItemsCount() => (Host.getAllInvItems().Where(i => settings.CleanItems.Contains(i.name)).Count());
+        private int ProcessItemsCount() => (Host.getAllInvItems().Where(i => settings.ProcessItems.Contains(i.name)).Count());
         private int Ping() => (Host.pingToServer);
 
         private bool IsCleanEnabled() => (settings.CleanItems.Count() > 0);
         private bool IsProcessEnabled() => (settings.ProcessItems.Count() > 0);
         private bool NeedsResting() => (Host.me.hpp <= settings.MinHitpoints || Host.me.mpp <= settings.MinMana);
-        private bool SkillExists(uint skillId) => Host.isSkillLearned(skillId);
         private bool IsManual() => (settings.ManualMovement);
-
+        private bool EscapeDeath() => combat.EscapeDeath();
 
         private void MoveUnless(Func<bool> eval)
         {
@@ -462,6 +488,17 @@ namespace AeonGrinder.Modules
                     Utils.Delay(50, token);
                 }
             }, token);
+        }
+
+        public void SleepWhile(Func<bool> eval, int sleep)
+        {
+            if (eval == null)
+                return;
+
+            while (eval.Invoke())
+            {
+                Utils.Delay(sleep, token);
+            }
         }
 
         #endregion

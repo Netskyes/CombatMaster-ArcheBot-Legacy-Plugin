@@ -18,7 +18,7 @@ namespace AeonGrinder
 
         public static string PluginVersion()
         {
-            return "1.0.12";
+            return "1.0.20";
         }
 
 #if !DEBUG
@@ -92,6 +92,7 @@ namespace AeonGrinder
         private void Debug()
         {
         }
+
 
         #region DEBUG DUMPS
 
