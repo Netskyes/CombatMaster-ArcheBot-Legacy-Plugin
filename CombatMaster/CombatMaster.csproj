@@ -20,6 +20,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -136,11 +138,18 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetDir)$(TargetName).dll" "C:\Users\SumYungHo\Desktop\ArcheBot\Plugins\$(ProjectName)\$(TargetName).dll"
+    <PostBuildEvent>IF $(ConfigurationName)==Debug (
+copy /Y "$(TargetDir)$(TargetName).dll" "C:\Users\SumYungHo\Desktop\ArcheBot\Plugins\$(ProjectName)\$(TargetName).dll"
 copy /Y "$(TargetDir)$(TargetName).pdb" "C:\Users\SumYungHo\Desktop\ArcheBot\Plugins\$(ProjectName)\
+)
 
 IF $(ConfigurationName)==Release (
-    dotNET_Reactor -project "C:\Users\SumYungHo\Desktop\ArcheBot\Plugins\CombatMaster\Protected\CombatMaster.nrproj" -targetfile "C:\Users\SumYungHo\Desktop\CombatMaster.dll"
+
+if not exist "C:\Users\SumYungHo\Desktop\$(ProjectName)" mkdir "C:\Users\SumYungHo\Desktop\$(ProjectName)"
+dotNET_Reactor -project "C:\Users\SumYungHo\Desktop\ArcheBot\Plugins\CombatMaster\Protected\CombatMaster.nrproj" -targetfile "C:\Users\SumYungHo\Desktop\$(ProjectName)\CombatMaster.dll"
+
+7z a -tzip C:\Users\SumYungHo\Desktop\$(ProjectName).zip C:\Users\SumYungHo\Desktop\$(ProjectName)\*
+if exist C:\Users\SumYungHo\Desktop\$(ProjectName)\ rd /s /q C:\Users\SumYungHo\Desktop\$(ProjectName)\
 )</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

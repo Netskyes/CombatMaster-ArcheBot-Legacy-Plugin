@@ -485,10 +485,15 @@ namespace CombatMaster.UI
         {
             var classes = Host.me.getAbilities().Where(a => a.active);
             uint[] ignores = { Abilities.Witchcraft.PlayDead, Abilities.Auramancy.Meditate };
+            byte[] weapons = { 15, 16 };
 
 
             var skills = Host.me.getSkills().Where
-                (s => classes.Any(c => s.db.abilityId == (int)c.id) && !ignores.Contains(s.id)).Select(s => s.name).OrderBy(s => s);
+                (s => (classes.Any(c => s.db.abilityId == (int)c.id) && !ignores.Contains(s.id)))
+                .Select(s => s.name).OrderBy(s => s);
+
+            var itemUses = Host.me.getAllEquipedItems().Where
+                (i => weapons.Contains(i.cell) && i.db.useSkillId != 0);
 
             if (skills.Count() < 1)
                 return;
@@ -498,6 +503,11 @@ namespace CombatMaster.UI
             {
                 lbox_SkillsList.Items.Clear();
                 lbox_SkillsList.Items.AddRange(skills.ToArray());
+                
+                if (itemUses.Count() > 0)
+                {
+                    lbox_SkillsList.Items.AddRange(itemUses.Select(i => i.name).ToArray());
+                }
             });
         }
 

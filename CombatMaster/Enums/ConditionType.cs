@@ -15,6 +15,8 @@
         TargetDistLowerThan,
         TargetDistHigherThan,
         AggroCountLowerThan,
-        AggroCountHigherThan
+        AggroCountHigherThan,
+        TargetIsNpc,
+        TargetIsPlayer
     }
 }

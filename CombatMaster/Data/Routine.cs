@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CombatMaster.Data
 {
+    using Enums;
     using Configs;
 
     public class Routine

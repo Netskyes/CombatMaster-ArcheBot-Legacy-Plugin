@@ -48,12 +48,26 @@ namespace CombatMaster.Modules
 
         public bool IsCastViable()
         {
-            var skillName = GetNextSkill();
-            var skill = Host.getSkill(skillName);
+            var name = GetNextSkill();
+
+            bool isBoost = Routine.IsCombatBuff(name);
+            bool isWeapon = IsWeaponUse(name);
+
+            if (isBoost || isWeapon)
+            {
+                if (!AnyConditionsMeets(name, ConditionType.TargetDistLowerThan, ConditionType.TargetDistHigherThan))
+                    return false;
+            }
+
+            if (isWeapon)
+                return true;
+
+
+            var skill = Host.getSkill(name);
 
             if (skill == null)
             {
-                if (!Routine.IsCombo(skillName))
+                if (!Routine.IsCombo(name))
                 {
                     Routine.PushNext();
                 }
@@ -65,9 +79,8 @@ namespace CombatMaster.Modules
                 return false;
             }
 
-            var isBoost = Routine.IsCombatBuff(skill.name);
-            var castDist = (!isBoost) ? CalcMaxSkillRange(skill) : 0;
 
+            var castDist = (!isBoost) ? CalcMaxSkillRange(skill) : 0;
 
             return ((isBoost || castDist < 0) 
                 || (Target != null && TargetDist() < 34 && TargetDist() < castDist));
@@ -104,11 +117,19 @@ namespace CombatMaster.Modules
             return (LoaderCount() < 1) ? Routine.GetNext() : Routine.QueuePeek();
         }
 
-        public bool SkillCondsMeets(string skillName)
+        public bool ConditionsMeets(string skillName)
         {
             var conds = Routine.GetConditions(skillName);
 
             return (conds == null) || conds.All(c => CheckCondition(c));
+        }
+
+        public bool AnyConditionsMeets(string skillName, params ConditionType[] conditions)
+        {
+            var conds = Routine.GetConditions(skillName);
+
+            return (conds == null) || conds.Where
+                (c => conditions.Contains(c.Type)).Any(c => CheckCondition(c));
         }
 
         public bool CanCastSkill(Skill skill, bool isLoaded)
@@ -123,6 +144,32 @@ namespace CombatMaster.Modules
             string name = GetNextSkill();
 
             return CanCastSkill(name, Routine.IsLoaded(name));
+        }
+
+        private Item GetWeapon(string name) => GetUseWeapons().FirstOrDefault(w => w.name == name);
+
+        private bool IsWeaponUse(string name)
+        {
+            return GetUseWeapons().Any(w => w.name == name);
+        }
+
+        private bool CanUseWeapon(string name)
+        {
+            var weapon = GetWeapon(name);
+
+            return (weapon != null) && Host.itemCooldown(weapon) == 0;
+        }
+
+        private void PushNext(bool isLoaded)
+        {
+            if (!isLoaded)
+            {
+                Routine.PushNext();
+            }
+            else
+            {
+                Routine.QueueTake();
+            }
         }
 
 
@@ -154,13 +201,9 @@ namespace CombatMaster.Modules
             }
 
 
-            if (Host.me.target != Target && !Host.isStealth(Target))
-            {
-                Host.SetTarget(Target);
-            }
-
-
             bool result = false;
+
+            SelectTarget();
 
             if (skill.TargetType() != TargetType.Location)
             {
@@ -202,6 +245,19 @@ namespace CombatMaster.Modules
         {
             var name = GetNextSkill();
             var isLoaded = Routine.IsLoaded(name);
+ 
+            // Weapon effects
+            if (IsWeaponUse(name))
+            {
+                if (CanUseWeapon(name) && ConditionsMeets(name) && (GetWeapon(name)?.UseItem() ?? false))
+                {
+                    Utils.Delay(new int[] { 450, 650 }, new int[] { 550, 850 }, token);
+                }
+
+                PushNext(isLoaded);
+
+                return;
+            }
 
 
             var skill = Host.getSkill(name);
@@ -213,17 +269,9 @@ namespace CombatMaster.Modules
                 return;
             }
 
-
-            if (!SkillCondsMeets(name))
+            if (!ConditionsMeets(name))
             {
-                if (!isLoaded)
-                {
-                    Routine.PushNext();
-                }
-                else
-                {
-                    Routine.QueueTake();
-                }
+                PushNext(isLoaded);
 
                 return;
             }
@@ -406,6 +454,16 @@ namespace CombatMaster.Modules
             SetTarget(target);
         }
 
+        public void SelectTarget(Creature target)
+        {
+            if (target != null && Host.me.target != target && !Host.isStealth(target))
+            {
+                Host.SetTarget(target);
+            }
+        }
+
+        public void SelectTarget() => SelectTarget(Target);
+
 
         public bool ComeToTarget(double dist, bool overwatch = true)
         {
@@ -530,6 +588,8 @@ namespace CombatMaster.Modules
                 case ConditionType.TargetDistHigherThan: return (Host.dist(Target) > value);
                 case ConditionType.AggroCountLowerThan: return (Host.getAggroMobs().Count < value);
                 case ConditionType.AggroCountHigherThan: return (Host.getAggroMobs().Count > value);
+                case ConditionType.TargetIsNpc: return (Target != null && Target.type == BotTypes.Npc);
+                case ConditionType.TargetIsPlayer: return (Target != null && Target.type == BotTypes.Player);
             }
 
             return false;

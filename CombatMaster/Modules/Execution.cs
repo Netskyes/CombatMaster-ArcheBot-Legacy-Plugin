@@ -112,11 +112,14 @@ namespace CombatMaster.Modules
 
             if (!Host.me.isAlive())
             {
-                stats.Deaths++;
+                stats.Deaths += 1;
 
-                MakeRevival();
-                SetState(State.Check);
-
+                if (!IsManual())
+                {
+                    MakeRevival();
+                    SetState(State.Check);
+                }
+                
                 return;
             }
             
@@ -136,7 +139,7 @@ namespace CombatMaster.Modules
                     {
                         memory.Lock("Death", 24 * 1000);
 
-                        SleepWhile(() => (IsAnyAggro() || IsDangerInZone(6)), 50);
+                        SleepWhile(() => (UnderAttack() || IsDangerInZone(8)), 50);
 
 
                         SetState(State.Check);
@@ -199,7 +202,14 @@ namespace CombatMaster.Modules
             {
                 memory.UnlockTime("Seek");
 
+                if (Host.me.target != combat.Target)
+                {
+                    if (Utils.Rand(0, 2) == 0) combat.SelectTarget();
+                }
+
+
                 SetState((combat.TargetDist() > 20 ? State.Move : State.Prepare));
+
                 return;
             }
 
@@ -207,6 +217,7 @@ namespace CombatMaster.Modules
             if (FixCenterDist())
             {
                 ComeToCenter(Utils.Rand(4, (double)39));
+
                 return;
             }
 
@@ -299,7 +310,7 @@ namespace CombatMaster.Modules
             {
                 if (Host.me.target != combat.Target)
                 {
-                    if (Utils.Rand(0, 2) == 0) Host.SetTarget(combat.Target);
+                    if (Utils.Rand(0, 2) == 0) combat.SelectTarget();
                 }
 
                 if (!IsDisabled(Host.me) && !IsSilenced(Host.me))
@@ -314,6 +325,14 @@ namespace CombatMaster.Modules
                 else
                 {
                     BreakCC();
+                }
+
+
+                memory.Lock("Attacks", Utils.Rand(4, 6), Utils.Rand(24, 36), true);
+
+                if (memory.IsLocked("Attacks"))
+                {
+                    Utils.Delay(new int[] { 225, 325 }, new int[] { 250, 375 }, new int[] { 350, 425 }, token);
                 }
 
                 return;

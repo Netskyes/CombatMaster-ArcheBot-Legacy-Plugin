@@ -153,6 +153,10 @@ namespace CombatMaster
 
         public bool InParty() => Host.isInParty();
 
+        public List<Item> GetUseWeapons()
+        {
+            return Host.me.getAllEquipedItems().Where(i => (i.cell == 15 || i.cell == 16) && i.db.useSkillId != 0).ToList();
+        }
 
         public void CancelMove() => Host.CancelMoveTo();
 
