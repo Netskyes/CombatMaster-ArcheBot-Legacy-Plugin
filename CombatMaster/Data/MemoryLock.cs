@@ -28,7 +28,7 @@ namespace CombatMaster.Data
         }
 
 
-        public void Lock(string name, int lockTime, int preLockNum = 0, bool isTickUnlock = false)
+        public bool Lock(string name, int lockTime, int preLockNum = 0, bool isTickUnlock = false)
         {
             MemoryNode node;
 
@@ -50,15 +50,17 @@ namespace CombatMaster.Data
                 node = GetNode(name);
             }
 
-            
+
             if (node.IsLocked)
-                return;
+                return false;
 
             if (node.AccessTimes() <= node.LockWhen)
-                return;
+                return false;
 
 
             node.Lock(lockTime, isTickUnlock);
+
+            return (node.IsLocked);
         }
 
         public bool IsLocked(string name)

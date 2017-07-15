@@ -390,7 +390,10 @@ namespace CombatMaster.Modules
         {
             if (UnderAttack())
             {
-                return GetAggroTarget();
+                var target = GetAggroTarget();
+
+                if (target != null)
+                    return target;
             }
 
 
@@ -494,7 +497,8 @@ namespace CombatMaster.Modules
                 try
                 {
                     bool eval = IsDisabled(Host.me) 
-                        || (IsAnyAggro() && !UnderAggroBy(Target)) || (!InFight() && IsUnderAttack(Target));
+                        || (IsAnyAggro() && !UnderAggroBy(Target) && GetAggroTarget() != null) 
+                        || (!InFight() && IsUnderAttack(Target));
 
                     if (eval)
                     {

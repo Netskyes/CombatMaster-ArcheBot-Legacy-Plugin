@@ -10,7 +10,7 @@ namespace CombatMaster.Modules
 {
     using Data;
     using Enums;
-
+    
     public sealed partial class BaseModule : CoreHelper
     {
         private State state;
@@ -182,7 +182,7 @@ namespace CombatMaster.Modules
             }
 
 
-            SetState((IsLeaderAssist() ? State.TargetSearch : State.Search));
+            SetState(State.Search);
         }
 
         private void Search()
@@ -195,6 +195,13 @@ namespace CombatMaster.Modules
 
                 if (!token.IsAlive())
                     return;
+            }
+
+            if (IsLeaderAssist())
+            {
+                SetState(State.TargetSearch);
+
+                return;
             }
 
 
@@ -330,7 +337,7 @@ namespace CombatMaster.Modules
 
                 memory.Lock("Attacks", Utils.Rand(4, 6), Utils.Rand(24, 36), true);
 
-                if (memory.IsLocked("Attacks"))
+                if (!combat.IsPvPMode() && memory.IsLocked("Attacks"))
                 {
                     Utils.Delay(new int[] { 225, 325 }, new int[] { 250, 375 }, new int[] { 350, 425 }, token);
                 }
@@ -375,7 +382,7 @@ namespace CombatMaster.Modules
                     LootMobs();
 
 
-                    memory.Lock("LootMobs", Utils.Rand(1, 2), Utils.Rand(8, 18), true);
+                    memory.Lock("LootMobs", Utils.Rand(1, 2), Utils.Rand(14, 26), true);
                 }
             }
 
@@ -655,6 +662,7 @@ namespace CombatMaster.Modules
             Host.onLootDice += OnLootDice;
             Host.onRaidInvite += OnRaidInvite;
             Host.onMapPosChanged += OnMapPosChanged;
+            Host.onUnitImmune += OnUnitImmune;
         }
 
         private void UnhookGameEvents()
@@ -671,8 +679,42 @@ namespace CombatMaster.Modules
             Host.onLootDice -= OnLootDice;
             Host.onRaidInvite -= OnRaidInvite;
             Host.onMapPosChanged -= OnMapPosChanged;
+            Host.onUnitImmune -= OnUnitImmune;
         }
 
+
+        private void OnUnitImmune(Creature obj)
+        {
+            if (IsManual())
+                return;
+
+            if (obj == null || combat.Target != obj)
+                return;
+
+
+            var unique = obj.GetHashCode().ToString();
+            var immune = Host.GetVar(obj, "Immunity");
+
+            if (!memory.IsLocked(unique))
+            {
+                Host.SetVar(obj, "Immunity", false);
+                var isLocked = memory.Lock(unique, 5 * 1000, 8);
+                
+                if (isLocked)
+                {
+                    Task.Run(() =>
+                    {
+                        Utils.Delay(4 * 1000, token);
+                        Host.SetVar(obj, "Immunity", false);
+
+                    }, token);
+                }
+            }
+            else
+            {
+                Host.SetVar(obj, "Immunity", true);
+            }
+        }
 
         private void OnMapPosChanged(double X, double Y, double Z)
         {

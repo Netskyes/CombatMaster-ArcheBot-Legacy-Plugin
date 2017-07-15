@@ -210,9 +210,12 @@ namespace CombatMaster
 
         public bool IsAttackable(Creature obj)
         {
+            var immune = Host.GetVar(obj, "Immunity");
+
             return obj != null 
                 && Host.isExists(obj) 
                 && obj.isAlive()
+                && (immune == null || !((bool)immune))
 
                 && ((obj.type == BotTypes.Player && Host.isEnemy(obj)) 
                 || (Host.isAttackable(obj) && !IsAttackImmune(obj) && !BuffExists(obj, 550)));
@@ -360,6 +363,29 @@ namespace CombatMaster
             double ang = Host.angle(Host.me, x, y);
 
             return Math.Abs(((int)(ang / 180) * 360) - ang) < angle;
+        }
+
+        public double[] GetRandZonePoint(RoundZone zone, int angle, int radians = 0)
+        {
+            if (radians != 0)
+            {
+                int min = angle - (radians / 2);
+                min = (min < 0) ? 360 - Math.Abs(min) : min;
+
+                angle = Utils.Rand(min, min + radians);
+                angle = (angle > 360) ? angle - 360 : angle;
+            }
+
+            angle = angle + 180;
+            angle = (angle > 360) ? angle - 360 : angle;
+
+            double radius = zone.radius;
+            radius = Utils.Rand(0.4, radius);
+
+            double x = zone.X + (radius * Math.Cos(angle));
+            double y = zone.Y + (radius * Math.Sin(angle));
+
+            return new double[] { x, y };
         }
 
         #endregion

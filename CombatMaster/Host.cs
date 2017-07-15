@@ -18,7 +18,7 @@ namespace CombatMaster
 
         public static string PluginVersion()
         {
-            return "1.2.4";
+            return "1.2.9";
         }
 
 #if !DEBUG

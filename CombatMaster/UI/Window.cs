@@ -597,7 +597,8 @@ namespace CombatMaster.UI
         public void GetTargets()
         {
             var targets = Host.getCreatures().Where
-                (c => c.type == BotTypes.Npc && c.isAlive() && Host.isAttackable(c)).Select(c => c.name).Distinct();
+                (c => c.type == BotTypes.Npc && c.isAlive() && (Host.isAttackable(c) || Host.isEnemy(c)))
+                .Select(c => c.name).Distinct();
 
             if (targets.Count() < 1)
                 return;

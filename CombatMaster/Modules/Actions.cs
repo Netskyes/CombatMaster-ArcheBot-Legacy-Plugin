@@ -25,11 +25,21 @@ namespace CombatMaster.Modules
                     break;
                 }
 
+
                 var body = bodies.First();
+                
+                if (Host.me.isSwim)
+                {
+                    if (!Host.ComeTo(body))
+                        continue;
+                }
+                else
+                {
+                    var point = GetRandZonePoint(new RoundZone(body.X, body.Y, 2.8), Host.angle(Host.me), 60);
 
-
-                if (!Host.MoveTo(body))
-                    continue;
+                    if (!Host.MoveTo(point[0], point[1], 0))
+                        continue;
+                }
 
                 Utils.Delay(new int[] { 350, 650 }, new int[] { 550, 850 }, token);
 
