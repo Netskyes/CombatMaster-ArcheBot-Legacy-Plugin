@@ -66,6 +66,11 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.container30 = new Container();
+            this.num_TagMobs = new System.Windows.Forms.NumericUpDown();
+            this.label36 = new System.Windows.Forms.Label();
+            this.chkbox_MobTagging = new System.Windows.Forms.CheckBox();
             this.container22 = new Container();
             this.chkbox_RollOnItems = new System.Windows.Forms.CheckBox();
             this.chkbox_AssistLeader = new System.Windows.Forms.CheckBox();
@@ -223,6 +228,8 @@
             this.tab_Routine.SuspendLayout();
             this.tab_Extra.SuspendLayout();
             this.tab_Statistics.SuspendLayout();
+            this.container30.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_TagMobs)).BeginInit();
             this.container22.SuspendLayout();
             this.container38.SuspendLayout();
             this.container39.SuspendLayout();
@@ -286,6 +293,8 @@
             // 
             // tab_Setup
             // 
+            this.tab_Setup.Controls.Add(this.label35);
+            this.tab_Setup.Controls.Add(this.container30);
             this.tab_Setup.Controls.Add(this.label33);
             this.tab_Setup.Controls.Add(this.container22);
             this.tab_Setup.Controls.Add(this.label4);
@@ -318,7 +327,7 @@
             // 
             this.label33.AutoSize = true;
             this.label33.ForeColor = System.Drawing.Color.Gray;
-            this.label33.Location = new System.Drawing.Point(185, 150);
+            this.label33.Location = new System.Drawing.Point(185, 240);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(75, 13);
             this.label33.TabIndex = 88;
@@ -703,11 +712,75 @@
             this.label34.TabIndex = 83;
             this.label34.Text = "CTRL + S";
             // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.ForeColor = System.Drawing.Color.Gray;
+            this.label35.Location = new System.Drawing.Point(185, 150);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(119, 13);
+            this.label35.TabIndex = 90;
+            this.label35.Text = "AOE Fighting options";
+            // 
+            // container30
+            // 
+            this.container30.Controls.Add(this.num_TagMobs);
+            this.container30.Controls.Add(this.label36);
+            this.container30.Controls.Add(this.chkbox_MobTagging);
+            this.container30.Location = new System.Drawing.Point(180, 157);
+            this.container30.Name = "container30";
+            this.container30.Padding = new System.Windows.Forms.Padding(3);
+            this.container30.Size = new System.Drawing.Size(160, 78);
+            this.container30.TabIndex = 89;
+            // 
+            // num_TagMobs
+            // 
+            this.num_TagMobs.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.num_TagMobs.Location = new System.Drawing.Point(85, 42);
+            this.num_TagMobs.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.num_TagMobs.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.num_TagMobs.Name = "num_TagMobs";
+            this.num_TagMobs.Size = new System.Drawing.Size(56, 20);
+            this.num_TagMobs.TabIndex = 78;
+            this.num_TagMobs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.num_TagMobs.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(15, 45);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(68, 13);
+            this.label36.TabIndex = 79;
+            this.label36.Text = "Tag X mobs:";
+            // 
+            // chkbox_MobTagging
+            // 
+            this.chkbox_MobTagging.AutoSize = true;
+            this.chkbox_MobTagging.Location = new System.Drawing.Point(14, 15);
+            this.chkbox_MobTagging.Name = "chkbox_MobTagging";
+            this.chkbox_MobTagging.Size = new System.Drawing.Size(95, 17);
+            this.chkbox_MobTagging.TabIndex = 77;
+            this.chkbox_MobTagging.Text = "Mob Tagging";
+            this.chkbox_MobTagging.UseVisualStyleBackColor = true;
+            // 
             // container22
             // 
             this.container22.Controls.Add(this.chkbox_RollOnItems);
             this.container22.Controls.Add(this.chkbox_AssistLeader);
-            this.container22.Location = new System.Drawing.Point(180, 157);
+            this.container22.Location = new System.Drawing.Point(180, 247);
             this.container22.Name = "container22";
             this.container22.Padding = new System.Windows.Forms.Padding(3);
             this.container22.Size = new System.Drawing.Size(160, 67);
@@ -2357,6 +2430,9 @@
             this.tab_Extra.PerformLayout();
             this.tab_Statistics.ResumeLayout(false);
             this.tab_Statistics.PerformLayout();
+            this.container30.ResumeLayout(false);
+            this.container30.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_TagMobs)).EndInit();
             this.container22.ResumeLayout(false);
             this.container22.PerformLayout();
             this.container38.ResumeLayout(false);
@@ -2608,5 +2684,10 @@
         private System.Windows.Forms.CheckBox chkbox_AssistLeader;
         private System.Windows.Forms.CheckBox chkbox_RollOnItems;
         private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label35;
+        private Container container30;
+        private System.Windows.Forms.NumericUpDown num_TagMobs;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.CheckBox chkbox_MobTagging;
     }
 }

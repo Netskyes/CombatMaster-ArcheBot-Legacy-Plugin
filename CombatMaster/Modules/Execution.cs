@@ -15,13 +15,11 @@ namespace CombatMaster.Modules
     {
         private State state;
         private Statistics stats;
-        
+        private Point3D beginPos;
         private bool isMoving;
         private bool isFighting;
-
         private List<int> lootBag;
-
-
+        
         /// <summary>
         /// Initialize runtime.
         /// </summary>
@@ -57,6 +55,8 @@ namespace CombatMaster.Modules
             // Resets
             SetState(State.Check);
             lootBag = new List<int>();
+            beginPos = null;
+
 
             return true;
         }
@@ -83,6 +83,10 @@ namespace CombatMaster.Modules
 
                 case State.TargetSearch:
                     TargetSearch();
+                    break;
+
+                case State.TargetTags:
+                    TargetTags();
                     break;
 
                 case State.Move:
@@ -122,7 +126,14 @@ namespace CombatMaster.Modules
                 
                 return;
             }
-            
+
+            if (IsBreathCritical() && !TryDahutaBubble())
+            {
+                GoToSurface();
+
+                return;
+            }
+
             if (state == State.Fight && Host.me.hpp < 12)
             {
                 if (UseHealsPots())
@@ -175,7 +186,6 @@ namespace CombatMaster.Modules
                 SleepWhile(() => BuffExists(1128), 400);
             }
 
-
             if (settings.LevelFamiliars)
             {
                 ManageFams();
@@ -200,6 +210,13 @@ namespace CombatMaster.Modules
             if (IsLeaderAssist())
             {
                 SetState(State.TargetSearch);
+
+                return;
+            }
+
+            if (IsMobTagging() && !IsAnyAggro() && GetTagTargetsCount() > 1)
+            {
+                SetState(State.TargetTags);
 
                 return;
             }
@@ -264,6 +281,51 @@ namespace CombatMaster.Modules
             }
         }
 
+        private void TargetTags()
+        {
+            int mobsCount = (int)Host.getAggroMobsCount();
+            var targets = combat.GetAllTargets(nav.FightZone).OrderBy(c => Host.dist(c));
+
+            if (beginPos != null)
+            {
+                targets = targets.Where(c => c.dist(beginPos.X, beginPos.Y) <= 50).OrderBy(c => Host.dist(c));
+            }
+
+
+            var target = (targets.Count() > 0) ? targets.FirstOrDefault() : null;
+
+            if (target == null || mobsCount >= settings.TagMobs)
+            {
+                if (Host.getAggroMobs().All(m => Host.dist(m) < 4))
+                {
+                    beginPos = null;
+                    SetState(State.Search);
+                }
+
+                return;
+            }
+
+            
+            if (!moving.ComeTo(target, Utils.Rand(14, 18), 15, () => Host.getAggroMobsCount() > mobsCount))
+                return;
+
+            if (beginPos == null)
+            {
+                beginPos = new Point3D(new double[] { Host.me.X, Host.me.Y, Host.me.Z });
+            }
+
+
+            if (Host.me.target != target && !Host.isStealth(target))
+            {
+                Host.SetTarget(target);
+            }
+
+            if (Host.UseSkill(16064))
+            {
+                Utils.Delay(350, 450, token);
+            }
+        }
+
         private void Move()
         {
             if (!ComeToTarget(Utils.Rand(10, 18)))
@@ -287,10 +349,14 @@ namespace CombatMaster.Modules
 
         private void Fight()
         {
-            if (!isFighting && !IsManual())
+            if (!isFighting)
             {
                 isFighting = true;
-                Task.Run(() => FightWatch(), token);
+                
+                if (!IsManual())
+                {
+                    Task.Run(() => FightWatch(), token);
+                }
             }
 
 
@@ -382,7 +448,7 @@ namespace CombatMaster.Modules
                     LootMobs();
 
 
-                    memory.Lock("LootMobs", Utils.Rand(1, 2), Utils.Rand(14, 26), true);
+                    memory.Lock("LootMobs", Utils.Rand(1, 2), Utils.Rand(36, 48), true);
                 }
             }
 
@@ -423,8 +489,11 @@ namespace CombatMaster.Modules
         {
             isMoving = true;
 
-            Task.Run(() => MoveWatch(), token);
-
+            if (!Host.me.isSwim)
+            {
+                Task.Run(() => MoveWatch(), token);
+            }
+            
             bool result = combat.ComeToTarget(dist, overwatch);
             isMoving = false;
 
@@ -458,9 +527,12 @@ namespace CombatMaster.Modules
             {
                 try
                 {
-                    if (combat.TargetDist() <= 8 && !IsFacingAngle(combat.Target.X, combat.Target.Y, 40))
+                    if (!Host.me.isSwim)
                     {
-                        Host.TurnDirectly(combat.Target);
+                        if (combat.TargetDist() <= 8 && !IsFacingAngle(combat.Target.X, combat.Target.Y, 40))
+                        {
+                            Host.TurnDirectly(combat.Target);
+                        }
                     }
 
                     if (!memory.IsLocked("MoveBack") && combat.TargetDist() < 0.4)
@@ -495,30 +567,18 @@ namespace CombatMaster.Modules
 
         private bool ComeToCenter(double dist = 0)
         {
-            isMoving = true;
-            bool result = false;
-
             if (nav.IsGpsZone)
             {
                 var point = nav.GetFightPoint();
 
-                if (point != null)
-                {
-                    MoveUnless(() => UnderAttack() || (dist != 0 && Host.me.dist(point.x, point.y) <= dist));
-                    result = gps.MoveToPoint(point);
-                }
+                return point != null && moving.ComeToPoint(point, 1, 1.5, () =>
+                    UnderAttack() || (dist != 0 && Host.me.dist(point.x, point.y) <= dist));
             }
             else
             {
-                MoveUnless(() => UnderAttack()
-                    || (dist != 0 && Host.me.dist(nav.FightZone.X, nav.FightZone.Y) <= dist));
-
-                result = Host.MoveTo(nav.FightZone.X, nav.FightZone.Y, 0);
+                return moving.ComeTo(nav.FightZone.X, nav.FightZone.Y, 0, 1, 1.5, () =>
+                    UnderAttack() || (dist != 0 && Host.me.dist(nav.FightZone.X, nav.FightZone.Y) <= dist));
             }
-
-            isMoving = false;
-
-            return result;
         }
 
 
@@ -539,9 +599,7 @@ namespace CombatMaster.Modules
 
             isMoving = true;
 
-            MoveUnless(() => IsDisabled(Host.me) || IsAnyAggro());
-
-            bool result = Host.ComeTo(leader);
+            bool result = moving.ComeTo(leader, 1, 1.5, () => IsDisabled(Host.me) || IsAnyAggro());
             isMoving = false;
         }
 
@@ -577,6 +635,14 @@ namespace CombatMaster.Modules
             memory.Lock("Healing", 2, 2, true);
         }
 
+        private bool IsBreathCritical()
+        {
+            if (!Host.me.isUnderWaterBreath)
+                return false;
+
+            return Host.getInvItem(29300) == null && (Host.buffTime(6660) < (40 * 1000) || Host.me.underWaterBreathTime < (20 * 1000));
+        }
+
 
         #region Helpers
 
@@ -600,38 +666,14 @@ namespace CombatMaster.Modules
         private int JunkItemsCount() => (Host.getAllInvItems().Where(i => settings.CleanItems.Contains(i.name)).Count());
         private int ProcessItemsCount() => (Host.getAllInvItems().Where(i => settings.ProcessItems.Contains(i.name)).Count());
         private int Ping() => (Host.pingToServer);
+        private int GetTagTargetsCount() => GetTagTargets().Count();
 
         private bool IsCleanEnabled() => (settings.CleanItems.Count() > 0);
         private bool IsProcessEnabled() => (settings.ProcessItems.Count() > 0);
         private bool NeedsResting() => (Host.me.hpp <= settings.MinHitpoints || Host.me.mpp <= settings.MinMana);
         private bool IsManual() => (settings.ManualMovement);
         private bool IsLeaderAssist() => (InParty() && settings.AssistLeader);
-
-
-        private void MoveUnless(Func<bool> eval)
-        {
-            Task.Run(() =>
-            {
-                while (isMoving && token.IsAlive())
-                {
-                    try
-                    {
-                        if (eval.Invoke())
-                        {
-                            Utils.Delay(450, 650, token);
-
-                            CancelMove();
-                            break;
-                        }
-                    }
-                    catch
-                    {
-                    }
-
-                    Utils.Delay(50, token);
-                }
-            }, token);
-        }
+        private bool IsMobTagging() => (settings.MobTagging);
 
         public void SleepWhile(Func<bool> eval, int sleep)
         {
@@ -641,6 +683,20 @@ namespace CombatMaster.Modules
             while (eval.Invoke())
             {
                 Utils.Delay(sleep, token);
+            }
+        }
+
+        private IEnumerable<Creature> GetTagTargets()
+        {
+            var targets = combat.GetAllTargets(nav.FightZone);
+
+            if (beginPos != null)
+            {
+                return targets.Where(c => c.dist(beginPos.X, beginPos.Y) <= 50);
+            }
+            else
+            {
+                return targets.Where(c => Host.dist(c) <= 50);
             }
         }
 

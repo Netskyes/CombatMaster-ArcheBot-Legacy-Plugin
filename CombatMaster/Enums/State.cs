@@ -5,6 +5,7 @@
         Check,
         Search,
         TargetSearch,
+        TargetTags,
         Move,
         Prepare,
         Ready,

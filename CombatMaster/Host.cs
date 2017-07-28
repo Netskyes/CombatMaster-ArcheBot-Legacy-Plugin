@@ -18,7 +18,12 @@ namespace CombatMaster
 
         public static string PluginVersion()
         {
-            return "1.2.9";
+            return "1.2.17";
+        }
+
+        public string ChangeLog()
+        {
+            return "";
         }
 
 #if !DEBUG
@@ -58,6 +63,7 @@ namespace CombatMaster
 
             ClearLogs();
             Log("CombatMaster v." + PluginVersion());
+            Log(ChangeLog());
 
 
             Debug();

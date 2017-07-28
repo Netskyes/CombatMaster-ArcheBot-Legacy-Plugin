@@ -19,20 +19,19 @@ namespace CombatMaster.Modules
         private Settings settings;
         private CancellationToken token;
         private MemLock memory;
+        private MoveModule moving;
 
         public Creature Target { get; set; }
         public int TargHash { get; set; }
         public Routine Routine { get; set; }
-        public bool IsMoving { get; set; }
-        public bool IsFighting { get; set; }
 
-
-        public CombatModule(Host host, CancellationToken token, Settings settings, MemLock memory) : base(host)
+        public CombatModule(Host host, CancellationToken token, Settings settings, MemLock memory, MoveModule moving) : base(host)
         {
             Host = host;
             this.token = token;
             this.settings = settings;
             this.memory = memory;
+            this.moving = moving;
         }
 
 
@@ -51,15 +50,15 @@ namespace CombatMaster.Modules
             var name = GetNextSkill();
 
             bool isBoost = Routine.IsCombatBuff(name);
-            bool isWeapon = IsWeaponUse(name);
+            bool isEquip = IsEquipSkill(name);
 
-            if (isBoost || isWeapon)
+            if (isBoost || isEquip)
             {
                 if (!AnyConditionsMeets(name, ConditionType.TargetDistLowerThan, ConditionType.TargetDistHigherThan))
                     return false;
             }
 
-            if (isWeapon)
+            if (isEquip)
                 return true;
 
 
@@ -146,16 +145,17 @@ namespace CombatMaster.Modules
             return CanCastSkill(name, Routine.IsLoaded(name));
         }
 
-        private Item GetWeapon(string name) => GetUseWeapons().FirstOrDefault(w => w.name == name);
+        private Item GetEquipSkill(string name) 
+            => GetEquippedSkills().FirstOrDefault(w => w.name == name);
 
-        private bool IsWeaponUse(string name)
+        private bool IsEquipSkill(string name)
         {
-            return GetUseWeapons().Any(w => w.name == name);
+            return GetEquippedSkills().Any(w => w.name == name);
         }
 
-        private bool CanUseWeapon(string name)
+        private bool CanUseEquipSkill(string name)
         {
-            var weapon = GetWeapon(name);
+            var weapon = GetEquipSkill(name);
 
             return (weapon != null) && Host.itemCooldown(weapon) == 0;
         }
@@ -247,9 +247,9 @@ namespace CombatMaster.Modules
             var isLoaded = Routine.IsLoaded(name);
  
             // Weapon effects
-            if (IsWeaponUse(name))
+            if (IsEquipSkill(name))
             {
-                if (CanUseWeapon(name) && ConditionsMeets(name) && (GetWeapon(name)?.UseItem() ?? false))
+                if (CanUseEquipSkill(name) && ConditionsMeets(name) && (GetEquipSkill(name)?.UseItem() ?? false))
                 {
                     Utils.Delay(new int[] { 450, 650 }, new int[] { 550, 850 }, token);
                 }
@@ -385,24 +385,16 @@ namespace CombatMaster.Modules
             skills.First()?.UseSkill(false, true);
         }
 
-
-        public Creature FindTarget(Zone zone = null)
+        
+        public IEnumerable<Creature> GetAllTargets(Zone zone = null)
         {
-            if (UnderAttack())
-            {
-                var target = GetAggroTarget();
-
-                if (target != null)
-                    return target;
-            }
-
-
             var targets = Host.getCreatures().Where(c => IsAttackable(c) && !IsUnderAttack(c));
 
             if (zone != null)
             {
                 targets = targets.Where(c => zone.ObjInZone(c));
             }
+
 
             if (settings.Targets.Count > 0)
             {
@@ -413,14 +405,27 @@ namespace CombatMaster.Modules
             if (settings.IgnoreTargets.Count > 0)
             {
                 targets = targets.Where
-                    (c => !settings.Targets.Contains(c.name));
+                    (c => !settings.IgnoreTargets.Contains(c.name));
             }
 
-            if (targets.Count() < 1)
-                return null;
 
+            return targets;
+        }
 
-            return targets.OrderBy(c => Host.dist(c)).FirstOrDefault();
+        public Creature FindTarget(Zone zone = null, bool ignoreAggro = false)
+        {
+            if (UnderAttack() && !ignoreAggro)
+            {
+                var target = GetAggroTarget();
+
+                if (target != null)
+                    return target;
+            }
+
+            var targets = GetAllTargets(zone).OrderBy
+                (c => Host.dist(c));
+
+            return (targets.Count() > 0) ? targets.FirstOrDefault() : null;
         }
 
         public Creature GetAggroTarget()
@@ -476,45 +481,12 @@ namespace CombatMaster.Modules
             if (Host.dist(Target) <= dist)
                 return true;
 
+            Func<bool> eval = () => IsDisabled(Host.me)
+                || (IsAnyAggro() && !UnderAggroBy(Target) && GetAggroTarget() != null) 
+                || (IsUnderAttack(Target) && !InFight());
 
-            IsMoving = true;
 
-            if (overwatch)
-            {
-                Task.Run(() => MoveWatch(), token);
-            }
-
-            bool result = Host.ComeTo(Target, dist, dist + Utils.Rand(0.6, 1.1));
-            IsMoving = false;
-
-            return result;
-        }
-
-        private void MoveWatch()
-        {
-            while (token.IsAlive() && IsMoving)
-            {
-                try
-                {
-                    bool eval = IsDisabled(Host.me) 
-                        || (IsAnyAggro() && !UnderAggroBy(Target) && GetAggroTarget() != null) 
-                        || (!InFight() && IsUnderAttack(Target));
-
-                    if (eval)
-                    {
-                        Utils.Delay(450, 650, token);
-
-                        CancelMove();
-                        break;
-                    }
-
-                }
-                catch
-                {
-                }
-
-                Utils.Delay(50, token);
-            }
+            return moving.ComeTo(Target, dist, dist + Utils.Rand(0.6, 1.1), (overwatch) ? eval : null);
         }
 
 
@@ -599,7 +571,7 @@ namespace CombatMaster.Modules
             return false;
         }
 
-        
+
         #region Helpers
 
         private int LoaderCount() => Routine.Loader.Count;

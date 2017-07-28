@@ -35,7 +35,7 @@ namespace CombatMaster.Modules
                 }
                 else
                 {
-                    var point = GetRandZonePoint(new RoundZone(body.X, body.Y, 2.8), Host.angle(Host.me), 60);
+                    var point = GetRandZonePoint(new RoundZone(body.X, body.Y, Utils.Rand(1.2, 2.0)), Host.angle(Host.me), 60);
 
                     if (!Host.MoveTo(point[0], point[1], 0))
                         continue;
@@ -359,6 +359,44 @@ namespace CombatMaster.Modules
 
                 Utils.Delay(50, token);
             }
+        }
+
+        public bool TryDahutaBubble()
+        {
+            if (BuffExists(6660))
+                return false;
+
+            return Host.getInvItem(29300)?.UseItem() ?? false;
+        }
+
+        public bool GoToSurface()
+        {
+            Host.SwimUp(true);
+            Log("Going to surface!");
+
+            while (token.IsAlive() && (Host.me.isUnderWaterBreath && Host.me.isAlive()))
+            {
+                // Breath
+                TryDahutaBubble();
+
+                // Disengage
+                if (UnderAttack())
+                {
+                    uint s1 = Abilities.Shadowplay.Stealth;
+
+                    if (SkillExists(s1) && Host.skillCooldown(s1) == 0)
+                    {
+                        Host.UseSkill(s1, false, true);
+                    }
+                }
+
+
+                Utils.Delay(50, token);
+            }
+
+            Host.SwimUp(false);
+
+            return !Host.me.isUnderWaterBreath;
         }
     }
 }

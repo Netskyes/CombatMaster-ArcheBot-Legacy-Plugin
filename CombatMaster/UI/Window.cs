@@ -272,7 +272,7 @@ namespace CombatMaster.UI
                 chkbox_EscapeDeath.Checked = settings.EscapeDeath;
                 chkbox_AssistLeader.Checked = settings.AssistLeader;
                 chkbox_RollOnItems.Checked = settings.RollOnItems;
-
+                chkbox_MobTagging.Checked = settings.MobTagging;
 
                 int index = 0;
 
@@ -305,6 +305,7 @@ namespace CombatMaster.UI
                 num_FightRadius.Value = settings.FightRadius;
                 num_MinHitpoints.Value = settings.MinHitpoints;
                 num_MinMana.Value = settings.MinMana;
+                num_TagMobs.Value = settings.TagMobs;
 
 
                 lbox_Routines.Items.AddRange(settings.Routines.ToArray());
@@ -337,6 +338,7 @@ namespace CombatMaster.UI
                 settings.EscapeDeath = chkbox_EscapeDeath.Checked;
                 settings.AssistLeader = chkbox_AssistLeader.Checked;
                 settings.RollOnItems = chkbox_RollOnItems.Checked;
+                settings.MobTagging = chkbox_MobTagging.Checked;
                 settings.TemplateName = GetTemplateName();
                 settings.MapName = (cmbox_ZoneMaps.SelectedIndex != 0) ? cmbox_ZoneMaps.Text : string.Empty;
                 settings.RunPluginName = txtbox_PluginRunName.Text;
@@ -344,6 +346,7 @@ namespace CombatMaster.UI
                 settings.FightRadius = (int)num_FightRadius.Value;
                 settings.MinHitpoints = (int)num_MinHitpoints.Value;
                 settings.MinMana = (int)num_MinMana.Value;
+                settings.TagMobs = (int)num_TagMobs.Value;
                 settings.FinalAction = container_WhenDone.Controls.OfType<OptionBox>().FirstOrDefault(r => r.Checked)?.OptionName;
                 settings.Routines = lbox_Routines.Items.OfType<string>().ToList();
                 settings.Targets = lbox_Targets.Items.OfType<string>().ToList();
@@ -485,7 +488,7 @@ namespace CombatMaster.UI
         {
             var classes = Host.me.getAbilities().Where(a => a.active);
             uint[] ignores = { Abilities.Witchcraft.PlayDead, Abilities.Auramancy.Meditate };
-            byte[] weapons = { 15, 16 };
+            byte[] armorIgnores = { 26, 14, 18 };
 
 
             var skills = Host.me.getSkills().Where
@@ -493,7 +496,7 @@ namespace CombatMaster.UI
                 .Select(s => s.name).OrderBy(s => s);
 
             var itemUses = Host.me.getAllEquipedItems().Where
-                (i => weapons.Contains(i.cell) && i.db.useSkillId != 0);
+                (i => !armorIgnores.Contains(i.cell) && i.db.useSkillId != 0);
 
             if (skills.Count() < 1)
                 return;

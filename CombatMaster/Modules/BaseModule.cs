@@ -36,6 +36,7 @@ namespace CombatMaster.Modules
         private GpsModule gps;
         private NavModule nav;
         private CombatModule combat;
+        private MoveModule moving;
 
         private MemLock memory = new MemLock();
 
@@ -51,9 +52,10 @@ namespace CombatMaster.Modules
             // Initialize modules
             gps = new GpsModule(Host);
             nav = new NavModule(Host, gps, settings);
+            moving = new MoveModule(Host, token);
 
-            combat = new CombatModule(Host, token, settings, memory);
-
+            combat = new CombatModule(Host, token, settings, memory, moving);
+            
             return Initialize();
         }
 
@@ -177,6 +179,8 @@ namespace CombatMaster.Modules
             Host.RotateRight(false);
             Host.MoveBackward(false);
             Host.MoveForward(false);
+            Host.SwimUp(false);
+            Host.SwimDown(false);
 
             UnhookGameEvents();
 

@@ -19,6 +19,7 @@ namespace CombatMaster.Configs
         public bool EscapeDeath = true;
         public bool AssistLeader;
         public bool RollOnItems;
+        public bool MobTagging;
 
         public string TemplateName = string.Empty;
         public string MapName = string.Empty;
@@ -29,6 +30,7 @@ namespace CombatMaster.Configs
         public int FightRadius = 60;
         public int MinHitpoints = 40;
         public int MinMana = 30;
+        public int TagMobs = 1;
 
 
         [XmlArrayItem("Name")]
