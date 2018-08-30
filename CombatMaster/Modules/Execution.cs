@@ -121,6 +121,12 @@ namespace CombatMaster.Modules
                 if (!IsManual())
                 {
                     MakeRevival();
+
+                    if (settings.StopOnDeath)
+                    {
+                        throw new StopException("You're dead! Stopping...");
+                    }
+
                     SetState(State.Check);
                 }
                 

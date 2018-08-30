@@ -20,6 +20,7 @@ namespace CombatMaster.Configs
         public bool AssistLeader;
         public bool RollOnItems;
         public bool MobTagging;
+        public bool StopOnDeath;
 
         public string TemplateName = string.Empty;
         public string MapName = string.Empty;

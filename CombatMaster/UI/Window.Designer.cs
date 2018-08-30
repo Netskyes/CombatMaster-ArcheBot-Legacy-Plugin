@@ -30,50 +30,16 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tab_Setup = new System.Windows.Forms.TabPage();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.tab_Items = new System.Windows.Forms.TabPage();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtbox_ItemSearch = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.tab_Routine = new System.Windows.Forms.TabPage();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label_Conditions = new System.Windows.Forms.Label();
-            this.label_BoostingBuffs = new System.Windows.Forms.Label();
-            this.label_Rotation = new System.Windows.Forms.Label();
-            this.label_ComboTriggers = new System.Windows.Forms.Label();
-            this.label_CombatBuffs = new System.Windows.Forms.Label();
-            this.label_Template = new System.Windows.Forms.Label();
-            this.label_ComboRotations = new System.Windows.Forms.Label();
-            this.label_Skills = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.tab_Extra = new System.Windows.Forms.TabPage();
-            this.label_WhenDone = new System.Windows.Forms.Label();
-            this.tab_Statistics = new System.Windows.Forms.TabPage();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.container30 = new Container();
             this.num_TagMobs = new System.Windows.Forms.NumericUpDown();
             this.label36 = new System.Windows.Forms.Label();
             this.chkbox_MobTagging = new System.Windows.Forms.CheckBox();
+            this.label33 = new System.Windows.Forms.Label();
             this.container22 = new Container();
             this.chkbox_RollOnItems = new System.Windows.Forms.CheckBox();
             this.chkbox_AssistLeader = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.container38 = new Container();
             this.cmbox_Routines = new System.Windows.Forms.ComboBox();
             this.container39 = new Container();
@@ -81,16 +47,20 @@
             this.btn_MoveRoutinesDown = new FlatButton();
             this.btn_AddToRoutines = new FlatButton();
             this.lbox_Routines = new System.Windows.Forms.ListBox();
+            this.label29 = new System.Windows.Forms.Label();
             this.container32 = new Container();
             this.btn_AddToIgnoreTargets = new FlatButton();
             this.lbox_IgnoreTargets = new System.Windows.Forms.ListBox();
+            this.label30 = new System.Windows.Forms.Label();
             this.container33 = new Container();
             this.chkbox_EscapeDeath = new System.Windows.Forms.CheckBox();
             this.chkbox_AntiCC = new System.Windows.Forms.CheckBox();
             this.chkbox_SwitchRoutines = new System.Windows.Forms.CheckBox();
             this.chkbox_ManualMovement = new System.Windows.Forms.CheckBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.container28 = new Container();
             this.cmbox_Familiars = new System.Windows.Forms.ComboBox();
+            this.label24 = new System.Windows.Forms.Label();
             this.container8 = new Container();
             this.lbox_GpsPoints = new System.Windows.Forms.ListBox();
             this.container31 = new Container();
@@ -102,7 +72,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.container14 = new Container();
             this.cmbox_ZoneMaps = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.container9 = new Container();
+            this.chkbox_StopOnDeath = new System.Windows.Forms.CheckBox();
             this.num_FightRadius = new System.Windows.Forms.NumericUpDown();
             this.chkbox_LevelFamiliars = new System.Windows.Forms.CheckBox();
             this.chkbox_AutoStart = new System.Windows.Forms.CheckBox();
@@ -115,6 +87,17 @@
             this.btn_MoveTargetsDown = new FlatButton();
             this.btn_AddToTargets = new FlatButton();
             this.lbox_Targets = new System.Windows.Forms.ListBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tab_Items = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtbox_ItemSearch = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.container23 = new Container();
             this.btn_AddToProcessItems = new FlatButton();
             this.lbox_ProcessItems = new System.Windows.Forms.ListBox();
@@ -136,6 +119,7 @@
             this.container18 = new Container();
             this.lbox_HpRecoverItems = new System.Windows.Forms.ListBox();
             this.btn_AddToHpRecover = new FlatButton();
+            this.tab_Routine = new System.Windows.Forms.TabPage();
             this.container34 = new Container();
             this.num_MinHpHeals = new System.Windows.Forms.NumericUpDown();
             this.label27 = new System.Windows.Forms.Label();
@@ -188,6 +172,18 @@
             this.btn_MoveComboRotationDown = new FlatButton();
             this.lbox_ComboRotations = new System.Windows.Forms.ListBox();
             this.btn_AddToComboRotations = new FlatButton();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label_Conditions = new System.Windows.Forms.Label();
+            this.label_BoostingBuffs = new System.Windows.Forms.Label();
+            this.label_Rotation = new System.Windows.Forms.Label();
+            this.label_ComboTriggers = new System.Windows.Forms.Label();
+            this.label_CombatBuffs = new System.Windows.Forms.Label();
+            this.label_Template = new System.Windows.Forms.Label();
+            this.label_ComboRotations = new System.Windows.Forms.Label();
+            this.label_Skills = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.tab_Extra = new System.Windows.Forms.TabPage();
+            this.label_WhenDone = new System.Windows.Forms.Label();
             this.container_WhenDone = new Container();
             this.optionBox5 = new OptionBox();
             this.optionBox4 = new OptionBox();
@@ -196,6 +192,10 @@
             this.txtbox_PluginRunName = new System.Windows.Forms.TextBox();
             this.chkbox_RunPlugin = new System.Windows.Forms.CheckBox();
             this.label_Name = new System.Windows.Forms.Label();
+            this.tab_Statistics = new System.Windows.Forms.TabPage();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.container26 = new Container();
             this.container27 = new Container();
             this.dtg_Mobs = new System.Windows.Forms.DataGridView();
@@ -221,13 +221,10 @@
             this.label18 = new System.Windows.Forms.Label();
             this.lbl_RunTime = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
             this.btn_Begin = new FlatButton();
             this.tabControl1.SuspendLayout();
             this.tab_Setup.SuspendLayout();
-            this.tab_Items.SuspendLayout();
-            this.tab_Routine.SuspendLayout();
-            this.tab_Extra.SuspendLayout();
-            this.tab_Statistics.SuspendLayout();
             this.container30.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_TagMobs)).BeginInit();
             this.container22.SuspendLayout();
@@ -245,6 +242,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.num_FightRadius)).BeginInit();
             this.container6.SuspendLayout();
             this.container7.SuspendLayout();
+            this.tab_Items.SuspendLayout();
             this.container23.SuspendLayout();
             this.container29.SuspendLayout();
             this.container19.SuspendLayout();
@@ -252,6 +250,7 @@
             this.container20.SuspendLayout();
             this.container11.SuspendLayout();
             this.container18.SuspendLayout();
+            this.tab_Routine.SuspendLayout();
             this.container34.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_MinHpHeals)).BeginInit();
             this.container21.SuspendLayout();
@@ -268,7 +267,9 @@
             this.container2.SuspendLayout();
             this.container1.SuspendLayout();
             this.container4.SuspendLayout();
+            this.tab_Extra.SuspendLayout();
             this.container_WhenDone.SuspendLayout();
+            this.tab_Statistics.SuspendLayout();
             this.container26.SuspendLayout();
             this.container27.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtg_Mobs)).BeginInit();
@@ -322,395 +323,6 @@
             this.tab_Setup.TabIndex = 2;
             this.tab_Setup.Text = "Setup";
             this.tab_Setup.UseVisualStyleBackColor = true;
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.ForeColor = System.Drawing.Color.Gray;
-            this.label33.Location = new System.Drawing.Point(185, 240);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(75, 13);
-            this.label33.TabIndex = 88;
-            this.label33.Text = "Party options";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.Gray;
-            this.label4.Location = new System.Drawing.Point(529, 24);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(96, 13);
-            this.label4.TabIndex = 55;
-            this.label4.Text = "Grinding options";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(5, 14);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(56, 13);
-            this.label29.TabIndex = 85;
-            this.label29.Text = "Routines:";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.ForeColor = System.Drawing.Color.Gray;
-            this.label30.Location = new System.Drawing.Point(185, 24);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(94, 13);
-            this.label30.TabIndex = 82;
-            this.label30.Text = "Fighting options";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.ForeColor = System.Drawing.Color.Gray;
-            this.label28.Location = new System.Drawing.Point(529, 218);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(95, 13);
-            this.label28.TabIndex = 78;
-            this.label28.Text = "Recovery options";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(521, 163);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(81, 13);
-            this.label24.TabIndex = 76;
-            this.label24.Text = "Mounts / Pets:";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(349, 14);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(66, 13);
-            this.label10.TabIndex = 59;
-            this.label10.Text = "Zone maps:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(5, 183);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(47, 13);
-            this.label6.TabIndex = 50;
-            this.label6.Text = "Targets:";
-            // 
-            // tab_Items
-            // 
-            this.tab_Items.Controls.Add(this.label5);
-            this.tab_Items.Controls.Add(this.label26);
-            this.tab_Items.Controls.Add(this.label2);
-            this.tab_Items.Controls.Add(this.txtbox_ItemSearch);
-            this.tab_Items.Controls.Add(this.label7);
-            this.tab_Items.Controls.Add(this.label12);
-            this.tab_Items.Controls.Add(this.label1);
-            this.tab_Items.Controls.Add(this.label14);
-            this.tab_Items.Controls.Add(this.label13);
-            this.tab_Items.Controls.Add(this.container23);
-            this.tab_Items.Controls.Add(this.container29);
-            this.tab_Items.Controls.Add(this.container19);
-            this.tab_Items.Controls.Add(this.container10);
-            this.tab_Items.Controls.Add(this.container20);
-            this.tab_Items.Controls.Add(this.container11);
-            this.tab_Items.Controls.Add(this.container18);
-            this.tab_Items.Location = new System.Drawing.Point(4, 22);
-            this.tab_Items.Name = "tab_Items";
-            this.tab_Items.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_Items.Size = new System.Drawing.Size(695, 468);
-            this.tab_Items.TabIndex = 4;
-            this.tab_Items.Text = "Items";
-            this.tab_Items.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.Gray;
-            this.label5.Location = new System.Drawing.Point(357, 145);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(75, 13);
-            this.label5.TabIndex = 77;
-            this.label5.Text = "Process Items";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.ForeColor = System.Drawing.Color.Gray;
-            this.label26.Location = new System.Drawing.Point(529, 14);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(63, 13);
-            this.label26.TabIndex = 75;
-            this.label26.Text = "HP Potions";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Gray;
-            this.label2.Location = new System.Drawing.Point(185, 145);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 13);
-            this.label2.TabIndex = 69;
-            this.label2.Text = "Combat Boosts";
-            // 
-            // txtbox_ItemSearch
-            // 
-            this.txtbox_ItemSearch.Location = new System.Drawing.Point(8, 31);
-            this.txtbox_ItemSearch.Name = "txtbox_ItemSearch";
-            this.txtbox_ItemSearch.Size = new System.Drawing.Size(160, 22);
-            this.txtbox_ItemSearch.TabIndex = 44;
-            this.txtbox_ItemSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbox_ItemSearch_KeyDown);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.Color.Gray;
-            this.label7.Location = new System.Drawing.Point(357, 14);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(84, 13);
-            this.label7.TabIndex = 71;
-            this.label7.Text = "Mana Recovery";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.ForeColor = System.Drawing.Color.Gray;
-            this.label12.Location = new System.Drawing.Point(13, 292);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(91, 13);
-            this.label12.TabIndex = 48;
-            this.label12.Text = "Unwanted items";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Gray;
-            this.label1.Location = new System.Drawing.Point(185, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 13);
-            this.label1.TabIndex = 73;
-            this.label1.Text = "HP Recovery";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.ForeColor = System.Drawing.Color.DarkGray;
-            this.label14.Location = new System.Drawing.Point(90, 14);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(69, 13);
-            this.label14.TabIndex = 46;
-            this.label14.Text = "(Press Enter)";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(5, 14);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(86, 13);
-            this.label13.TabIndex = 43;
-            this.label13.Text = "Search item db:";
-            // 
-            // tab_Routine
-            // 
-            this.tab_Routine.Controls.Add(this.container34);
-            this.tab_Routine.Controls.Add(this.btn_TemplateOptions);
-            this.tab_Routine.Controls.Add(this.btn_LoadTemplate);
-            this.tab_Routine.Controls.Add(this.btn_SaveTemplate);
-            this.tab_Routine.Controls.Add(this.container37);
-            this.tab_Routine.Controls.Add(this.container17);
-            this.tab_Routine.Controls.Add(this.container15);
-            this.tab_Routine.Controls.Add(this.container13);
-            this.tab_Routine.Controls.Add(this.container5);
-            this.tab_Routine.Controls.Add(this.container12);
-            this.tab_Routine.Controls.Add(this.container3);
-            this.tab_Routine.Controls.Add(this.container2);
-            this.tab_Routine.Controls.Add(this.container1);
-            this.tab_Routine.Controls.Add(this.container4);
-            this.tab_Routine.Controls.Add(this.label31);
-            this.tab_Routine.Controls.Add(this.label_Conditions);
-            this.tab_Routine.Controls.Add(this.label_BoostingBuffs);
-            this.tab_Routine.Controls.Add(this.label_Rotation);
-            this.tab_Routine.Controls.Add(this.label_ComboTriggers);
-            this.tab_Routine.Controls.Add(this.label_CombatBuffs);
-            this.tab_Routine.Controls.Add(this.label_Template);
-            this.tab_Routine.Controls.Add(this.label_ComboRotations);
-            this.tab_Routine.Controls.Add(this.label_Skills);
-            this.tab_Routine.Controls.Add(this.label32);
-            this.tab_Routine.Location = new System.Drawing.Point(4, 22);
-            this.tab_Routine.Name = "tab_Routine";
-            this.tab_Routine.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_Routine.Size = new System.Drawing.Size(695, 468);
-            this.tab_Routine.TabIndex = 0;
-            this.tab_Routine.Text = "Routine";
-            this.tab_Routine.UseVisualStyleBackColor = true;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(349, 300);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(95, 13);
-            this.label31.TabIndex = 25;
-            this.label31.Text = "Healing rotation:";
-            // 
-            // label_Conditions
-            // 
-            this.label_Conditions.AutoSize = true;
-            this.label_Conditions.Location = new System.Drawing.Point(177, 274);
-            this.label_Conditions.Name = "label_Conditions";
-            this.label_Conditions.Size = new System.Drawing.Size(67, 13);
-            this.label_Conditions.TabIndex = 18;
-            this.label_Conditions.Text = "Conditions:";
-            // 
-            // label_BoostingBuffs
-            // 
-            this.label_BoostingBuffs.AutoSize = true;
-            this.label_BoostingBuffs.Location = new System.Drawing.Point(521, 338);
-            this.label_BoostingBuffs.Name = "label_BoostingBuffs";
-            this.label_BoostingBuffs.Size = new System.Drawing.Size(87, 13);
-            this.label_BoostingBuffs.TabIndex = 16;
-            this.label_BoostingBuffs.Text = "Boosting buffs:";
-            // 
-            // label_Rotation
-            // 
-            this.label_Rotation.AutoSize = true;
-            this.label_Rotation.Location = new System.Drawing.Point(177, 14);
-            this.label_Rotation.Name = "label_Rotation";
-            this.label_Rotation.Size = new System.Drawing.Size(55, 13);
-            this.label_Rotation.TabIndex = 4;
-            this.label_Rotation.Text = "Rotation:";
-            // 
-            // label_ComboTriggers
-            // 
-            this.label_ComboTriggers.AutoSize = true;
-            this.label_ComboTriggers.Location = new System.Drawing.Point(349, 14);
-            this.label_ComboTriggers.Name = "label_ComboTriggers";
-            this.label_ComboTriggers.Size = new System.Drawing.Size(52, 13);
-            this.label_ComboTriggers.TabIndex = 6;
-            this.label_ComboTriggers.Text = "Combos:";
-            // 
-            // label_CombatBuffs
-            // 
-            this.label_CombatBuffs.AutoSize = true;
-            this.label_CombatBuffs.Location = new System.Drawing.Point(521, 202);
-            this.label_CombatBuffs.Name = "label_CombatBuffs";
-            this.label_CombatBuffs.Size = new System.Drawing.Size(80, 13);
-            this.label_CombatBuffs.TabIndex = 14;
-            this.label_CombatBuffs.Text = "Combat buffs:";
-            // 
-            // label_Template
-            // 
-            this.label_Template.AutoSize = true;
-            this.label_Template.Location = new System.Drawing.Point(5, 14);
-            this.label_Template.Name = "label_Template";
-            this.label_Template.Size = new System.Drawing.Size(56, 13);
-            this.label_Template.TabIndex = 10;
-            this.label_Template.Text = "Template:";
-            // 
-            // label_ComboRotations
-            // 
-            this.label_ComboRotations.AutoSize = true;
-            this.label_ComboRotations.Location = new System.Drawing.Point(521, 14);
-            this.label_ComboRotations.Name = "label_ComboRotations";
-            this.label_ComboRotations.Size = new System.Drawing.Size(92, 13);
-            this.label_ComboRotations.TabIndex = 22;
-            this.label_ComboRotations.Text = "Combo rotation:";
-            // 
-            // label_Skills
-            // 
-            this.label_Skills.AutoSize = true;
-            this.label_Skills.Location = new System.Drawing.Point(5, 117);
-            this.label_Skills.Name = "label_Skills";
-            this.label_Skills.Size = new System.Drawing.Size(36, 13);
-            this.label_Skills.TabIndex = 2;
-            this.label_Skills.Text = "Skills:";
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.ForeColor = System.Drawing.Color.DarkGray;
-            this.label32.Location = new System.Drawing.Point(243, 274);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(66, 13);
-            this.label32.TabIndex = 47;
-            this.label32.Text = "(Select skill)";
-            // 
-            // tab_Extra
-            // 
-            this.tab_Extra.Controls.Add(this.label_WhenDone);
-            this.tab_Extra.Controls.Add(this.container_WhenDone);
-            this.tab_Extra.Location = new System.Drawing.Point(4, 22);
-            this.tab_Extra.Name = "tab_Extra";
-            this.tab_Extra.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_Extra.Size = new System.Drawing.Size(695, 468);
-            this.tab_Extra.TabIndex = 1;
-            this.tab_Extra.Text = "Extra";
-            this.tab_Extra.UseVisualStyleBackColor = true;
-            // 
-            // label_WhenDone
-            // 
-            this.label_WhenDone.AutoSize = true;
-            this.label_WhenDone.ForeColor = System.Drawing.Color.DimGray;
-            this.label_WhenDone.Location = new System.Drawing.Point(13, 7);
-            this.label_WhenDone.Name = "label_WhenDone";
-            this.label_WhenDone.Size = new System.Drawing.Size(68, 13);
-            this.label_WhenDone.TabIndex = 50;
-            this.label_WhenDone.Text = "When done";
-            // 
-            // tab_Statistics
-            // 
-            this.tab_Statistics.Controls.Add(this.label23);
-            this.tab_Statistics.Controls.Add(this.label15);
-            this.tab_Statistics.Controls.Add(this.label8);
-            this.tab_Statistics.Controls.Add(this.container26);
-            this.tab_Statistics.Controls.Add(this.container24);
-            this.tab_Statistics.Location = new System.Drawing.Point(4, 22);
-            this.tab_Statistics.Name = "tab_Statistics";
-            this.tab_Statistics.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_Statistics.Size = new System.Drawing.Size(695, 468);
-            this.tab_Statistics.TabIndex = 3;
-            this.tab_Statistics.Text = "Statistics";
-            this.tab_Statistics.UseVisualStyleBackColor = true;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(346, 190);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(70, 13);
-            this.label23.TabIndex = 22;
-            this.label23.Text = "Mobs killed:";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(8, 190);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(74, 13);
-            this.label15.TabIndex = 21;
-            this.label15.Text = "Items looted:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.Color.Gray;
-            this.label8.Location = new System.Drawing.Point(13, 7);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(52, 13);
-            this.label8.TabIndex = 11;
-            this.label8.Text = "Statistics";
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.ForeColor = System.Drawing.Color.Silver;
-            this.label34.Location = new System.Drawing.Point(556, 21);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(51, 13);
-            this.label34.TabIndex = 83;
-            this.label34.Text = "CTRL + S";
             // 
             // label35
             // 
@@ -776,6 +388,16 @@
             this.chkbox_MobTagging.Text = "Mob Tagging";
             this.chkbox_MobTagging.UseVisualStyleBackColor = true;
             // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.ForeColor = System.Drawing.Color.Gray;
+            this.label33.Location = new System.Drawing.Point(185, 240);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(75, 13);
+            this.label33.TabIndex = 88;
+            this.label33.Text = "Party options";
+            // 
             // container22
             // 
             this.container22.Controls.Add(this.chkbox_RollOnItems);
@@ -805,6 +427,16 @@
             this.chkbox_AssistLeader.TabIndex = 78;
             this.chkbox_AssistLeader.Text = "Assist the Leader";
             this.chkbox_AssistLeader.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Gray;
+            this.label4.Location = new System.Drawing.Point(529, 24);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(96, 13);
+            this.label4.TabIndex = 55;
+            this.label4.Text = "Grinding options";
             // 
             // container38
             // 
@@ -879,6 +511,15 @@
             this.lbox_Routines.TabIndex = 1;
             this.lbox_Routines.DoubleClick += new System.EventHandler(this.lbox_Routines_DoubleClick);
             // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(5, 14);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(56, 13);
+            this.label29.TabIndex = 85;
+            this.label29.Text = "Routines:";
+            // 
             // container32
             // 
             this.container32.Controls.Add(this.btn_AddToIgnoreTargets);
@@ -909,6 +550,16 @@
             this.lbox_IgnoreTargets.Size = new System.Drawing.Size(148, 65);
             this.lbox_IgnoreTargets.TabIndex = 1;
             this.lbox_IgnoreTargets.DoubleClick += new System.EventHandler(this.lbox_IgnoreTargets_DoubleClick);
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.ForeColor = System.Drawing.Color.Gray;
+            this.label30.Location = new System.Drawing.Point(185, 24);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(94, 13);
+            this.label30.TabIndex = 82;
+            this.label30.Text = "Fighting options";
             // 
             // container33
             // 
@@ -962,10 +613,20 @@
             this.chkbox_ManualMovement.Text = "Manual Movement";
             this.chkbox_ManualMovement.UseVisualStyleBackColor = true;
             // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.ForeColor = System.Drawing.Color.Gray;
+            this.label28.Location = new System.Drawing.Point(529, 233);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(95, 13);
+            this.label28.TabIndex = 78;
+            this.label28.Text = "Recovery options";
+            // 
             // container28
             // 
             this.container28.Controls.Add(this.cmbox_Familiars);
-            this.container28.Location = new System.Drawing.Point(524, 180);
+            this.container28.Location = new System.Drawing.Point(524, 201);
             this.container28.Name = "container28";
             this.container28.Size = new System.Drawing.Size(160, 27);
             this.container28.TabIndex = 75;
@@ -979,6 +640,15 @@
             this.cmbox_Familiars.Name = "cmbox_Familiars";
             this.cmbox_Familiars.Size = new System.Drawing.Size(154, 21);
             this.cmbox_Familiars.TabIndex = 74;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(521, 184);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(81, 13);
+            this.label24.TabIndex = 76;
+            this.label24.Text = "Mounts / Pets:";
             // 
             // container8
             // 
@@ -1006,7 +676,7 @@
             this.container31.Controls.Add(this.num_MinMana);
             this.container31.Controls.Add(this.chkbox_UseInstruments);
             this.container31.Controls.Add(this.label3);
-            this.container31.Location = new System.Drawing.Point(524, 225);
+            this.container31.Location = new System.Drawing.Point(524, 240);
             this.container31.Name = "container31";
             this.container31.Padding = new System.Windows.Forms.Padding(3);
             this.container31.Size = new System.Drawing.Size(160, 124);
@@ -1117,8 +787,18 @@
             this.cmbox_ZoneMaps.TabIndex = 0;
             this.cmbox_ZoneMaps.SelectedIndexChanged += new System.EventHandler(this.cmbox_ZoneMaps_SelectedIndexChanged);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(349, 14);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(66, 13);
+            this.label10.TabIndex = 59;
+            this.label10.Text = "Zone maps:";
+            // 
             // container9
             // 
+            this.container9.Controls.Add(this.chkbox_StopOnDeath);
             this.container9.Controls.Add(this.num_FightRadius);
             this.container9.Controls.Add(this.chkbox_LevelFamiliars);
             this.container9.Controls.Add(this.chkbox_AutoStart);
@@ -1126,8 +806,18 @@
             this.container9.Controls.Add(this.chkbox_LootTargets);
             this.container9.Location = new System.Drawing.Point(524, 31);
             this.container9.Name = "container9";
-            this.container9.Size = new System.Drawing.Size(160, 123);
+            this.container9.Size = new System.Drawing.Size(160, 144);
             this.container9.TabIndex = 54;
+            // 
+            // chkbox_StopOnDeath
+            // 
+            this.chkbox_StopOnDeath.AutoSize = true;
+            this.chkbox_StopOnDeath.Location = new System.Drawing.Point(14, 114);
+            this.chkbox_StopOnDeath.Name = "chkbox_StopOnDeath";
+            this.chkbox_StopOnDeath.Size = new System.Drawing.Size(101, 17);
+            this.chkbox_StopOnDeath.TabIndex = 66;
+            this.chkbox_StopOnDeath.Text = "Stop on Death";
+            this.chkbox_StopOnDeath.UseVisualStyleBackColor = true;
             // 
             // num_FightRadius
             // 
@@ -1264,6 +954,128 @@
             this.lbox_Targets.Size = new System.Drawing.Size(148, 65);
             this.lbox_Targets.TabIndex = 1;
             this.lbox_Targets.DoubleClick += new System.EventHandler(this.lbox_Targets_DoubleClick);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(5, 183);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(47, 13);
+            this.label6.TabIndex = 50;
+            this.label6.Text = "Targets:";
+            // 
+            // tab_Items
+            // 
+            this.tab_Items.Controls.Add(this.label5);
+            this.tab_Items.Controls.Add(this.label26);
+            this.tab_Items.Controls.Add(this.label2);
+            this.tab_Items.Controls.Add(this.txtbox_ItemSearch);
+            this.tab_Items.Controls.Add(this.label7);
+            this.tab_Items.Controls.Add(this.label12);
+            this.tab_Items.Controls.Add(this.label1);
+            this.tab_Items.Controls.Add(this.label14);
+            this.tab_Items.Controls.Add(this.label13);
+            this.tab_Items.Controls.Add(this.container23);
+            this.tab_Items.Controls.Add(this.container29);
+            this.tab_Items.Controls.Add(this.container19);
+            this.tab_Items.Controls.Add(this.container10);
+            this.tab_Items.Controls.Add(this.container20);
+            this.tab_Items.Controls.Add(this.container11);
+            this.tab_Items.Controls.Add(this.container18);
+            this.tab_Items.Location = new System.Drawing.Point(4, 22);
+            this.tab_Items.Name = "tab_Items";
+            this.tab_Items.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_Items.Size = new System.Drawing.Size(695, 468);
+            this.tab_Items.TabIndex = 4;
+            this.tab_Items.Text = "Items";
+            this.tab_Items.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.Gray;
+            this.label5.Location = new System.Drawing.Point(357, 145);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(75, 13);
+            this.label5.TabIndex = 77;
+            this.label5.Text = "Process Items";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.ForeColor = System.Drawing.Color.Gray;
+            this.label26.Location = new System.Drawing.Point(529, 14);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(63, 13);
+            this.label26.TabIndex = 75;
+            this.label26.Text = "HP Potions";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Gray;
+            this.label2.Location = new System.Drawing.Point(185, 145);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(85, 13);
+            this.label2.TabIndex = 69;
+            this.label2.Text = "Combat Boosts";
+            // 
+            // txtbox_ItemSearch
+            // 
+            this.txtbox_ItemSearch.Location = new System.Drawing.Point(8, 31);
+            this.txtbox_ItemSearch.Name = "txtbox_ItemSearch";
+            this.txtbox_ItemSearch.Size = new System.Drawing.Size(160, 22);
+            this.txtbox_ItemSearch.TabIndex = 44;
+            this.txtbox_ItemSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbox_ItemSearch_KeyDown);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.Gray;
+            this.label7.Location = new System.Drawing.Point(357, 14);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(84, 13);
+            this.label7.TabIndex = 71;
+            this.label7.Text = "Mana Recovery";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.Gray;
+            this.label12.Location = new System.Drawing.Point(13, 292);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(91, 13);
+            this.label12.TabIndex = 48;
+            this.label12.Text = "Unwanted items";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Gray;
+            this.label1.Location = new System.Drawing.Point(185, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(69, 13);
+            this.label1.TabIndex = 73;
+            this.label1.Text = "HP Recovery";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.Color.DarkGray;
+            this.label14.Location = new System.Drawing.Point(90, 14);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(69, 13);
+            this.label14.TabIndex = 46;
+            this.label14.Text = "(Press Enter)";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(5, 14);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(86, 13);
+            this.label13.TabIndex = 43;
+            this.label13.Text = "Search item db:";
             // 
             // container23
             // 
@@ -1480,6 +1292,40 @@
             this.btn_AddToHpRecover.Text = "Add Item";
             this.btn_AddToHpRecover.UseVisualStyleBackColor = true;
             this.btn_AddToHpRecover.Click += new System.EventHandler(this.btn_AddToHpRecover_Click);
+            // 
+            // tab_Routine
+            // 
+            this.tab_Routine.Controls.Add(this.container34);
+            this.tab_Routine.Controls.Add(this.btn_TemplateOptions);
+            this.tab_Routine.Controls.Add(this.btn_LoadTemplate);
+            this.tab_Routine.Controls.Add(this.btn_SaveTemplate);
+            this.tab_Routine.Controls.Add(this.container37);
+            this.tab_Routine.Controls.Add(this.container17);
+            this.tab_Routine.Controls.Add(this.container15);
+            this.tab_Routine.Controls.Add(this.container13);
+            this.tab_Routine.Controls.Add(this.container5);
+            this.tab_Routine.Controls.Add(this.container12);
+            this.tab_Routine.Controls.Add(this.container3);
+            this.tab_Routine.Controls.Add(this.container2);
+            this.tab_Routine.Controls.Add(this.container1);
+            this.tab_Routine.Controls.Add(this.container4);
+            this.tab_Routine.Controls.Add(this.label31);
+            this.tab_Routine.Controls.Add(this.label_Conditions);
+            this.tab_Routine.Controls.Add(this.label_BoostingBuffs);
+            this.tab_Routine.Controls.Add(this.label_Rotation);
+            this.tab_Routine.Controls.Add(this.label_ComboTriggers);
+            this.tab_Routine.Controls.Add(this.label_CombatBuffs);
+            this.tab_Routine.Controls.Add(this.label_Template);
+            this.tab_Routine.Controls.Add(this.label_ComboRotations);
+            this.tab_Routine.Controls.Add(this.label_Skills);
+            this.tab_Routine.Controls.Add(this.label32);
+            this.tab_Routine.Location = new System.Drawing.Point(4, 22);
+            this.tab_Routine.Name = "tab_Routine";
+            this.tab_Routine.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_Routine.Size = new System.Drawing.Size(695, 468);
+            this.tab_Routine.TabIndex = 0;
+            this.tab_Routine.Text = "Routine";
+            this.tab_Routine.UseVisualStyleBackColor = true;
             // 
             // container34
             // 
@@ -2033,6 +1879,119 @@
             this.btn_AddToComboRotations.UseVisualStyleBackColor = true;
             this.btn_AddToComboRotations.Click += new System.EventHandler(this.btn_AddToComboRotations_Click);
             // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(349, 300);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(95, 13);
+            this.label31.TabIndex = 25;
+            this.label31.Text = "Healing rotation:";
+            // 
+            // label_Conditions
+            // 
+            this.label_Conditions.AutoSize = true;
+            this.label_Conditions.Location = new System.Drawing.Point(177, 274);
+            this.label_Conditions.Name = "label_Conditions";
+            this.label_Conditions.Size = new System.Drawing.Size(67, 13);
+            this.label_Conditions.TabIndex = 18;
+            this.label_Conditions.Text = "Conditions:";
+            // 
+            // label_BoostingBuffs
+            // 
+            this.label_BoostingBuffs.AutoSize = true;
+            this.label_BoostingBuffs.Location = new System.Drawing.Point(521, 338);
+            this.label_BoostingBuffs.Name = "label_BoostingBuffs";
+            this.label_BoostingBuffs.Size = new System.Drawing.Size(87, 13);
+            this.label_BoostingBuffs.TabIndex = 16;
+            this.label_BoostingBuffs.Text = "Boosting buffs:";
+            // 
+            // label_Rotation
+            // 
+            this.label_Rotation.AutoSize = true;
+            this.label_Rotation.Location = new System.Drawing.Point(177, 14);
+            this.label_Rotation.Name = "label_Rotation";
+            this.label_Rotation.Size = new System.Drawing.Size(55, 13);
+            this.label_Rotation.TabIndex = 4;
+            this.label_Rotation.Text = "Rotation:";
+            // 
+            // label_ComboTriggers
+            // 
+            this.label_ComboTriggers.AutoSize = true;
+            this.label_ComboTriggers.Location = new System.Drawing.Point(349, 14);
+            this.label_ComboTriggers.Name = "label_ComboTriggers";
+            this.label_ComboTriggers.Size = new System.Drawing.Size(52, 13);
+            this.label_ComboTriggers.TabIndex = 6;
+            this.label_ComboTriggers.Text = "Combos:";
+            // 
+            // label_CombatBuffs
+            // 
+            this.label_CombatBuffs.AutoSize = true;
+            this.label_CombatBuffs.Location = new System.Drawing.Point(521, 202);
+            this.label_CombatBuffs.Name = "label_CombatBuffs";
+            this.label_CombatBuffs.Size = new System.Drawing.Size(80, 13);
+            this.label_CombatBuffs.TabIndex = 14;
+            this.label_CombatBuffs.Text = "Combat buffs:";
+            // 
+            // label_Template
+            // 
+            this.label_Template.AutoSize = true;
+            this.label_Template.Location = new System.Drawing.Point(5, 14);
+            this.label_Template.Name = "label_Template";
+            this.label_Template.Size = new System.Drawing.Size(56, 13);
+            this.label_Template.TabIndex = 10;
+            this.label_Template.Text = "Template:";
+            // 
+            // label_ComboRotations
+            // 
+            this.label_ComboRotations.AutoSize = true;
+            this.label_ComboRotations.Location = new System.Drawing.Point(521, 14);
+            this.label_ComboRotations.Name = "label_ComboRotations";
+            this.label_ComboRotations.Size = new System.Drawing.Size(92, 13);
+            this.label_ComboRotations.TabIndex = 22;
+            this.label_ComboRotations.Text = "Combo rotation:";
+            // 
+            // label_Skills
+            // 
+            this.label_Skills.AutoSize = true;
+            this.label_Skills.Location = new System.Drawing.Point(5, 117);
+            this.label_Skills.Name = "label_Skills";
+            this.label_Skills.Size = new System.Drawing.Size(36, 13);
+            this.label_Skills.TabIndex = 2;
+            this.label_Skills.Text = "Skills:";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.ForeColor = System.Drawing.Color.DarkGray;
+            this.label32.Location = new System.Drawing.Point(243, 274);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(66, 13);
+            this.label32.TabIndex = 47;
+            this.label32.Text = "(Select skill)";
+            // 
+            // tab_Extra
+            // 
+            this.tab_Extra.Controls.Add(this.label_WhenDone);
+            this.tab_Extra.Controls.Add(this.container_WhenDone);
+            this.tab_Extra.Location = new System.Drawing.Point(4, 22);
+            this.tab_Extra.Name = "tab_Extra";
+            this.tab_Extra.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_Extra.Size = new System.Drawing.Size(695, 468);
+            this.tab_Extra.TabIndex = 1;
+            this.tab_Extra.Text = "Extra";
+            this.tab_Extra.UseVisualStyleBackColor = true;
+            // 
+            // label_WhenDone
+            // 
+            this.label_WhenDone.AutoSize = true;
+            this.label_WhenDone.ForeColor = System.Drawing.Color.DimGray;
+            this.label_WhenDone.Location = new System.Drawing.Point(13, 7);
+            this.label_WhenDone.Name = "label_WhenDone";
+            this.label_WhenDone.Size = new System.Drawing.Size(68, 13);
+            this.label_WhenDone.TabIndex = 50;
+            this.label_WhenDone.Text = "When done";
+            // 
             // container_WhenDone
             // 
             this.container_WhenDone.Controls.Add(this.optionBox5);
@@ -2121,6 +2080,49 @@
             this.label_Name.Size = new System.Drawing.Size(39, 13);
             this.label_Name.TabIndex = 18;
             this.label_Name.Text = "Name:";
+            // 
+            // tab_Statistics
+            // 
+            this.tab_Statistics.Controls.Add(this.label23);
+            this.tab_Statistics.Controls.Add(this.label15);
+            this.tab_Statistics.Controls.Add(this.label8);
+            this.tab_Statistics.Controls.Add(this.container26);
+            this.tab_Statistics.Controls.Add(this.container24);
+            this.tab_Statistics.Location = new System.Drawing.Point(4, 22);
+            this.tab_Statistics.Name = "tab_Statistics";
+            this.tab_Statistics.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_Statistics.Size = new System.Drawing.Size(695, 468);
+            this.tab_Statistics.TabIndex = 3;
+            this.tab_Statistics.Text = "Statistics";
+            this.tab_Statistics.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(346, 190);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(70, 13);
+            this.label23.TabIndex = 22;
+            this.label23.Text = "Mobs killed:";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(8, 190);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(74, 13);
+            this.label15.TabIndex = 21;
+            this.label15.Text = "Items looted:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.Gray;
+            this.label8.Location = new System.Drawing.Point(13, 7);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(52, 13);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "Statistics";
             // 
             // container26
             // 
@@ -2392,6 +2394,16 @@
             this.label21.TabIndex = 0;
             this.label21.Text = "RunTime:";
             // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.ForeColor = System.Drawing.Color.Silver;
+            this.label34.Location = new System.Drawing.Point(556, 21);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(51, 13);
+            this.label34.TabIndex = 83;
+            this.label34.Text = "CTRL + S";
+            // 
             // btn_Begin
             // 
             this.btn_Begin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -2422,14 +2434,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tab_Setup.ResumeLayout(false);
             this.tab_Setup.PerformLayout();
-            this.tab_Items.ResumeLayout(false);
-            this.tab_Items.PerformLayout();
-            this.tab_Routine.ResumeLayout(false);
-            this.tab_Routine.PerformLayout();
-            this.tab_Extra.ResumeLayout(false);
-            this.tab_Extra.PerformLayout();
-            this.tab_Statistics.ResumeLayout(false);
-            this.tab_Statistics.PerformLayout();
             this.container30.ResumeLayout(false);
             this.container30.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_TagMobs)).EndInit();
@@ -2452,6 +2456,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.num_FightRadius)).EndInit();
             this.container6.ResumeLayout(false);
             this.container7.ResumeLayout(false);
+            this.tab_Items.ResumeLayout(false);
+            this.tab_Items.PerformLayout();
             this.container23.ResumeLayout(false);
             this.container29.ResumeLayout(false);
             this.container19.ResumeLayout(false);
@@ -2459,6 +2465,8 @@
             this.container20.ResumeLayout(false);
             this.container11.ResumeLayout(false);
             this.container18.ResumeLayout(false);
+            this.tab_Routine.ResumeLayout(false);
+            this.tab_Routine.PerformLayout();
             this.container34.ResumeLayout(false);
             this.container34.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_MinHpHeals)).EndInit();
@@ -2479,8 +2487,12 @@
             this.container2.ResumeLayout(false);
             this.container1.ResumeLayout(false);
             this.container4.ResumeLayout(false);
+            this.tab_Extra.ResumeLayout(false);
+            this.tab_Extra.PerformLayout();
             this.container_WhenDone.ResumeLayout(false);
             this.container_WhenDone.PerformLayout();
+            this.tab_Statistics.ResumeLayout(false);
+            this.tab_Statistics.PerformLayout();
             this.container26.ResumeLayout(false);
             this.container27.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtg_Mobs)).EndInit();
@@ -2689,5 +2701,6 @@
         private System.Windows.Forms.NumericUpDown num_TagMobs;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.CheckBox chkbox_MobTagging;
+        private System.Windows.Forms.CheckBox chkbox_StopOnDeath;
     }
 }

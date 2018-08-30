@@ -18,7 +18,7 @@ namespace CombatMaster
 
         public static string PluginVersion()
         {
-            return "1.2.17";
+            return "1.2.18";
         }
 
         public string ChangeLog()
@@ -63,13 +63,13 @@ namespace CombatMaster
 
             ClearLogs();
             Log("CombatMaster v." + PluginVersion());
-            Log(ChangeLog());
+            //Log(ChangeLog());
 
 
             Debug();
             Initialize();
 
-
+            
             UIContext.Load();
 
             try

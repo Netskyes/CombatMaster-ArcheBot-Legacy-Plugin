@@ -273,6 +273,7 @@ namespace CombatMaster.UI
                 chkbox_AssistLeader.Checked = settings.AssistLeader;
                 chkbox_RollOnItems.Checked = settings.RollOnItems;
                 chkbox_MobTagging.Checked = settings.MobTagging;
+                chkbox_StopOnDeath.Checked = settings.StopOnDeath;
 
                 int index = 0;
 
@@ -339,6 +340,7 @@ namespace CombatMaster.UI
                 settings.AssistLeader = chkbox_AssistLeader.Checked;
                 settings.RollOnItems = chkbox_RollOnItems.Checked;
                 settings.MobTagging = chkbox_MobTagging.Checked;
+                settings.StopOnDeath = chkbox_StopOnDeath.Checked;
                 settings.TemplateName = GetTemplateName();
                 settings.MapName = (cmbox_ZoneMaps.SelectedIndex != 0) ? cmbox_ZoneMaps.Text : string.Empty;
                 settings.RunPluginName = txtbox_PluginRunName.Text;
